@@ -1,0 +1,8 @@
+{
+  "name": "FavGen",
+  "id": "1212822984289711531",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma", "figjam"]
+}
