@@ -1,6 +1,5 @@
 import React from 'react';
-import logo from '../assets/logo.svg';
-import '../styles/ui.css';
+import logo from './assets/logo.svg';
 
 function App() {
   const textbox = React.useRef<HTMLInputElement>(undefined);

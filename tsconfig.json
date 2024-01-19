@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "outDir": "dist",
+    "baseUrl": ".",
     "jsx": "react",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -10,6 +11,9 @@
     "removeComments": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

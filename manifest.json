@@ -1,8 +1,13 @@
 {
-  "name": "FavGen",
+  "name": "Imgazilla",
   "id": "1212822984289711531",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
-  "editorType": ["figma", "figjam"]
+  "editorType": ["figma", "dev"],
+  "permissions": ["currentuser"],
+  "networkAccess": {
+    "allowedDomains": ["*"],
+    "reasoning": "We use various external endpoints TEST"
+  }
 }

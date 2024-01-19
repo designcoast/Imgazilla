@@ -38,3 +38,4 @@ template
 out/
 dist/
 code.js
+/.idea/
