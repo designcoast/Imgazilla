@@ -39,3 +39,7 @@ out/
 dist/
 code.js
 /.idea/
+
+
+.nx/cache
+/.nx/
