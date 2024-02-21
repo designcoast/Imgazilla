@@ -66,6 +66,14 @@ module.exports = (_env, { mode }) => ({
     path: resolve(__dirname, 'dist'),
   },
 
+  devServer: {
+    static: resolve(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+    hot: true,
+    open: true
+  },
+
   plugins: [
     new Dotenv({
       path: mode === 'production' ? '.env.production' : '.env',

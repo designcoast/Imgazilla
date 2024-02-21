@@ -1,5 +1,5 @@
 {
-  "name": "Imgazilla",
+  "name": "Imgazilla - Favicon exporter and image optimisation",
   "id": "1212822984289711531",
   "api": "1.0.0",
   "main": "dist/code.js",
