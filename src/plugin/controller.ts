@@ -1,4 +1,4 @@
-figma.showUI(__html__);
+figma.showUI(__html__, { width: 615, height: 655 });
 
 figma.ui.onmessage = (msg) => {
   if (msg.type === 'create-rectangles') {

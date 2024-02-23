@@ -23,11 +23,11 @@ module.exports = (_env, { mode }) => ({
         exclude: /node_modules/,
       },
       {
-        test: /\.s?css$/i,
+        test: /\.css$/i,
         use: [
           'style-loader',
-          'css-loader',
-          'sass-loader'
+          'css-loader', // Translates CSS into CommonJS
+          'postcss-loader', // Process CSS with PostCSS
         ],
       },
       {
@@ -81,7 +81,7 @@ module.exports = (_env, { mode }) => ({
     new HtmlWebpackPlugin({
       template: './src/app/index.html',
       inject: 'body',
-      filename: 'ui.html',
+      filename: 'index.html',
       chunks: ['ui'],
       cache: mode === 'production',
     }),
