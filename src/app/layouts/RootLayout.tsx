@@ -1,5 +1,12 @@
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger, FaviconExporter, ImageOptimization } from '@/app/components';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  FaviconExporter,
+  ImageOptimization,
+} from '@/app/components';
 // import { useTheme } from "next-themes"
 
 export const RootLayout = () => {

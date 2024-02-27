@@ -37,7 +37,9 @@
   }
 
   .dark {
-    --background: 0 0 17;
+    --background: #2C2C2C;
+    --tab-background-color: #1E1E1E;
+    --tab-border-bottom-color: #EED79F;
     --foreground: 213 31% 91%;
 
     --muted: 0 0 12;
