@@ -5,7 +5,10 @@ import { RootLayout } from '@/app/layouts/RootLayout';
 const App = () => {
   return (
     <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
       enableSystem
+      disableTransitionOnChange
     >
       <RootLayout />
     </ThemeProvider>

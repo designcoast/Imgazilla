@@ -37,10 +37,10 @@
   }
 
   .dark {
-    --background: 224 71% 4%;
+    --background: 0 0 17;
     --foreground: 213 31% 91%;
 
-    --muted: 223 47% 11%;
+    --muted: 0 0 12;
     --muted-foreground: 215.4 16.3% 56.9%;
 
     --accent: 216 34% 17%;
@@ -49,7 +49,7 @@
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
 
-    --border: 216 34% 17%;
+    --border: 0 0 25;
     --input: 216 34% 17%;
 
     --card: 224 71% 4%;
@@ -77,5 +77,6 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Inter", sans-serif;
   }
 }
