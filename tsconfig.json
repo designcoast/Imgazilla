@@ -3,7 +3,7 @@
     "target": "es6",
     "outDir": "dist",
     "baseUrl": ".",
-    "jsx": "react",
+    "jsx": "preserve",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,

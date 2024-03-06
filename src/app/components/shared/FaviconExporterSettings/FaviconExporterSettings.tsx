@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFigmaMessaging } from '@/app/hooks/useFigmaMessaging';
 
 export const FaviconExporterSettings = () => {
+  const [imageUrl] = useState<string | null>(null);
   const messaging = useFigmaMessaging();
 
   const handlePluginMessage = useCallback((message) => {
@@ -28,6 +29,7 @@ export const FaviconExporterSettings = () => {
 
   return (
     <div>
+      <img src={imageUrl} alt={'Image from data'}/>
       <button onClick={handleClick}>send</button>
     </div>
   )

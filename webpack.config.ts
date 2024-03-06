@@ -9,7 +9,7 @@ module.exports = (_env, { mode }) => ({
   devtool: mode === 'production' ? false : 'inline-source-map',
   entry: {
     ui: './src/app/index.tsx',
-    code: './src/plugin/controller.ts',
+    code: './src/plugin/FigmaPlugin.ts',
   },
   module: {
     rules: [
