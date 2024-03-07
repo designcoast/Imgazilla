@@ -1,5 +1,30 @@
-import FigmaMessaging from '@/app/lib/FigmaMessaging';
+import { useCallback, useEffect, useRef } from 'react';
 
-export const useFigmaMessaging = () => {
-  return new FigmaMessaging();
-}
+export const useWindowMessaging = (onMessage: (data: any) => void) => {
+  const messageRef = useRef<((event: MessageEvent) => void) | null>(null);
+
+  useEffect(() => {
+    messageRef.current = (event: { data: {
+        pluginMessage: any
+      }}) => {
+      if (onMessage) {
+        onMessage(event?.data?.pluginMessage);
+      }
+    };
+
+    window.addEventListener('message', messageRef.current);
+
+    return () => {
+      window.removeEventListener('message', messageRef.current);
+    };
+  }, [onMessage]);
+
+  const onSendMessage = useCallback((message: any) => {
+    if (!window.parent) {
+      return
+    }
+    window.parent.postMessage(message);
+  }, [])
+
+  return { onSendMessage };
+};

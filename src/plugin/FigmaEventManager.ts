@@ -1,7 +1,7 @@
 export class FigmaEventManager {
   constructor() {}
 
-  addSelectionChangeListener(callback: () => void) {
+  async addSelectionChangeListener(callback: () => void) {
     figma.on('selectionchange', callback);
   }
 

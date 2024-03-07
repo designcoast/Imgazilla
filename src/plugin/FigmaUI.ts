@@ -26,16 +26,13 @@ export class FigmaUI {
   };
 
   async init() {
-    await this.handleInitialNodeSelection();
+    // We call this function for first time and check if user selected right node
+    await this.handleSelectionChange();
 
     this.figmaUIMessaging.subscribe(this.handleUIMessage);
-    this.figmaEventManager.addSelectionChangeListener(this.handleSelectionChange);
-
+    await this.figmaEventManager.addSelectionChangeListener(() => this.handleSelectionChange());
   };
 
-  private async handleInitialNodeSelection() {
-    await this.handleSelectionChange();
-  };
 
   private async handleSelectionChange() {
     const selectedNodes = figma.currentPage.selection;
