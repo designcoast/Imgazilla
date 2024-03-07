@@ -54,6 +54,7 @@ export class FigmaUI {
     }
 
     try {
+      // TODO: Think about how we can improve this function
       const unitArray = await selectedNode.exportAsync({
         format: "PNG",
         suffix: "",

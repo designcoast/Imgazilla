@@ -13,16 +13,23 @@ module.exports = {
       },
     },
     extend: {
+      width: {
+        previewSquareWidth: '150px',
+      },
+      height: {
+        previewSquareHeight: '150px',
+      },
       colors: {
-        border: "hsl(var(--border))",
+        border: "var(--border)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "var(--background)",
         tabBG: "var(--tab-background-color)",
         tabBorderBottom: "var(--tab-border-bottom-color)",
+        borderSquare: "var(--border-square)",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "var(--primary)",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

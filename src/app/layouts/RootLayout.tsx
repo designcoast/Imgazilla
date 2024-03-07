@@ -17,14 +17,14 @@ export const RootLayout = () => {
         <TabsTrigger value="favicon">Favicon exporter</TabsTrigger>
         <TabsTrigger value="image">Image optimisation</TabsTrigger>
       </TabsList>
-      <div className="px-8">
+      <>
         <TabsContent value="favicon">
           <FaviconExporter />
         </TabsContent>
         <TabsContent value="image">
           <ImageOptimization />
         </TabsContent>
-      </div>
+      </>
     </Tabs>
   )
 }
