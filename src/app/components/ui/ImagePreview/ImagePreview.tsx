@@ -6,7 +6,7 @@ type Props = {
 
 export const ImagePreview = ({ imageUrl }: Props) => {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mb-[29px]">
       <div className="flex">
         <div
           className="flex justify-center items-center w-[150px] h-[150px] mb-[3px]">

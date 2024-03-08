@@ -21,13 +21,17 @@ module.exports = {
       },
       colors: {
         border: "var(--border)",
-        input: "hsl(var(--input))",
+        input: "var(--input)",
         ring: "hsl(var(--ring))",
         background: "var(--background)",
         tabBG: "var(--tab-background-color)",
+        switchBG: "var(--switch-bg-color)",
+        switchBGDefault: "var(--switch-bg-color-default)",
+        switchBGThumb: "var(--switch-bg-color-thumb)",
         tabBorderBottom: "var(--tab-border-bottom-color)",
         borderSquare: "var(--border-square)",
         foreground: "hsl(var(--foreground))",
+        exportButtonBGColor: "var(--export-button-bg-color)",
         primary: {
           DEFAULT: "var(--primary)",
           foreground: "hsl(var(--primary-foreground))",

@@ -40,6 +40,10 @@
     --background: #2C2C2C;
     --tab-background-color: #1E1E1E;
     --tab-border-bottom-color: #EED79F;
+    --switch-bg-color: #109CF1;
+    --switch-bg-color-thumb: #FFF;
+    --switch-bg-color-default: #EDF0F3;
+    --export-button-bg-color: #109CF1;
     --foreground: 213 31% 91%;
 
     --muted: 0 0 12;
@@ -53,7 +57,7 @@
 
     --border: #414141;
     --border-square: #707683;
-    --input: 216 34% 17%;
+    --input: #707683;
 
     --card: 224 71% 4%;
     --card-foreground: 213 31% 91%;
