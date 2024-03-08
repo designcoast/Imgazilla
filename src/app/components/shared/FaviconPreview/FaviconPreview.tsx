@@ -1,8 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { EventType } from '@/eventType';
+
+import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
 import { EmptyImageSelector, ImagePreview } from '@/app/components';
+
+import { useTypedDispatch } from '@/app/redux/store';
+import { updateSelectedImage } from '@/app/redux/features';
 
 export type MessageType = {
   type: string;
@@ -11,11 +15,18 @@ export type MessageType = {
 
 export const FaviconPreview = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const dispatch = useTypedDispatch();
+
+  const handleUpdatePreviewImage = useCallback((data: Uint8Array) => {
+    const imageUrl = convertToImageUrl(data)
+    setImageUrl(imageUrl)
+  }, []);
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message.type === EventType.IMAGE_UNIT_ARRAY_DATA) {
-      const imageUrl = convertToImageUrl(message.payload?.data)
-      setImageUrl(imageUrl)
+      handleUpdatePreviewImage(message.payload?.data);
+
+      dispatch(updateSelectedImage(message.payload?.data))
     }
   }, []);
 

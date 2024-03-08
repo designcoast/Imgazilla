@@ -1,9 +1,16 @@
 import React, { useCallback } from 'react';
 import { FaviconSettingsForm, FormData } from '@/app/components';
+
+import { useTypedDispatch } from '@/app/redux/store';
+import { updateFaviconSettings } from '@/app/redux/features';
+
 export const FaviconExporterSettings = () => {
+  const dispatch = useTypedDispatch()
 
   const handleOnSubmit = useCallback((data: FormData) => {
-    console.log('data', data);
+    dispatch(updateFaviconSettings({
+      faviconSettings: data
+    }))
   }, []);
 
   return (

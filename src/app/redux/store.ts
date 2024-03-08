@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { reducers } from './reducers';
-// import { middlewares } from './middlewares';
 
 export const store = configureStore({
   reducer: combineReducers(reducers),
-  // middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), ...middlewares],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

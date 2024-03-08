@@ -13,9 +13,11 @@ import {
 export interface FormData {
   websiteName: string;
   themeColor: string;
-  iOS: boolean;
-  android: boolean;
-  windows: boolean;
+  platforms: {
+    iOS: boolean;
+    android: boolean;
+    windows: boolean;
+  }
 }
 
 type Props = {
@@ -27,9 +29,13 @@ export const FaviconSettingsForm = ({
 }: Props) => {
   const form = useForm<FormData>({
     defaultValues: {
-      iOS: true,
-      android: false,
-      windows: false,
+      websiteName: '',
+      themeColor: '',
+      platforms: {
+        iOS: true,
+        android: false,
+        windows: false,
+      }
     }
   });
 
@@ -68,7 +74,7 @@ export const FaviconSettingsForm = ({
           <div>
             <FormField
               control={form.control}
-              name="iOS"
+              name="platforms.iOS"
               render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
@@ -85,7 +91,7 @@ export const FaviconSettingsForm = ({
             />
             <FormField
               control={form.control}
-              name="android"
+              name="platforms.android"
               render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
@@ -102,7 +108,7 @@ export const FaviconSettingsForm = ({
             />
             <FormField
               control={form.control}
-              name="windows"
+              name="platforms.windows"
               render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
