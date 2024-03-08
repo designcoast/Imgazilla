@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   Form,
   FormControl,
@@ -10,7 +10,7 @@ import {
   Switch
 } from '@/app/components';
 
-interface FormData {
+export interface FormData {
   websiteName: string;
   themeColor: string;
   iOS: boolean;
@@ -18,7 +18,13 @@ interface FormData {
   windows: boolean;
 }
 
-export const FaviconSettingsForm = () => {
+type Props = {
+  onSubmit: (data: FormData) => void
+}
+
+export const FaviconSettingsForm = ({
+   onSubmit
+}: Props) => {
   const form = useForm<FormData>({
     defaultValues: {
       iOS: true,
@@ -27,18 +33,15 @@ export const FaviconSettingsForm = () => {
     }
   });
 
-  const onSubmit: SubmitHandler<FormData> = data => {
-    console.log(data);
-  };
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="mb-0" onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="mx-8 mb-4">
         <div className="flex flex-row gap-3 mt-4">
           <FormField
             control={form.control}
             name="websiteName"
-            render={({ field }) => (
+            render={({field}) => (
               <FormItem className="flex-1">
                 <FormLabel className="mb-3 font-light">Website Name</FormLabel>
                 <FormControl>
@@ -50,7 +53,7 @@ export const FaviconSettingsForm = () => {
           <FormField
             control={form.control}
             name="themeColor"
-            render={({ field }) => (
+            render={({field}) => (
               <FormItem className="flex-1">
                 <FormLabel className="mb-3 font-light">Theme color</FormLabel>
                 <FormControl>
@@ -66,7 +69,7 @@ export const FaviconSettingsForm = () => {
             <FormField
               control={form.control}
               name="iOS"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
                     <Switch
@@ -83,7 +86,7 @@ export const FaviconSettingsForm = () => {
             <FormField
               control={form.control}
               name="android"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
                     <Switch
@@ -100,7 +103,7 @@ export const FaviconSettingsForm = () => {
             <FormField
               control={form.control}
               name="windows"
-              render={({ field }) => (
+              render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
                     <Switch
@@ -116,8 +119,9 @@ export const FaviconSettingsForm = () => {
             />
           </div>
         </div>
+        </div>
+        <button className="flex justify-center w-full bg-exportButtonBGColor text-center p-[9.6px]">Export</button>
       </form>
     </Form>
-
   )
 }

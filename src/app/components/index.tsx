@@ -14,4 +14,4 @@ export * from '@/app/components/ui/Input/Input';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
-export { FaviconSettingsForm } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
+export { FaviconSettingsForm, type FormData } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
