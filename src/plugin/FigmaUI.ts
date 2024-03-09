@@ -3,6 +3,7 @@ import { FigmaEventManager } from '@/plugin/FigmaEventManager';
 import { MessageSender } from '@/plugin/MessageSender';
 import { ErrorHandler } from '@/plugin/ErrorHandler';
 import { Logger } from '@/plugin/Logger';
+import { FigmaAPI } from '@/plugin/FigmaAPI';
 import { EventType } from '@/eventType';
 
 export class FigmaUI {
@@ -14,6 +15,7 @@ export class FigmaUI {
   private figmaEventManager: FigmaEventManager;
   private messageSender: MessageSender;
   private errorHandler: ErrorHandler;
+  private figmaAPI: FigmaAPI;
 
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
@@ -23,9 +25,11 @@ export class FigmaUI {
     this.figmaEventManager = new FigmaEventManager();
     this.messageSender = new MessageSender();
     this.errorHandler = new ErrorHandler();
+    this.figmaAPI = new FigmaAPI();
   };
 
   async init() {
+    this.figmaAPI.sendCurrentUserInformation();
     // We call this function for first time and check if user selected right node
     await this.handleSelectionChange();
 
@@ -60,8 +64,8 @@ export class FigmaUI {
         suffix: "",
         contentsOnly: true,
         constraint: {
-          type: "SCALE",
-          value: 2,
+          type: "WIDTH",
+          value: 300,
         }
       });
 
