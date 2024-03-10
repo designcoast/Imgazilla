@@ -5,7 +5,6 @@
   "license": "ISC",
   "scripts": {
     "dev": "webpack --mode=development --watch",
-    "dev:server": "webpack serve",
     "build": "webpack --mode=production",
     "prettier:format": "prettier --write '**/*.{js,jsx,ts,tsx,css,json}' "
   },

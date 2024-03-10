@@ -5,7 +5,7 @@
   "main": "dist/code.js",
   "ui": "dist/index.html",
   "editorType": ["figma", "dev"],
-  "permissions": ["currentuser"],
+  "permissions": ["currentuser", "payments"],
   "networkAccess": {
     "allowedDomains": ["*"],
     "reasoning": "We use various external endpoints TEST"
