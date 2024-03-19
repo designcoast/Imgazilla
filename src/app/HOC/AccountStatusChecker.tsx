@@ -13,9 +13,12 @@ export const AccountStatusChecker = ({ children }: Props) => {
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message.type === EventType.USER_ACCOUNT_DATA) {
-      updateAccountInfo(message.payload);
+      const { id, name, photoUrl } = message?.payload?.data;
+      updateAccountInfo({
+        id, name, photoUrl
+      });
 
-      onCheckAccount(message.payload.id)
+      onCheckAccount(id)
     }
   }, []);
 

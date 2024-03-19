@@ -3,13 +3,13 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 interface AccountState {
   name: string;
   id: string;
-  avatarUrl: string;
+  photoUrl: string;
 }
 
 const initialState = {
   name: null,
   id: null,
-  avatarUrl: null
+  photoUrl: null
 } satisfies AccountState as AccountState;
 
 export const accountSlice = createSlice({
@@ -19,7 +19,7 @@ export const accountSlice = createSlice({
     updateAccountInfo(state, action: PayloadAction<AccountState>) {
       state.name = action.payload.name;
       state.id = action.payload.id;
-      state.avatarUrl = action.payload.avatarUrl;
+      state.photoUrl = action.payload.photoUrl;
     }
   }
 });
