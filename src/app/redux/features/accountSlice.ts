@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface AccountState {
   name: string;
@@ -15,5 +15,13 @@ const initialState = {
 export const accountSlice = createSlice({
   name: 'account',
   initialState,
-  reducers: {}
+  reducers: {
+    updateAccountInfo(state, action: PayloadAction<AccountState>) {
+      state.name = action.payload.name;
+      state.id = action.payload.id;
+      state.avatarUrl = action.payload.avatarUrl;
+    }
+  }
 });
+
+export const { updateAccountInfo } = accountSlice.actions;
