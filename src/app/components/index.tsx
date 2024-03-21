@@ -11,6 +11,8 @@ export * from '@/app/components/ui/Switch/Switch';
 export * from '@/app/components/ui/label/label';
 export * from '@/app/components/ui/Form/Form';
 export * from '@/app/components/ui/Input/Input';
+export * from '@/app/components/ui/Toaster/Toaster';
+export * from '@/app/components/ui/Toaster/Toast';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
