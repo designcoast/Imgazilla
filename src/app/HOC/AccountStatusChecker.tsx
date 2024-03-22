@@ -6,6 +6,7 @@ import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { setAccount } from '@/app/redux/features';
 import { isFetchBaseQueryError, isErrorWithMessage } from '@/app/redux/helpers';
 import { useTypedDispatch } from '@/app/redux/store';
+import { useToast } from '@/app/hooks/useToast';
 
 type Props = {
   children: ReactNode
@@ -13,6 +14,7 @@ type Props = {
 export const AccountStatusChecker = ({ children }: Props) => {
   const [onCheckAccount, { isError, isLoading }] = useLazyCheckAccountQuery();
   const [createAccount, { isLoading: isCreatingAccount, isError: isCreatingAccountError }] = useCreateAccountMutation();
+  const { toast } = useToast();
 
   const dispatch = useTypedDispatch();
 
@@ -32,7 +34,10 @@ export const AccountStatusChecker = ({ children }: Props) => {
                 .unwrap()
                 .catch((error) => {
                   if (isErrorWithMessage(error)) {
-                    console.log(error.message);
+                    toast({
+                      title: 'Error while creating account',
+                      description: error.message,
+                    })
                   }
                 })
             }
