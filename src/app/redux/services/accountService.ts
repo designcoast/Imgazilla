@@ -9,6 +9,7 @@ interface CreateAccountBody {
   id: string;
   name: string;
   photoUrl: string;
+  credits: string;
 }
 
 export const accountService = baseApi.injectEndpoints({

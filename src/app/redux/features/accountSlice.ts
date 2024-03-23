@@ -1,14 +1,14 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 export interface AccountState {
-  coinsCount: number;
+  credits: string;
   name: string;
   figmaUserID: string;
   photoUrl: string;
 }
 
 const initialState = {
-  coinsCount: 0,
+  credits: null,
   name: null,
   figmaUserID: null,
   photoUrl: null
@@ -22,7 +22,7 @@ export const accountSlice = createSlice({
       state.name = action.payload.name;
       state.figmaUserID = action.payload.figmaUserID;
       state.photoUrl = action.payload.photoUrl;
-      state.coinsCount = action.payload.coinsCount;
+      state.credits = action.payload.credits;
     }
   }
 });
