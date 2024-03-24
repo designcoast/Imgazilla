@@ -1,4 +1,5 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { RootState } from '@/app/redux/store';
 
 export interface AccountState {
   credits: string;
@@ -26,5 +27,7 @@ export const accountSlice = createSlice({
     }
   }
 });
+
+export const getAccount = createSelector((state: RootState) => state.account, (account: AccountState) => account);
 
 export const { setAccount } = accountSlice.actions;

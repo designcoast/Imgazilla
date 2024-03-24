@@ -8,7 +8,7 @@ import { EventType } from '@/eventType';
 
 export class FigmaUI {
   private readonly width: number = 615;
-  private readonly height: number = 655;
+  private readonly height: number = 735;
 
   private logger: Logger;
   private figmaUIMessaging: FigmaUIMessaging;

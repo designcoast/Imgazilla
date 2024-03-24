@@ -11,7 +11,9 @@ import {
 export const RootLayout = () => {
   return (
     <>
-      <Account />
+      <div className='flex justify-end p-2.5'>
+        <Account />
+      </div>
       <Tabs defaultValue="favicon" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="favicon">Favicon exporter</TabsTrigger>
