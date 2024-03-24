@@ -5,24 +5,28 @@ import {
   TabsList,
   TabsTrigger,
   FaviconExporter,
-  ImageOptimization,
+  ImageOptimization, Account,
 } from '@/app/components';
 
 export const RootLayout = () => {
   return (
-    <Tabs defaultValue="favicon" className="w-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="favicon">Favicon exporter</TabsTrigger>
-        <TabsTrigger value="image">Image optimisation</TabsTrigger>
-      </TabsList>
-      <>
-        <TabsContent value="favicon">
-          <FaviconExporter />
-        </TabsContent>
-        <TabsContent value="image">
-          <ImageOptimization />
-        </TabsContent>
-      </>
-    </Tabs>
+    <>
+      <Account />
+      <Tabs defaultValue="favicon" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="favicon">Favicon exporter</TabsTrigger>
+          <TabsTrigger value="image">Image optimisation</TabsTrigger>
+        </TabsList>
+        <>
+          <TabsContent value="favicon">
+            <FaviconExporter />
+          </TabsContent>
+          <TabsContent value="image">
+            <ImageOptimization />
+          </TabsContent>
+        </>
+      </Tabs>
+    </>
+
   )
 }

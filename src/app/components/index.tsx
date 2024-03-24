@@ -1,5 +1,7 @@
 export { FaviconExporter } from '@/app/components/shared/FaviconExporter/FaviconExporter';
 export { ImageOptimization } from '@/app/components/shared/ImageOptimization/ImageOptimization';
+export { Account } from '@/app/components/shared/Account/Account';
+
 export { FaviconPreview, type MessageType } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
 export { EmptyImageSelector } from '@/app/components/ui/EmptyImageSelector/EmptyImageSelector';
@@ -13,6 +15,7 @@ export * from '@/app/components/ui/Form/Form';
 export * from '@/app/components/ui/Input/Input';
 export * from '@/app/components/ui/Toaster/Toaster';
 export * from '@/app/components/ui/Toaster/Toast';
+export * from '@/app/components/ui/Dialog/Dialog';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
