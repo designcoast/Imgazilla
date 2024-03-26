@@ -18,6 +18,7 @@ export * from '@/app/components/ui/Toaster/Toast';
 export * from '@/app/components/ui/Dialog/Dialog';
 export * from '@/app/components/ui/Popover/Popover';
 export * from '@/app/components/ui/Slider/Slider';
+export * from '@/app/components/ui/Button/Button';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
