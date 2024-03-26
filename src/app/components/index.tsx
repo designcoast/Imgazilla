@@ -1,6 +1,7 @@
 export { FaviconExporter } from '@/app/components/shared/FaviconExporter/FaviconExporter';
 export { ImageOptimization } from '@/app/components/shared/ImageOptimization/ImageOptimization';
 export { Account } from '@/app/components/shared/Account/Account';
+export { InstructionModal } from '@/app/components/shared/Modals/Instruction/InstructionModal';
 
 export { FaviconPreview, type MessageType } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';

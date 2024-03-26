@@ -23,6 +23,9 @@ module.exports = {
         border: "var(--border)",
         input: "var(--input)",
         ring: "hsl(var(--ring))",
+        dialog: {
+          background: "var(--dialog-background)",
+        },
         background: "var(--background)",
         tabBG: "var(--tab-background-color)",
         switchBG: "var(--switch-bg-color)",
@@ -34,6 +37,7 @@ module.exports = {
         exportButtonBGColor: "var(--export-button-bg-color)",
         primary: {
           DEFAULT: "var(--primary)",
+          hover: "var(--primary-hover)",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -53,7 +57,7 @@ module.exports = {
           foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
+          DEFAULT: "var(--popover)",
           foreground: "hsl(var(--popover-foreground))",
         },
         card: {

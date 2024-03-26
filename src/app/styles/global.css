@@ -38,6 +38,7 @@
 
   .dark {
     --background: #2C2C2C;
+    --dialog-background: #1E1E1E;
     --tab-background-color: #1E1E1E;
     --tab-border-bottom-color: #EED79F;
     --switch-bg-color: #109CF1;
@@ -52,7 +53,7 @@
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
 
-    --popover: 224 71% 4%;
+    --popover: #1E1E1E;
     --popover-foreground: 215 20.2% 65.1%;
 
     --border: #414141;
@@ -64,6 +65,8 @@
 
     --primary: #EDF0F3;
     --primary-foreground: 222.2 47.4% 1.2%;
+
+    --primary-hover: #C2CFE0;
 
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
