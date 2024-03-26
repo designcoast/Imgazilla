@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getAccount } from '@/app/redux/features';
-import { Popover, PopoverContent, PopoverTrigger } from '@/app/components';
+import { Popover, PopoverContent, PopoverTrigger, Button } from '@/app/components';
 
 
 export const Account = () => {
@@ -27,7 +27,17 @@ export const Account = () => {
             )}
           </div>
         </PopoverTrigger>
-        <PopoverContent>Place content for the popover here.</PopoverContent>
+        <PopoverContent>
+          <div className="flex">
+            <Button variant='link'>Earn More Credits</Button>
+          </div>
+          <div className="flex">
+            <Button variant='link'>Instructions</Button>
+          </div>
+          <div className="flex">
+            <Button variant='link'>Need Help?</Button>
+          </div>
+        </PopoverContent>
       </Popover>
 
     </div>
