@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getAccount } from '@/app/redux/features';
@@ -10,10 +10,16 @@ import {
   InstructionModal
 } from '@/app/components';
 
+const DISCORD_URL = process.env.DISCORD_HELP_COMMUNITY_URL;
 
 export const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
   const accountDetails = useSelector(getAccount);
+
+  const handleOnHelpClick = useCallback(() => {
+    window.open(DISCORD_URL, '_blank');
+  }, []);
+
   return (
     <div className="flex">
       <Popover onOpenChange={setIsOpen}>
@@ -39,7 +45,7 @@ export const Account = () => {
           </div>
           <InstructionModal />
           <div className="flex">
-            <Button variant='link'>Need Help?</Button>
+            <Button variant='link' onClick={handleOnHelpClick}>Need Help?</Button>
           </div>
         </PopoverContent>
       </Popover>
