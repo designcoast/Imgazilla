@@ -4,6 +4,7 @@ export { Account } from '@/app/components/shared/Account/Account';
 export { InstructionModal } from '@/app/components/shared/Modals/Instruction/InstructionModal';
 export { EarnCreditsModal } from '@/app/components/shared/Modals/EarnCredits/EarnCreditsModal';
 export { PriceSelector } from '@/app/components/shared/PriceSelector/PriceSelector';
+export { FaviconExporterSheet } from '@/app/components/shared/FaviconExporterSheet/FaviconExporterSheet';
 
 export { FaviconPreview, type MessageType } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';

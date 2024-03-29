@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react';
-import { FaviconSettingsForm, FormData } from '@/app/components';
+import React, { useCallback, useState } from 'react';
+import { FaviconExporterSheet, FaviconSettingsForm, FormData } from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { updateFaviconSettings } from '@/app/redux/features';
 
 export const FaviconExporterSettings = () => {
+  const [isOpenSheet, setIsOpenSheet] = useState(false);
   const dispatch = useTypedDispatch()
 
   const handleOnSubmit = useCallback((data: FormData) => {
@@ -19,6 +20,7 @@ export const FaviconExporterSettings = () => {
         <p className="font-bold">Customise</p>
       </div>
       <FaviconSettingsForm onSubmit={handleOnSubmit} />
+      <FaviconExporterSheet open={isOpenSheet} />
     </>
   )
 }
