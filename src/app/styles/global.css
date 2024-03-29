@@ -45,6 +45,7 @@
     --switch-bg-color-thumb: #FFF;
     --switch-bg-color-default: #EDF0F3;
     --export-button-bg-color: #109CF1;
+    --price-bg-color: #292C34;
     --foreground: 213 31% 91%;
 
     --muted: 0 0 12;
@@ -64,6 +65,8 @@
     --card-foreground: 213 31% 91%;
 
     --primary: #EDF0F3;
+    --primary-gray: #707683;
+    --primary-white: #FFF;
     --primary-foreground: 222.2 47.4% 1.2%;
 
     --primary-hover: #C2CFE0;

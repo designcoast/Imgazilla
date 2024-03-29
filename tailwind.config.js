@@ -35,10 +35,13 @@ module.exports = {
         borderSquare: "var(--border-square)",
         foreground: "hsl(var(--foreground))",
         exportButtonBGColor: "var(--export-button-bg-color)",
+        "midnight-slate": "var(--price-bg-color)",
         primary: {
           DEFAULT: "var(--primary)",
           hover: "var(--primary-hover)",
           foreground: "hsl(var(--primary-foreground))",
+          gray: "var(--primary-gray)",
+          white: "var(--primary-white)"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
