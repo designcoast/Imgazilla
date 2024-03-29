@@ -41,7 +41,8 @@ module.exports = {
           hover: "var(--primary-hover)",
           foreground: "hsl(var(--primary-foreground))",
           gray: "var(--primary-gray)",
-          white: "var(--primary-white)"
+          white: "var(--primary-white)",
+          code: "var(--code-color)"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
