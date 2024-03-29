@@ -15,6 +15,10 @@ export const FaviconExporterSettings = () => {
     }))
   }, []);
 
+  const handleOnOpenChange = useCallback((open: boolean) => {
+    setIsOpenSheet(open);
+  }, [])
+
   useEffect(() => {
     setTimeout(() => {
       setIsOpenSheet(true);
@@ -27,7 +31,7 @@ export const FaviconExporterSettings = () => {
         <p className="font-bold">Customise</p>
       </div>
       <FaviconSettingsForm onSubmit={handleOnSubmit}/>
-      <FaviconExporterSheet open={isOpenSheet}/>
+      <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange}/>
     </>
   )
 }

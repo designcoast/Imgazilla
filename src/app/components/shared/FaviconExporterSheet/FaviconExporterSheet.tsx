@@ -3,29 +3,26 @@ import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import vscDarkPlus from '@/app/styles/code-styles';
 
-import { Sheet, SheetContent } from '@/app/components';
+import { Button, Sheet, SheetContent } from '@/app/components';
+import { code, headTag } from '@/app/components/templates/code-template';
 
 type Props = {
   open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
-const code = `
-    <link rel="icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <meta name="theme-color" content="#ffffff">
- `;
-
-
-export const FaviconExporterSheet = ({ open }: Props) => {
+export const FaviconExporterSheet = ({ open, onOpenChange }: Props) => {
   return (
-    <Sheet open={open}>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom">
-        <div className="flex">Insert the following code in the <head /> section of your pages:</div>
+        <div className="flex">Insert the following code in the <span className="text-primary-code px-2">{headTag}</span> section of your pages:</div>
         <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
           {code}
         </SyntaxHighlighter>
+        <div className="flex justify-between mt-3">
+          <Button variant="outline">Copy to clipboard</Button>
+          <Button>Download favicons package</Button>
+        </div>
       </SheetContent>
     </Sheet>
   )
