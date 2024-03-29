@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Button,
-  InstructionModal
+  InstructionModal, EarnCreditsModal
 } from '@/app/components';
 
 const DISCORD_URL = process.env.DISCORD_HELP_COMMUNITY_URL;
@@ -39,14 +39,10 @@ export const Account = () => {
             )}
           </div>
         </PopoverTrigger>
-        <PopoverContent className="border-none w-full">
-          <div className="flex">
-            <Button variant='link'>Earn More Credits</Button>
-          </div>
+        <PopoverContent className="flex flex-col items-start border-none w-full">
+          <EarnCreditsModal />
           <InstructionModal />
-          <div className="flex">
-            <Button variant='link' onClick={handleOnHelpClick}>Need Help?</Button>
-          </div>
+          <Button variant='link' onClick={handleOnHelpClick}>Need Help?</Button>
         </PopoverContent>
       </Popover>
     </div>

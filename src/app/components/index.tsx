@@ -2,6 +2,8 @@ export { FaviconExporter } from '@/app/components/shared/FaviconExporter/Favicon
 export { ImageOptimization } from '@/app/components/shared/ImageOptimization/ImageOptimization';
 export { Account } from '@/app/components/shared/Account/Account';
 export { InstructionModal } from '@/app/components/shared/Modals/Instruction/InstructionModal';
+export { EarnCreditsModal } from '@/app/components/shared/Modals/EarnCredits/EarnCreditsModal';
+export { PriceSelector } from '@/app/components/shared/PriceSelector/PriceSelector';
 
 export { FaviconPreview, type MessageType } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
