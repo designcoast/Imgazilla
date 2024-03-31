@@ -8,11 +8,6 @@ import { EmptyImageSelector, ImagePreview } from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
 import { updateSelectedImage } from '@/app/redux/features';
 
-export type MessageType = {
-  type: string;
-  payload: any;
-};
-
 export const FaviconPreview = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const dispatch = useTypedDispatch();
