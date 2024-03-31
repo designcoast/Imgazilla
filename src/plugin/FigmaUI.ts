@@ -32,12 +32,17 @@ export class FigmaUI {
   };
 
   async init() {
+    this.clearConsole();
     this.figmaAPI.sendCurrentUserInformation();
     // We call this function for first time and check if user selected right node
     await this.handleSelectionChange();
 
     this.figmaUIMessaging.subscribe((message: MessageType) => this.handleUIMessage(message));
     await this.figmaEventManager.addSelectionChangeListener(() => this.handleSelectionChange());
+  };
+
+  private clearConsole() {
+    console.clear();
   };
 
 
@@ -59,6 +64,8 @@ export class FigmaUI {
       this.errorHandler.handleNonSquareNode();
       return;
     }
+
+    selectedNode.setRelaunchData({ favicon: 'Export favicon from selected image', open: '' })
 
     try {
       // TODO: Think about how we can improve this function
