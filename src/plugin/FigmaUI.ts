@@ -4,7 +4,8 @@ import { MessageSender } from '@/plugin/MessageSender';
 import { ErrorHandler } from '@/plugin/ErrorHandler';
 import { Logger } from '@/plugin/Logger';
 import { FigmaAPI } from '@/plugin/FigmaAPI';
-import { EventType } from '@/eventType';
+import { EventType, UIEventType } from '@/eventType';
+import { ImageUintArrayCollector } from '@/plugin/ImageUintArrayCollector';
 
 export class FigmaUI {
   private readonly width: number = 615;
@@ -16,6 +17,7 @@ export class FigmaUI {
   private messageSender: MessageSender;
   private errorHandler: ErrorHandler;
   private figmaAPI: FigmaAPI;
+  private imageUintArrayCollector: ImageUintArrayCollector
 
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
@@ -26,6 +28,7 @@ export class FigmaUI {
     this.messageSender = new MessageSender();
     this.errorHandler = new ErrorHandler();
     this.figmaAPI = new FigmaAPI();
+    this.imageUintArrayCollector = new ImageUintArrayCollector();
   };
 
   async init() {
@@ -33,7 +36,7 @@ export class FigmaUI {
     // We call this function for first time and check if user selected right node
     await this.handleSelectionChange();
 
-    this.figmaUIMessaging.subscribe(this.handleUIMessage);
+    this.figmaUIMessaging.subscribe((message: MessageType) => this.handleUIMessage(message));
     await this.figmaEventManager.addSelectionChangeListener(() => this.handleSelectionChange());
   };
 
@@ -82,7 +85,33 @@ export class FigmaUI {
     }
   };
 
-  private handleUIMessage(message: MessageType) {
+  private async collectUintArrayImages() {
+    const nodes = figma.currentPage.findAll();
+
+    await this.imageUintArrayCollector.collectUintArrayImages(nodes);
+
+    const collection = this.imageUintArrayCollector.getUintArrayImages();
+
+    const message = {
+      type: EventType.IMAGES_UINT_ARRAY_COLLECTION,
+      payload: {
+        data: collection
+      }
+    }
+
+    this.sendMessageToUI(message);
+    this.imageUintArrayCollector.clearUintArrayImages();
+  }
+
+  private async handleUIMessage(message: MessageType) {
+
+    const { type } = message;
+
+
+    if (type === UIEventType.GET_IMAGES_UINT_ARRAY_COLLECTION) {
+      await this.collectUintArrayImages()
+    }
+
     console.log('Message from UI', message)
   };
 
