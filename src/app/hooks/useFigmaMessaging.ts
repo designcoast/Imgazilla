@@ -19,11 +19,13 @@ export const useWindowMessaging = (onMessage: (data: any) => void) => {
     };
   }, [onMessage]);
 
-  const onSendMessage = useCallback((message: any) => {
+  const onSendMessage = useCallback((message: MessageType) => {
     if (!window.parent) {
       return
     }
-    window.parent.postMessage(message);
+    window.parent.postMessage({
+      pluginMessage: message
+    }, '*');
   }, [])
 
   return { onSendMessage };
