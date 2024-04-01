@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback } from 'react';
-import { useCreateAccountMutation, useLazyCheckAccountQuery } from '@/app/redux/services';
-import type { MessageType } from '@/app/components';
+import { useCreateAccountMutation, useLazyCheckAccountQuery, useNotifyMutation } from '@/app/redux/services';
+import { ErrorComponent, Splash } from '@/app/components';
 import { EventType } from '@/eventType';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { setAccount } from '@/app/redux/features';
@@ -14,6 +14,7 @@ type Props = {
 export const AccountStatusChecker = ({ children }: Props) => {
   const [onCheckAccount, { isError, isLoading }] = useLazyCheckAccountQuery();
   const [createAccount, { isLoading: isCreatingAccount, isError: isCreatingAccountError }] = useCreateAccountMutation();
+  const [notify] = useNotifyMutation();
   const { toast } = useToast();
 
   const dispatch = useTypedDispatch();
@@ -34,13 +35,16 @@ export const AccountStatusChecker = ({ children }: Props) => {
                 .unwrap()
                 .catch((error) => {
                   if (isErrorWithMessage(error)) {
+                    notify({ message: `[CREATING ACCOUNT]: ${error.message}` });
                     toast({
                       title: 'Error while creating account',
                       description: error.message,
                     })
                   }
                 })
+              return
             }
+            notify({ message: `[CHECK ACCOUNT]: ${error.data}` });
           }
         })
     }
@@ -48,18 +52,12 @@ export const AccountStatusChecker = ({ children }: Props) => {
 
   useWindowMessaging(handleFigmaPluginMessages);
 
-  //TODO: Update these conditions
-
   if (isError || isCreatingAccountError) {
-    return 'Error creating account'
+    return <ErrorComponent/>
   }
 
-  if (isLoading) {
-    return 'Account loading'
-  }
-
-  if (isCreatingAccount) {
-    return 'Create Account loading';
+  if (isCreatingAccount || isLoading) {
+    return <Splash />
   }
 
   return (
