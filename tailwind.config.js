@@ -42,7 +42,8 @@ module.exports = {
           foreground: "hsl(var(--primary-foreground))",
           gray: "var(--primary-gray)",
           white: "var(--primary-white)",
-          code: "var(--code-color)"
+          code: "var(--code-color)",
+          coralBlush: "var(--coral-blush-color)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
