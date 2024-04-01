@@ -6,7 +6,7 @@ export { EarnCreditsModal } from '@/app/components/shared/Modals/EarnCredits/Ear
 export { PriceSelector } from '@/app/components/shared/PriceSelector/PriceSelector';
 export { FaviconExporterSheet } from '@/app/components/shared/FaviconExporterSheet/FaviconExporterSheet';
 
-export { FaviconPreview, type MessageType } from '@/app/components/shared/FaviconPreview/FaviconPreview';
+export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
 export { EmptyImageSelector } from '@/app/components/ui/EmptyImageSelector/EmptyImageSelector';
 export { ImagePreview } from '@/app/components/ui/ImagePreview/ImagePreview';
@@ -25,6 +25,8 @@ export * from '@/app/components/ui/Popover/Popover';
 export * from '@/app/components/ui/Slider/Slider';
 export * from '@/app/components/ui/Button/Button';
 export * from '@/app/components/ui/Sheet/Sheet';
+export * from '@/app/components/ui/Splash/Splash';
+export * from '@/app/components/ui/ErrorComponent/ErrorComponent';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
