@@ -5,7 +5,7 @@ import { EventType, UIEventType } from '@/eventType';
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
 
 export const ImageOptimization = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message.type === EventType.IMAGES_UINT_ARRAY_COLLECTION) {
       console.log(message.payload.data)
