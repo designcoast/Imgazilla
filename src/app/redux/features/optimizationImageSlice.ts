@@ -19,4 +19,6 @@ export const optimizationImageSlice = createSlice({
   }
 });
 
+export const getImages = (state: ImagesState) => state.images;
+
 export const { setImagesForOptimization } = optimizationImageSlice.actions;
