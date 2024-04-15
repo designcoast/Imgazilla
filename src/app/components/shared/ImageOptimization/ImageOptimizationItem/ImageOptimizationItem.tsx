@@ -1,5 +1,5 @@
 export const ImageOptimizationItem = () => {
   return (
-    <div className="flex">item 1</div>
+    <div className="flex">item 2</div>
   )
 }
