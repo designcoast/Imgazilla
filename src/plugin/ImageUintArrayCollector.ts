@@ -1,10 +1,16 @@
-export class ImageUintArrayCollector {
-  private uintArray: Uint8Array[];
-  private readonly onDone: () => void;
 
-  constructor(onDone: () => void) {
-    this.uintArray = [];
-    this.onDone = onDone;
+interface NodeProcessorOptions {
+  chunkSize: number;
+  onChunkProcessed: (nodes: Uint8Array[]) => void;
+  onCompleted: () => void;
+}
+
+export class ImageUintArrayCollector {
+  private uintArray: Uint8Array[] = [];
+  private options: NodeProcessorOptions;
+
+  constructor(options: NodeProcessorOptions) {
+    this.options = options;
   }
 
   /**
@@ -12,19 +18,24 @@ export class ImageUintArrayCollector {
    */
   public collectNodesAsync(node: BaseNode): void {
     this.processNode(node, () => {
-      if (this.onDone) {
-        this.onDone();
+      if (this.uintArray.length > 0) {
+        this.options.onChunkProcessed(this.uintArray);
       }
+      this.options.onCompleted();
     });
   }
 
   private processNode(node: BaseNode, callback: () => void): void {
-    // Using requestAnimationFrame to keep the UI responsive
     setTimeout(async () => {
       if (node.type === 'RECTANGLE' && (node.fills as Paint[]).some(fill => fill.type === 'IMAGE' && fill.imageHash)) {
         const image = figma.getImageByHash((node.fills[0] as ImagePaint).imageHash);
         const bytes = await image.getBytesAsync();
         this.uintArray.push(bytes);
+
+        if (this.uintArray.length >= this.options.chunkSize) {
+          this.options.onChunkProcessed([...this.uintArray]);
+          this.uintArray = [];
+        }
       }
 
       if ("children" in node) {

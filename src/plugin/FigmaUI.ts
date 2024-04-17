@@ -103,11 +103,16 @@ export class FigmaUI {
   }
 
   private async collectNodes() {
-    const collector = new ImageUintArrayCollector(() => {
-      const collection = collector.getUintArray();
-      this.sendImageCollectionToUI(collection);
 
-      collector.clear();
+    const collector = new ImageUintArrayCollector({
+      chunkSize: 3,
+      onChunkProcessed: (nodes: Uint8Array[]) => {
+        this.sendImageCollectionToUI(nodes);
+      },
+      onCompleted: () => {
+        console.log("Completed processing all nodes.");
+        collector.clear();
+      }
     });
 
     collector.collectNodesAsync(figma.currentPage);
