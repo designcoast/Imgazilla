@@ -6,6 +6,7 @@ import { EventType, UIEventType } from '@/eventType';
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
 import { useTypedDispatch } from '@/app/redux/store';
 import { getImages, setImagesForOptimization } from '@/app/redux/features';
+import { Loading } from '@/app/components';
 
 export const ImageOptimization = () => {
   const dispatch = useTypedDispatch();
@@ -33,7 +34,9 @@ export const ImageOptimization = () => {
 
   if (isLoading) {
     return (
-      <div>Loading</div>
+      <div className="flex h-full w-full justify-center items-center">
+        <Loading />
+      </div>
     )
   }
 

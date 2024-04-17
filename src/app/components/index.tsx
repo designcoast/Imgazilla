@@ -11,6 +11,7 @@ export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporter
 export { EmptyImageSelector } from '@/app/components/ui/EmptyImageSelector/EmptyImageSelector';
 export { ImagePreview } from '@/app/components/ui/ImagePreview/ImagePreview';
 export { AnimatedTooltip } from '@/app/components/ui/AnimatedTooltip/AnimatedTooltip';
+export { Loading } from '@/app/components/ui/Loading/Loading';
 
 export * from '@/app/components/ui/Tabs/Tabs';
 export * from '@/app/components/ui/Separator/Separator';

@@ -5,6 +5,7 @@ import { ErrorHandler } from '@/plugin/ErrorHandler';
 import { Logger } from '@/plugin/Logger';
 import { FigmaAPI } from '@/plugin/FigmaAPI';
 import { EventType, UIEventType } from '@/eventType';
+// import { ImageUintArrayCollector } from '@/plugin/ImageUintArrayCollector';
 import { ImageUintArrayCollector } from '@/plugin/ImageUintArrayCollector';
 
 export class FigmaUI {
@@ -17,7 +18,6 @@ export class FigmaUI {
   private messageSender: MessageSender;
   private errorHandler: ErrorHandler;
   private figmaAPI: FigmaAPI;
-  private imageUintArrayCollector: ImageUintArrayCollector
 
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
@@ -28,7 +28,6 @@ export class FigmaUI {
     this.messageSender = new MessageSender();
     this.errorHandler = new ErrorHandler();
     this.figmaAPI = new FigmaAPI();
-    this.imageUintArrayCollector = new ImageUintArrayCollector();
   };
 
   async init() {
@@ -92,22 +91,26 @@ export class FigmaUI {
     }
   };
 
-  private async collectUintArrayImages() {
-    const nodes = figma.currentPage.findAll();
-
-    await this.imageUintArrayCollector.collectUintArrayImages(nodes);
-
-    const collection = this.imageUintArrayCollector.getUintArrayImages();
-
-    const message = {
-      type: EventType.IMAGES_UINT_ARRAY_COLLECTION,
-      payload: {
-        data: collection
+  private sendImageCollectionToUI(collection: Uint8Array[]) {
+      const message = {
+        type: EventType.IMAGES_UINT_ARRAY_COLLECTION,
+        payload: {
+          data: collection
+        }
       }
-    }
 
-    this.sendMessageToUI(message);
-    this.imageUintArrayCollector.clearUintArrayImages();
+      this.sendMessageToUI(message);
+  }
+
+  private async collectNodes() {
+    const collector = new ImageUintArrayCollector(() => {
+      const collection = collector.getUintArray();
+      this.sendImageCollectionToUI(collection);
+
+      collector.clear();
+    });
+
+    collector.collectNodesAsync(figma.currentPage);
   }
 
   private async handleUIMessage(message: MessageType) {
@@ -116,7 +119,7 @@ export class FigmaUI {
 
 
     if (type === UIEventType.GET_IMAGES_UINT_ARRAY_COLLECTION) {
-      await this.collectUintArrayImages()
+      await this.collectNodes();
     }
 
     console.log('Message from UI', message)
