@@ -17,7 +17,10 @@ export const optimizationImageSlice = createSlice({
   initialState,
   reducers: {
     setImagesForOptimization(state, action: PayloadAction<Uint8Array[]>) {
-      state.images = action.payload
+      state.images = [
+        ...state.images,
+        ...action.payload
+      ]
       state.isLoading = false;
     },
   }
