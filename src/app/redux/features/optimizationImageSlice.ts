@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/redux/store';
 
 interface ImagesState {
-  images: Uint8Array[];
+  images: ImageInfo[];
   isLoading: boolean;
 }
 
@@ -16,7 +16,7 @@ export const optimizationImageSlice = createSlice({
   name: 'optimizationImages',
   initialState,
   reducers: {
-    setImagesForOptimization(state, action: PayloadAction<Uint8Array[]>) {
+    setImagesForOptimization(state, action: PayloadAction<ImageInfo[]>) {
       state.images = [
         ...state.images,
         ...action.payload

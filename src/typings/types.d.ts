@@ -9,3 +9,11 @@ declare type MessageType = {
   type: string;
   payload: any;
 };
+
+declare interface ImageInfo {
+  width: number;
+  height: number;
+  extension: string;
+  name: string; // We might simulate this or use the node name
+  uintArray: Uint8Array;
+}

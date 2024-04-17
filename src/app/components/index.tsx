@@ -5,6 +5,8 @@ export { InstructionModal } from '@/app/components/shared/Modals/Instruction/Ins
 export { EarnCreditsModal } from '@/app/components/shared/Modals/EarnCredits/EarnCreditsModal';
 export { PriceSelector } from '@/app/components/shared/PriceSelector/PriceSelector';
 export { FaviconExporterSheet } from '@/app/components/shared/FaviconExporterSheet/FaviconExporterSheet';
+export { ImageOptimizationItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationItem';
+export { ImageOptimizationList } from '@/app/components/shared/ImageOptimization/ImageOptimizationList/ImageOptimizationList';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';

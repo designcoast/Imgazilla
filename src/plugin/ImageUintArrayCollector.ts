@@ -1,12 +1,13 @@
+import { extractPngDimensions } from './utils/extractPngDimensions';
 
 interface NodeProcessorOptions {
   chunkSize: number;
-  onChunkProcessed: (nodes: Uint8Array[]) => void;
+  onChunkProcessed: (nodes: ImageInfo[]) => void;
   onCompleted: () => void;
 }
 
 export class ImageUintArrayCollector {
-  private uintArray: Uint8Array[] = [];
+  private imageInfos: ImageInfo[] = [];
   private options: NodeProcessorOptions;
 
   constructor(options: NodeProcessorOptions) {
@@ -18,8 +19,8 @@ export class ImageUintArrayCollector {
    */
   public collectNodesAsync(node: BaseNode): void {
     this.processNode(node, () => {
-      if (this.uintArray.length > 0) {
-        this.options.onChunkProcessed(this.uintArray);
+      if (this.imageInfos.length > 0) {
+        this.options.onChunkProcessed(this.imageInfos);
       }
       this.options.onCompleted();
     });
@@ -29,12 +30,13 @@ export class ImageUintArrayCollector {
     setTimeout(async () => {
       if (node.type === 'RECTANGLE' && (node.fills as Paint[]).some(fill => fill.type === 'IMAGE' && fill.imageHash)) {
         const image = figma.getImageByHash((node.fills[0] as ImagePaint).imageHash);
-        const bytes = await image.getBytesAsync();
-        this.uintArray.push(bytes);
 
-        if (this.uintArray.length >= this.options.chunkSize) {
-          this.options.onChunkProcessed([...this.uintArray]);
-          this.uintArray = [];
+        const bytes = await image.getBytesAsync();
+        this.processImage(bytes, node.name);
+
+        if (this.imageInfos.length >= this.options.chunkSize) {
+          this.options.onChunkProcessed([...this.imageInfos]);
+          this.imageInfos = [];
         }
       }
 
@@ -58,14 +60,32 @@ export class ImageUintArrayCollector {
     processNext(0);
   }
 
+  private processImage(imageData: Uint8Array, name: string): void {
+    try {
+      const dimensions = extractPngDimensions(imageData);
+
+      const imageInfo: ImageInfo = {
+        width: dimensions.width,
+        height: dimensions.height,
+        extension: 'png',
+        uintArray: imageData,
+        name: name
+      };
+
+      this.imageInfos.push(imageInfo);
+    } catch (e) {
+      console.log(`ERROR: ${e.message}`);
+    }
+  }
+
   /**
    * Get all collected PNG nodes.
    */
-  public getUintArray(): Uint8Array[] {
-    return this.uintArray;
+  public getImageInfoArray(): ImageInfo[] {
+    return this.imageInfos;
   }
 
   public clear(): void {
-    this.uintArray = [];
+    this.imageInfos = [];
   }
 }
