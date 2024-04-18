@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '@/app/redux/store';
 
 interface FaviconState {
   imageData: Uint8Array;
@@ -39,5 +40,8 @@ export const faviconSlice = createSlice({
     }
   }
 });
+
+export const getFaviconImageData = (state: RootState) => state.favicon.imageData;
+
 
 export const { updateSelectedImage, updateFaviconSettings } = faviconSlice.actions;
