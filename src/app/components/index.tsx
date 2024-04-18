@@ -14,6 +14,7 @@ export { EmptyImageSelector } from '@/app/components/ui/EmptyImageSelector/Empty
 export { ImagePreview } from '@/app/components/ui/ImagePreview/ImagePreview';
 export { AnimatedTooltip } from '@/app/components/ui/AnimatedTooltip/AnimatedTooltip';
 export { Loading } from '@/app/components/ui/Loading/Loading';
+export { AnimatedPage } from '@/app/components/ui/AnimatedPage/AnimatedPage';
 
 export * from '@/app/components/ui/Tabs/Tabs';
 export * from '@/app/components/ui/Separator/Separator';

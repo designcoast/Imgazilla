@@ -4,6 +4,7 @@ import { RootLayout } from '@/app/layouts/RootLayout';
 import { ReduxProvider } from '@/app/redux/provider';
 import { AccountStatusChecker } from '@/app/HOC/AccountStatusChecker';
 import { Toaster } from '@/app/components';
+import { WithDefaultTabSetter } from '@/app/HOC/WithDefaultTabSetter';
 
 const App = () => {
   return (
@@ -15,7 +16,9 @@ const App = () => {
         disableTransitionOnChange
       >
         <AccountStatusChecker>
-          <RootLayout />
+          <WithDefaultTabSetter>
+            <RootLayout />
+          </WithDefaultTabSetter>
         </AccountStatusChecker>
         <Toaster />
       </ThemeProvider>
