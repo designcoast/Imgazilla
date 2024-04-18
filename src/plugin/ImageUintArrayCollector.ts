@@ -1,4 +1,5 @@
-import { extractPngDimensions } from './utils/extractPngDimensions';
+import { extractPngDimensions } from '@/plugin/utils/extractPngDimensions';
+import { generateUUID } from '@/plugin/utils/generateUUID';
 
 interface NodeProcessorOptions {
   chunkSize: number;
@@ -65,6 +66,7 @@ export class ImageUintArrayCollector {
       const dimensions = extractPngDimensions(imageData);
 
       const imageInfo: ImageInfo = {
+        uuid: generateUUID(),
         width: dimensions.width,
         height: dimensions.height,
         extension: 'png',
