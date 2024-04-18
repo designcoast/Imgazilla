@@ -13,6 +13,6 @@
   },
   "relaunchButtons": [
     { "command": "favicon", "name": "Imgazilla - Favicon exporter" },
-    { "command": "images", "name": "Imgazilla - Image optimisation", "multipleSelection": true }
+    { "command": "imagesOptimization", "name": "Imgazilla - Image optimisation" }
   ]
 }
