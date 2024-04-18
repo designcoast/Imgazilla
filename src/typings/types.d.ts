@@ -11,6 +11,7 @@ declare type MessageType = {
 };
 
 declare interface ImageInfo {
+  uuid: string;
   width: number;
   height: number;
   extension: string;
