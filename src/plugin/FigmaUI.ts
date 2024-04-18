@@ -5,8 +5,11 @@ import { ErrorHandler } from '@/plugin/ErrorHandler';
 import { Logger } from '@/plugin/Logger';
 import { FigmaAPI } from '@/plugin/FigmaAPI';
 import { EventType, UIEventType } from '@/eventType';
-// import { ImageUintArrayCollector } from '@/plugin/ImageUintArrayCollector';
 import { ImageUintArrayCollector } from '@/plugin/ImageUintArrayCollector';
+import { RelaunchDataManager } from '@/plugin/RelaunchDataManager';
+import { PluginDataStorage } from '@/plugin/PluginDataStorage';
+import { RELAUNCH_DATA_STORE_KEY } from '@/plugin/constants';
+import { CommandHandler } from '@/plugin/CommandHandler';
 
 export class FigmaUI {
   private readonly width: number = 615;
@@ -18,6 +21,9 @@ export class FigmaUI {
   private messageSender: MessageSender;
   private errorHandler: ErrorHandler;
   private figmaAPI: FigmaAPI;
+  private relaunchDataManager: RelaunchDataManager;
+  private pluginDataStorage: PluginDataStorage;
+  private commandHandler: CommandHandler;
 
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
@@ -28,21 +34,41 @@ export class FigmaUI {
     this.messageSender = new MessageSender();
     this.errorHandler = new ErrorHandler();
     this.figmaAPI = new FigmaAPI();
+    this.relaunchDataManager = new RelaunchDataManager();
+    this.pluginDataStorage = new PluginDataStorage();
+    this.commandHandler = new CommandHandler();
   };
 
   async init() {
     this.clearConsole();
+
+    this.commandHandler.handleCommand();
+
+    const relaunchData = this.pluginDataStorage.getCurrentPageData(RELAUNCH_DATA_STORE_KEY);
+
     this.figmaAPI.sendCurrentUserInformation();
     // We call this function for first time and check if user selected right node
     await this.handleSelectionChange();
 
     this.figmaUIMessaging.subscribe((message: MessageType) => this.handleUIMessage(message));
     await this.figmaEventManager.addSelectionChangeListener(() => this.handleSelectionChange());
+
+    if (!Boolean(relaunchData)) {
+      this.setRelaunchData();
+    }
+
   };
 
   private clearConsole() {
     console.clear();
   };
+
+  private setRelaunchData() {
+    this.relaunchDataManager.setRelaunchDataForAllImages();
+
+    figma.currentPage.setRelaunchData({ imagesOptimization: 'Optimized Figma images' });
+    this.pluginDataStorage.setCurrentPageData(RELAUNCH_DATA_STORE_KEY, 'true');
+  }
 
 
   private async handleSelectionChange() {
@@ -63,8 +89,6 @@ export class FigmaUI {
       this.errorHandler.handleNonSquareNode();
       return;
     }
-
-    selectedNode.setRelaunchData({ favicon: 'Export favicon from selected image', open: '' })
 
     try {
       // TODO: Think about how we can improve this function
@@ -91,32 +115,6 @@ export class FigmaUI {
     }
   };
 
-  private sendImageCollectionToUI(collection: Uint8Array[]) {
-      const message = {
-        type: EventType.IMAGES_UINT_ARRAY_COLLECTION,
-        payload: {
-          data: collection
-        }
-      }
-
-      this.sendMessageToUI(message);
-  }
-
-  private async collectNodes() {
-
-    const collector = new ImageUintArrayCollector({
-      chunkSize: 3,
-      onChunkProcessed: (nodes: Uint8Array[]) => {
-        this.sendImageCollectionToUI(nodes);
-      },
-      onCompleted: () => {
-        console.log("Completed processing all nodes.");
-        collector.clear();
-      }
-    });
-
-    collector.collectNodesAsync(figma.currentPage);
-  }
 
   private async handleUIMessage(message: MessageType) {
 
@@ -129,6 +127,23 @@ export class FigmaUI {
 
     console.log('Message from UI', message)
   };
+
+  private async collectNodes() {
+
+    const collector = new ImageUintArrayCollector({
+      chunkSize: 3,
+      onChunkProcessed: (collection: ImageInfo[]) => {
+        this.figmaAPI.sendImageCollectionToUI(collection);
+        figma.notify('Start image collection');
+      },
+      onCompleted: () => {
+        figma.notify('Completed collecting all images');
+        collector.clear();
+      }
+    });
+
+    collector.collectNodesAsync(figma.currentPage);
+  }
 
   private sendMessageToUI(message: MessageType) {
     this.messageSender.sendMessageToUI(message);

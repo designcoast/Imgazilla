@@ -64,7 +64,7 @@ export class ImageUintArrayCollector {
   private processImage(imageData: Uint8Array, name: string): void {
     try {
       const dimensions = extractPngDimensions(imageData);
-
+1
       const imageInfo: ImageInfo = {
         uuid: generateUUID(),
         width: dimensions.width,
