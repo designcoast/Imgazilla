@@ -5,7 +5,7 @@ import {
 } from '@/app/redux/services';
 import { faviconService, accountService, signalService } from '@/app/redux/services';
 
-import { faviconSlice, accountSlice, optimizationImageSlice } from '@/app/redux/features';
+import { faviconSlice, accountSlice, optimizationImageSlice, tabSlice } from '@/app/redux/features';
 
 export const reducers = {
   [FAVICON_SERVICE_REDUCER_KEY]: faviconService.reducer,
@@ -13,5 +13,6 @@ export const reducers = {
   [SIGNAL_SERVICE_REDUCER_KEY]: signalService.reducer,
   [faviconSlice.name]: faviconSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
-  [optimizationImageSlice.name]: optimizationImageSlice.reducer
+  [optimizationImageSlice.name]: optimizationImageSlice.reducer,
+  [tabSlice.name]: tabSlice.reducer
 }
