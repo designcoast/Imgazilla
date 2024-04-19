@@ -134,10 +134,8 @@ export class FigmaUI {
       chunkSize: 3,
       onChunkProcessed: (collection: ImageInfo[]) => {
         this.figmaAPI.sendImageCollectionToUI(collection);
-        figma.notify('Start image collection');
       },
       onCompleted: () => {
-        figma.notify('Completed collecting all images');
         collector.clear();
       }
     });
