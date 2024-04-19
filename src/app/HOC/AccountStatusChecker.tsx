@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback } from 'react';
 import { useCreateAccountMutation, useLazyCheckAccountQuery, useNotifyMutation } from '@/app/redux/services';
-import { ErrorComponent, Splash } from '@/app/components';
+import { AnimatedPage, ErrorComponent, Splash } from '@/app/components';
 import { EventType } from '@/eventType';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { setAccount } from '@/app/redux/features';
@@ -53,14 +53,24 @@ export const AccountStatusChecker = ({ children }: Props) => {
   useWindowMessaging(handleFigmaPluginMessages);
 
   if (isError || isCreatingAccountError) {
-    return <ErrorComponent/>
+    return (
+      <AnimatedPage>
+        <ErrorComponent/>
+      </AnimatedPage>
+    )
   }
 
   if (isCreatingAccount || isLoading) {
-    return <Splash />
+    return (
+      <AnimatedPage>
+        <Splash />
+      </AnimatedPage>
+    )
   }
 
   return (
-    <>{children}</>
+    <AnimatedPage>
+      {children}
+    </AnimatedPage>
   )
 };

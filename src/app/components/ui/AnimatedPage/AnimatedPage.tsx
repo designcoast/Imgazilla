@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
-export const AnimatedPage = ({ children, loadingComponent }) => {
-  const [loading, setLoading] = useState(true);  // State to control loading display
+type Props = {
+  children: ReactNode,
+};
 
-  useEffect(() => {
-    // Set a timeout to hide the loading screen and show the main content after a delay
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800);  // Set this to the total delay before content appears
-
-    return () => clearTimeout(timer);  // Cleanup the timer
-  }, []);
-
+export const AnimatedPage = ({ children }: Props) => {
   const fadeInVariants = {
     initial: {
       opacity: 0
@@ -25,20 +18,14 @@ export const AnimatedPage = ({ children, loadingComponent }) => {
       }
     }
   };
-
   return (
-    <>
-      {loading && loadingComponent}
-      {!loading && (
-        <motion.div
-          className="page-container"
-          variants={fadeInVariants}
-          initial="initial"
-          animate="in"
-        >
-          {children}
-        </motion.div>
-      )}
-    </>
+    <motion.div
+      className="page-container"
+      variants={fadeInVariants}
+      initial="initial"
+      animate="in"
+    >
+      {children}
+    </motion.div>
   );
 };
