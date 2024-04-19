@@ -31,6 +31,7 @@ export * from '@/app/components/ui/Button/Button';
 export * from '@/app/components/ui/Sheet/Sheet';
 export * from '@/app/components/ui/Splash/Splash';
 export * from '@/app/components/ui/ErrorComponent/ErrorComponent';
+export * from '@/app/components/ui/Checkbox/Checkbox';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 

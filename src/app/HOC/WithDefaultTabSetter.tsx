@@ -14,7 +14,6 @@ export const WithDefaultTabSetter = ({ children }: Props) => {
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message.type === EventType.OPEN_IMAGES_OPTIMIZATION_TAB) {
-      console.log('here');
       dispatch(setActiveTab({
         name: IMAGE_OPTIMIZATION_TAB
       }))
