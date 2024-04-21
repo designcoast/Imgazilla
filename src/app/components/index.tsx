@@ -7,6 +7,7 @@ export { PriceSelector } from '@/app/components/shared/PriceSelector/PriceSelect
 export { FaviconExporterSheet } from '@/app/components/shared/FaviconExporterSheet/FaviconExporterSheet';
 export { ImageOptimizationItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationItem';
 export { ImageOptimizationList } from '@/app/components/shared/ImageOptimization/ImageOptimizationList/ImageOptimizationList';
+export { ImageOptimizationLevel } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationLevel/ImageOptimizationLevel';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';

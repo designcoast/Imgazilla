@@ -8,11 +8,14 @@ import { getImages, setImagesForOptimization } from '@/app/redux/features';
 import {
   ImageOptimizationList
 } from '@/app/components';
+import {
+  ImageOptimizationSettings
+} from '@/app/components/shared/ImageOptimization/ImageOptimizationSettings/ImageOptimizationSettings';
 
 export const ImageOptimization = () => {
   const dispatch = useTypedDispatch();
 
-  const { images } = useSelector(getImages);
+  const images = useSelector(getImages);
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message.type === EventType.IMAGES_UINT_ARRAY_COLLECTION) {
@@ -34,6 +37,9 @@ export const ImageOptimization = () => {
   }, [images]);
 
   return (
-    <ImageOptimizationList />
+    <>
+      <ImageOptimizationSettings />
+      <ImageOptimizationList />
+    </>
   )
 }
