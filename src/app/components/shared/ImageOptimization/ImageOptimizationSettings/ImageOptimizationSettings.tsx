@@ -35,14 +35,14 @@ export const ImageOptimizationSettings = () => {
   return (
     <>
       <div className="border-b">
-        <div className="flex justify-between mx-4 my-3.5">
+        <div className="flex justify-between mx-4 my-3.5 mt-1.5">
           <div className="flex justify-center items-center">
             <div className="mr-3"><Checkbox defaultChecked={isSelectedAll} onClick={handleOnCheck}/></div>
             <div className="flex mr-1 text-xs font-semibold">{selectedImagesCount}/{images.length}</div>
             <div className="flex text-xs font-semibold">Images selected</div>
           </div>
           <div className="flex">
-            <Button variant='ghost'>
+            <Button variant='ghost' className="p-0 h-fit">
               <RefreshCcw size={20}/>
             </Button>
           </div>

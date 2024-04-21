@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { getImages, getIsLoading } from '@/app/redux/features';
-import { ImageOptimizationItem, Loading } from '@/app/components';
+import { ImageOptimizationItem, Loading, ScrollArea } from '@/app/components';
 
 export const ImageOptimizationList = () => {
   const images = useSelector(getImages);
@@ -20,18 +20,21 @@ export const ImageOptimizationList = () => {
 
   return (
     <AnimatePresence>
-      {images.map((item, index) => (
-        <motion.div
-          key={item.uuid}
-          initial={{opacity: 0, y: 20}}
-          animate={{opacity: 1, y: 0}}
-          exit={{opacity: 0, y: -20}}
-          transition={{duration: 0.3, delay: index * 0.1}}
-        >
-          <ImageOptimizationItem item={item} />
-        </motion.div>
-      )
-    )}
+      <ScrollArea className="h-[476px]">
+        {images.map((item, index) => (
+            <motion.div
+              key={item.uuid}
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+              exit={{opacity: 0, y: -20}}
+              transition={{duration: 0.3, delay: index * 0.1}}
+            >
+              <ImageOptimizationItem item={item} />
+            </motion.div>
+          )
+        )}
+      </ScrollArea>
+
     </AnimatePresence>
   )
 }

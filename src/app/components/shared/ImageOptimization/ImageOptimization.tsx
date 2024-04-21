@@ -37,9 +37,9 @@ export const ImageOptimization = () => {
   }, [images]);
 
   return (
-    <>
+    <div className="flex flex-col">
       <ImageOptimizationSettings />
       <ImageOptimizationList />
-    </>
+    </div>
   )
 }
