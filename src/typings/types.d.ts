@@ -15,6 +15,8 @@ declare interface ImageInfo {
   width: number;
   height: number;
   extension: string;
-  name: string; // We might simulate this or use the node name
+  name: string;
   uintArray: Uint8Array;
+  optimizationPercent: number;
+  isSelected: boolean;
 }
