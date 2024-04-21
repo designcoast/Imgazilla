@@ -64,13 +64,16 @@ export class ImageUintArrayCollector {
   private processImage(imageData: Uint8Array, name: string): void {
     try {
       const dimensions = extractPngDimensions(imageData);
-1
+
+      // TODO Create general image info object, and make it more flexible
       const imageInfo: ImageInfo = {
         uuid: generateUUID(),
         width: dimensions.width,
         height: dimensions.height,
         extension: 'png',
         uintArray: imageData,
+        optimizationPercent: 100,
+        isSelected: true,
         name: name
       };
 
