@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import {
   getGeneralOptimizationPercent,
@@ -9,11 +9,14 @@ import {
 import { Button, Checkbox, Slider } from '@/app/components';
 import { RefreshCcw } from 'lucide-react';
 import { useTypedDispatch } from '@/app/redux/store';
+import { TITLE_TO_QUALITY_PERCENTAGE } from '@/app/constants';
 
 export const ImageOptimizationSettings = () => {
   const images = useSelector(getImages);
   const selectedImagesCount = useSelector(getSelectedImagesCount);
   const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent);
+
+  const optimizationTitle = useMemo(() => TITLE_TO_QUALITY_PERCENTAGE[generalOptimizationPercent], [generalOptimizationPercent]);
 
   const isSelectedAll = selectedImagesCount === images.length;
 
@@ -51,10 +54,11 @@ export const ImageOptimizationSettings = () => {
       <div className="border-b">
         <div className="flex flex-col mx-4 my-3.5">
           <div className="flex justify-between mb-2.5">
-            <div className="text-xs font-semibold">Level of optimization (All)</div>
+            <div className="text-xs font-semibold">Image Quality (All)</div>
             <div className="flex items-baseline">
               <p className="text-sm font-bold mr-1">{generalOptimizationPercent}</p>
               <p className="text-xs">%</p>
+              <p className="text-xs ml-1">({optimizationTitle})</p>
             </div>
           </div>
           <Slider defaultValue={[generalOptimizationPercent]} max={100} min={0} step={25} onValueChange={handleOnOptimizationLevel}/>
