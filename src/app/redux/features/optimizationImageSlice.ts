@@ -72,7 +72,8 @@ export const optimizationImageSlice = createSlice({
           isSelected: true
         }
       })
-    }
+    },
+    reset: () => initialState
   }
 });
 
@@ -91,4 +92,5 @@ export const {
   updateImageOptimizationPercent,
   unselectAllImages,
   selectAllImages,
+  reset,
 } = optimizationImageSlice.actions;

@@ -11,23 +11,32 @@ import { RefreshCcw } from 'lucide-react';
 import { useTypedDispatch } from '@/app/redux/store';
 import { TITLE_TO_QUALITY_PERCENTAGE } from '@/app/constants';
 
-export const ImageOptimizationSettings = () => {
+type Props = {
+  onRefresh: () => void;
+};
+
+export const ImageOptimizationSettings = ({ onRefresh }: Props) => {
   const images = useSelector(getImages);
   const selectedImagesCount = useSelector(getSelectedImagesCount);
   const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent);
 
   const optimizationTitle = useMemo(() => TITLE_TO_QUALITY_PERCENTAGE[generalOptimizationPercent], [generalOptimizationPercent]);
 
-  const isSelectedAll = selectedImagesCount === images.length;
+  const isSelectedAll = useMemo(() => images.every((image) => image.isSelected), [images]);
 
   const dispatch = useTypedDispatch();
 
   const handleOnCheck = useCallback(() => {
-    if (images.some((item) => item.isSelected)) {
-      dispatch(selectAllImages());
+    const isSelectedAll = images.every((image) => image.isSelected);
+    const isSelectedSome = images.some((image) => image.isSelected);
+
+    if (isSelectedAll || isSelectedSome) {
+      dispatch(unselectAllImages());
       return;
     }
-    dispatch(unselectAllImages());
+
+    dispatch(selectAllImages());
+
   }, [images]);
 
   const handleOnOptimizationLevel = useCallback((value: number[]) => {
@@ -40,13 +49,18 @@ export const ImageOptimizationSettings = () => {
       <div className="border-b">
         <div className="flex justify-between mx-4 my-3.5 mt-1.5">
           <div className="flex justify-center items-center">
-            <div className="mr-3"><Checkbox defaultChecked={isSelectedAll} onClick={handleOnCheck}/></div>
+            <div className="mr-3">
+              <Checkbox
+                checked={isSelectedAll}
+                onClick={handleOnCheck}
+              />
+            </div>
             <div className="flex mr-1 text-xs font-semibold">{selectedImagesCount}/{images.length}</div>
             <div className="flex text-xs font-semibold">Images selected</div>
           </div>
           <div className="flex">
-            <Button variant='ghost' className="p-0 h-fit">
-              <RefreshCcw size={20}/>
+            <Button variant='ghost' className="p-0 h-fit" onClick={onRefresh}>
+              <RefreshCcw size={20} />
             </Button>
           </div>
         </div>
@@ -61,10 +75,14 @@ export const ImageOptimizationSettings = () => {
               <p className="text-xs ml-1">({optimizationTitle})</p>
             </div>
           </div>
-          <Slider defaultValue={[generalOptimizationPercent]} max={100} min={0} step={25} onValueChange={handleOnOptimizationLevel}/>
+          <Slider
+            max={100}
+            min={0}
+            step={25}
+            defaultValue={[generalOptimizationPercent]}
+            onValueChange={handleOnOptimizationLevel}/>
         </div>
       </div>
     </>
-
   )
 }

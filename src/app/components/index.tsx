@@ -8,6 +8,7 @@ export { FaviconExporterSheet } from '@/app/components/shared/FaviconExporterShe
 export { ImageOptimizationItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationItem';
 export { ImageOptimizationList } from '@/app/components/shared/ImageOptimization/ImageOptimizationList/ImageOptimizationList';
 export { ImageOptimizationLevel } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationLevel/ImageOptimizationLevel';
+export { ImageOptimizationSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationSettings/ImageOptimizationSettings';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
@@ -16,6 +17,7 @@ export { ImagePreview } from '@/app/components/ui/ImagePreview/ImagePreview';
 export { AnimatedTooltip } from '@/app/components/ui/AnimatedTooltip/AnimatedTooltip';
 export { Loading } from '@/app/components/ui/Loading/Loading';
 export { AnimatedPage } from '@/app/components/ui/AnimatedPage/AnimatedPage';
+export { Overlay } from '@/app/components/ui/Overlay/Overlay';
 
 export * from '@/app/components/ui/Tabs/Tabs';
 export * from '@/app/components/ui/Separator/Separator';
