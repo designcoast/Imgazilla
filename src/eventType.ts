@@ -5,6 +5,7 @@ export enum EventType {
   USER_ACCOUNT_DATA = 'user_account_data',
   IMAGES_UINT_ARRAY_COLLECTION = 'images_uint_array_collection',
   OPEN_IMAGES_OPTIMIZATION_TAB = 'open_images_optimization_tab',
+  IMAGE_COLLECTION_COMPLETE = 'image_collection_complete'
 }
 
 export enum UIEventType {

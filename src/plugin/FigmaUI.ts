@@ -137,6 +137,14 @@ export class FigmaUI {
       },
       onCompleted: () => {
         collector.clear();
+
+        const message = {
+          type: EventType.IMAGE_COLLECTION_COMPLETE,
+          payload: {}
+        }
+
+        this.sendMessageToUI(message);
+
       }
     });
 
