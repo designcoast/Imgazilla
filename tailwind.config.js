@@ -45,6 +45,7 @@ module.exports = {
           code: "var(--code-color)",
           coralBlush: "var(--coral-blush-color)",
           grayBG: "var(--gray-bg-color)",
+          grayCard: "var(--gray-card-color)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
