@@ -61,24 +61,26 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
 
   const isDisabled = !isSelected;
 
+  const disabledStyles = isDisabled ? 'opacity-50 cursor-not-allowed' : '';
+
   return (
-    <div className={cn('flex flex-col border-b', isDisabled ? 'opacity-50 cursor-not-allowed' : '', isOpen ? 'bg-primary-grayCard' : '')}>
+    <div className={cn('flex flex-col border-b', isOpen ? 'bg-primary-grayCard' : '')}>
       <div className="flex items-center justify-between gap-5 py-2.5 space-x-4 px-4">
         <div className="flex items-center space-x-3">
           <Checkbox onClick={handleOnCheck} checked={isSelected} />
-          <div>
+          <div className={cn(disabledStyles)}>
             <div className="w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md">
               <img src={imageUrl} alt={name} className="rounded-md min-w-full min-h-full object-cover"/>
             </div>
           </div>
-          <div className="flex w-64">
+          <div className={cn('flex w-64', disabledStyles)}>
             <p className="truncate">{name}</p>
           </div>
         </div>
-        <div className="flex">
+        <div className={cn('flex', disabledStyles)}>
           {width}x{height}
         </div>
-        <div>
+        <div className={cn(disabledStyles)}>
           <Button variant="ghost" onClick={handleOnOpen} disabled={isDisabled}>
             {isOpen ? (
               <ChevronUp />
