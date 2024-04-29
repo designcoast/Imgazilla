@@ -9,7 +9,7 @@ interface FaviconState {
     themeColor?: string;
     platforms: {
       default: boolean;
-      iOS: boolean;
+      ios: boolean;
       android: boolean;
     };
   };
@@ -22,7 +22,7 @@ const initialState = {
     themeColor: '',
     platforms: {
       default: true,
-      iOS: false,
+      ios: false,
       android: false
     }
   }

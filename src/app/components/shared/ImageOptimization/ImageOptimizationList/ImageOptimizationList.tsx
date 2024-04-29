@@ -34,7 +34,6 @@ export const ImageOptimizationList = () => {
           )
         )}
       </ScrollArea>
-
     </AnimatePresence>
   )
 }

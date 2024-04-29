@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import {
   Form,
   FormControl,
@@ -9,34 +10,29 @@ import {
   Input,
   Switch
 } from '@/app/components';
+import { getFaviconSettings } from '@/app/redux/features';
 
-export interface FormData {
+export interface FormDataType {
   websiteName: string;
   themeColor: string;
   platforms: {
-    iOS: boolean;
+    default: boolean;
+    ios: boolean;
     android: boolean;
-    windows: boolean;
   }
 }
 
 type Props = {
-  onSubmit: (data: FormData) => void
+  onSubmit: (data: FormDataType) => void
 }
 
 export const FaviconSettingsForm = ({
    onSubmit
 }: Props) => {
-  const form = useForm<FormData>({
-    defaultValues: {
-      websiteName: '',
-      themeColor: '',
-      platforms: {
-        iOS: true,
-        android: false,
-        windows: false,
-      }
-    }
+  const formSettings = useSelector(getFaviconSettings);
+
+  const form = useForm<FormDataType>({
+    defaultValues: formSettings
   });
 
   return (
@@ -74,7 +70,24 @@ export const FaviconSettingsForm = ({
           <div>
             <FormField
               control={form.control}
-              name="platforms.iOS"
+              name="platforms.default"
+              render={({field}) => (
+                <FormItem className="flex flex-row items-center space-y-0 mt-3">
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="text-base ml-2 font-normal">
+                    Default
+                  </FormLabel>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="platforms.ios"
               render={({field}) => (
                 <FormItem className="flex flex-row items-center space-y-0 mt-3">
                   <FormControl>
@@ -102,23 +115,6 @@ export const FaviconSettingsForm = ({
                   </FormControl>
                   <FormLabel className="text-base ml-2 font-normal">
                     Android
-                  </FormLabel>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="platforms.windows"
-              render={({field}) => (
-                <FormItem className="flex flex-row items-center space-y-0 mt-3">
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormLabel className="text-base ml-2 font-normal">
-                    Windows
                   </FormLabel>
                 </FormItem>
               )}
