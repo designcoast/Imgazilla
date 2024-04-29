@@ -16,3 +16,9 @@ export const reducers = {
   [optimizationImageSlice.name]: optimizationImageSlice.reducer,
   [tabSlice.name]: tabSlice.reducer
 }
+
+export const middlewares = [
+  accountService.middleware,
+  faviconService.middleware,
+  signalService.middleware,
+]

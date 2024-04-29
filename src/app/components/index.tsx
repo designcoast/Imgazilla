@@ -39,4 +39,4 @@ export * from '@/app/components/ui/ScrollArea/ScrollArea';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
-export { FaviconSettingsForm, type FormData } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
+export { FaviconSettingsForm, type FormDataType } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
