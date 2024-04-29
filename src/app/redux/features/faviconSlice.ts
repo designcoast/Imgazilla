@@ -8,9 +8,9 @@ interface FaviconState {
     websiteName?: string;
     themeColor?: string;
     platforms: {
+      default: boolean;
       iOS: boolean;
       android: boolean;
-      windows: boolean;
     };
   };
 }
@@ -18,12 +18,12 @@ interface FaviconState {
 const initialState = {
   imageData: undefined,
   faviconSettings: {
-    websiteName: undefined,
-    themeColor: undefined,
+    websiteName: '',
+    themeColor: '',
     platforms: {
-      iOS: true,
-      android: false,
-      windows: false
+      default: true,
+      iOS: false,
+      android: false
     }
   }
 } satisfies FaviconState as FaviconState;
@@ -42,6 +42,6 @@ export const faviconSlice = createSlice({
 });
 
 export const getFaviconImageData = (state: RootState) => state.favicon.imageData;
-
+export const getFaviconSettings = (state: RootState) => state.favicon.faviconSettings;
 
 export const { updateSelectedImage, updateFaviconSettings } = faviconSlice.actions;
