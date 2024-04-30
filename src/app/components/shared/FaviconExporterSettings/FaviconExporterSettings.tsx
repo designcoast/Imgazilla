@@ -19,8 +19,6 @@ export const FaviconExporterSettings = () => {
   const handleOnSubmit = useCallback((data: FormDataType) => {
     const blob = convertToBlob(imageData);
 
-    console.log('data', data);
-
     const formData = new FormData();
     formData.append('image', blob);
     formData.append('websiteName', data.websiteName);
