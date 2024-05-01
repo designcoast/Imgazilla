@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
@@ -27,7 +27,11 @@ export const FaviconExporterSettings = () => {
     formData.append('platforms[ios]', data.platforms.ios.toString());
     formData.append('platforms[android]', data.platforms.android.toString());
 
-    generateFavicon(formData);
+    generateFavicon(formData)
+      .unwrap()
+      .then((data) => {
+        console.log('data', data);
+      })
 
     dispatch(updateFaviconSettings({
       faviconSettings: data
@@ -36,7 +40,22 @@ export const FaviconExporterSettings = () => {
 
   const handleOnOpenChange = useCallback((open: boolean) => {
     setIsOpenSheet(open);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (!isSuccess) {
+      return;
+    }
+
+    setIsOpenSheet(true);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (!isError) {
+      return;
+    }
+    console.log('LOGGER: ')
+  }, [isError])
 
   return (
     <>
