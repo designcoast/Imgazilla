@@ -1,5 +1,6 @@
 import React from 'react';
 import { ServerCrash } from 'lucide-react';
+import { Button } from '@/app/components';
 export const ErrorComponent = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full gap-5">
@@ -9,6 +10,9 @@ export const ErrorComponent = () => {
       </div>
       <div className="flex">
         <ServerCrash width={120} height={120} strokeWidth={1}/>
+      </div>
+      <div>
+        <Button>Reload</Button>
       </div>
     </div>
   )

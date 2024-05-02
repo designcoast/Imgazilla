@@ -15,7 +15,7 @@ export const FaviconPreview = () => {
   const dispatch = useTypedDispatch();
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
-    if (message.type === EventType.IMAGE_UNIT_ARRAY_DATA) {
+    if (message?.type === EventType.IMAGE_UNIT_ARRAY_DATA) {
       dispatch(updateSelectedImage(message.payload?.data))
     }
   }, []);

@@ -34,11 +34,11 @@ export const ImageOptimization = () => {
   }, []);
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
-    if (message.type === EventType.IMAGES_UINT_ARRAY_COLLECTION) {
+    if (message?.type === EventType.IMAGES_UINT_ARRAY_COLLECTION) {
       dispatch(setImagesForOptimization(message.payload.data));
     }
 
-    if (message.type === EventType.IMAGE_COLLECTION_COMPLETE) {
+    if (message?.type === EventType.IMAGE_COLLECTION_COMPLETE) {
       setIsLoading(false);
     }
   }, []);

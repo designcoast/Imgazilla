@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+
 import {
+  ColorPicker,
   Form,
   FormControl,
   FormField,
@@ -38,7 +40,7 @@ export const FaviconSettingsForm = ({
   return (
     <Form {...form}>
       <form className="mb-0" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="mx-8 mb-4">
+        <div className="mx-8 mb-6">
         <div className="flex flex-row gap-3 mt-4">
           <FormField
             control={form.control}
@@ -59,13 +61,13 @@ export const FaviconSettingsForm = ({
               <FormItem className="flex-1">
                 <FormLabel className="mb-3 font-light">Theme color</FormLabel>
                 <FormControl>
-                  <Input placeholder="#FFFFF" {...field} />
+                  <ColorPicker onChange={field.onChange} color={field.value} />
                 </FormControl>
               </FormItem>
             )}
           />
         </div>
-        <div className="mt-4">
+        <div className="mt-5">
           <label className="font-light">Platforms</label>
           <div>
             <FormField
@@ -77,9 +79,10 @@ export const FaviconSettingsForm = ({
                     <Switch
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      disabled
                     />
                   </FormControl>
-                  <FormLabel className="text-base ml-2 font-normal">
+                  <FormLabel className="text-sm ml-2 font-normal">
                     Default
                   </FormLabel>
                 </FormItem>
@@ -96,8 +99,8 @@ export const FaviconSettingsForm = ({
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="text-base ml-2 font-normal">
-                    iOS
+                  <FormLabel className="text-sm ml-2 font-normal">
+                    iOS (icons)
                   </FormLabel>
                 </FormItem>
               )}
@@ -113,7 +116,7 @@ export const FaviconSettingsForm = ({
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="text-base ml-2 font-normal">
+                  <FormLabel className="text-sm ml-2 font-normal">
                     Android
                   </FormLabel>
                 </FormItem>

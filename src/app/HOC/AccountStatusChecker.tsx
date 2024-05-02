@@ -20,7 +20,7 @@ export const AccountStatusChecker = ({ children }: Props) => {
   const dispatch = useTypedDispatch();
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
-    if (message.type === EventType.USER_ACCOUNT_DATA) {
+    if (message?.type === EventType.USER_ACCOUNT_DATA) {
       const { id } = message?.payload?.data;
 
       onCheckAccount(id)
