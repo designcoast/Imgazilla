@@ -10,9 +10,10 @@ import { useClipboardCommand } from '@/app/hooks/useClipboardCommand';
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onDownload: () => void;
 };
 
-export const FaviconExporterSheet = ({open, onOpenChange}: Props) => {
+export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const {copyText, textareaRef} = useClipboardCommand();
 
@@ -45,7 +46,7 @@ export const FaviconExporterSheet = ({open, onOpenChange}: Props) => {
           <AnimatedTooltip isOpen={isOpen}>
             <Button variant="outline" onClick={handleOnCopy}>Copy to clipboard</Button>
           </AnimatedTooltip>
-          <Button>Download favicons package</Button>
+          <Button onClick={onDownload}>Download favicons package (zip)</Button>
         </div>
         <textarea
           ref={textareaRef}
