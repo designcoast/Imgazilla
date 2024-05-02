@@ -1,5 +1,7 @@
 export const DEFAULT_OPTIMIZATION_PERCENTAGE = 100;
 
+export const ARCHIVE_NAME = 'imgazilla';
+
 export const TITLE_TO_QUALITY_PERCENTAGE = {
   100: "Highest Quality",
   75: "High Quality",
