@@ -1,11 +1,13 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import vscDarkPlus from '@/app/styles/code-styles';
 
 import { AnimatedTooltip, Button, Sheet, SheetContent } from '@/app/components';
-import { htmlSnippet, headTag } from '@/app/components/templates/code-template';
+import { headTag, getHtmlSnippet } from '@/app/components/templates/code-template';
 import { useClipboardCommand } from '@/app/hooks/useClipboardCommand';
+import { useSelector } from 'react-redux';
+import { getFaviconSettings } from '@/app/redux/features';
 
 type Props = {
   open: boolean;
@@ -14,10 +16,12 @@ type Props = {
 };
 
 export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const {copyText, textareaRef} = useClipboardCommand();
-
   const elementToCopyRef = useRef<HTMLDivElement>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const { copyText, textareaRef } = useClipboardCommand();
+
+  const { themeColor } = useSelector(getFaviconSettings);
 
   const handleOnCloseTooltip = useCallback(() => {
     setTimeout(() => {
@@ -30,6 +34,8 @@ export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) 
     setIsOpen(true);
     handleOnCloseTooltip();
   }, []);
+
+  const htmlSnippet = useMemo(() => getHtmlSnippet(themeColor), [themeColor]);
 
 
   return (
