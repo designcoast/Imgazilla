@@ -37,7 +37,6 @@ export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) 
 
   const htmlSnippet = useMemo(() => getHtmlSnippet(themeColor), [themeColor]);
 
-
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom">

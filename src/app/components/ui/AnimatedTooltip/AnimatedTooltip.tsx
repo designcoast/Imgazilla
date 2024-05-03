@@ -50,7 +50,7 @@ export const AnimatedTooltip = ({ children, isOpen }) => {
             className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px "/>
           <div
             className="absolute left-10 w-[50%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px "/>
-          <div className="font-medium text-white relative z-30 text-base">
+          <div className="font-light text-white relative z-30 text-sm">
             Copied to clipboard!
           </div>
         </motion.div>
