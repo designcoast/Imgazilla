@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { saveAs } from 'file-saver';
@@ -10,7 +10,7 @@ import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateFaviconSettings } from '@/app/redux/features';
 import { useGenerateFaviconMutation } from '@/app/redux/services';
 import { convertToBlob } from '@/app/lib/convertToBlob';
-import { saveImagesToZip } from '@/app/lib/saveImagesToZip';
+import { generateArchive } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
 
 export const FaviconExporterSettings = () => {
@@ -20,12 +20,10 @@ export const FaviconExporterSettings = () => {
 
   const [generateFavicon, { isLoading, isError, isSuccess }] = useGenerateFaviconMutation();
 
-  const fileName = useMemo(() => `${ARCHIVE_NAME}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`, [DateTime]);
-
   const dispatch = useTypedDispatch();
 
-  const generateArchive = useCallback(async (data) => {
-    const blob = await saveImagesToZip(data);
+  const onGenerateArchive = useCallback(async (data) => {
+    const blob = await generateArchive(data);
     setBlobPath(blob);
   }, []);
 
@@ -42,7 +40,7 @@ export const FaviconExporterSettings = () => {
 
     generateFavicon(formData)
       .unwrap()
-      .then(generateArchive)
+      .then(onGenerateArchive)
 
     dispatch(updateFaviconSettings({
       faviconSettings: data
@@ -54,7 +52,10 @@ export const FaviconExporterSettings = () => {
   }, []);
 
 
-  const handleOnDownload = useCallback(() => saveAs(blobPath, fileName), [blobPath, fileName]);
+  const handleOnDownload = useCallback(() => {
+    const fileName = `${ARCHIVE_NAME}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
+    saveAs(blobPath, fileName);
+  }, [blobPath]);
 
   useEffect(() => {
     if (!isSuccess) {

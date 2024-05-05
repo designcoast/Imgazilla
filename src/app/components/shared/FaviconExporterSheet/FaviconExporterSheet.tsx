@@ -4,7 +4,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import vscDarkPlus from '@/app/styles/code-styles';
 
 import { AnimatedTooltip, Button, Sheet, SheetContent } from '@/app/components';
-import { headTag, getHtmlSnippet } from '@/app/components/templates/code-template';
+import { headTag, getHtmlSnippet } from '@/app/utils/code-template';
 import { useClipboardCommand } from '@/app/hooks/useClipboardCommand';
 import { useSelector } from 'react-redux';
 import { getFaviconSettings } from '@/app/redux/features';
@@ -35,7 +35,9 @@ export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) 
     handleOnCloseTooltip();
   }, []);
 
-  const htmlSnippet = useMemo(() => getHtmlSnippet(themeColor), [themeColor]);
+  const htmlSnippet = useMemo(() => getHtmlSnippet({
+    color: themeColor,
+  }), [themeColor]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
