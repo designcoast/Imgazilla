@@ -10,7 +10,7 @@ import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateFaviconSettings } from '@/app/redux/features';
 import { useGenerateFaviconMutation } from '@/app/redux/services';
 import { convertToBlob } from '@/app/lib/convertToBlob';
-import { generateArchive } from '@/app/lib/generateArchive';
+import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
 
 export const FaviconExporterSettings = () => {
@@ -22,8 +22,15 @@ export const FaviconExporterSettings = () => {
 
   const dispatch = useTypedDispatch();
 
-  const onGenerateArchive = useCallback(async (data) => {
-    const blob = await generateArchive(data);
+  const onGenerateArchive = useCallback(async (images: ImageObject[], formState: FormDataType) => {
+    const { websiteName, themeColor, platforms: { android, ios } } = formState;
+    const blob = await generateArchive({
+      websiteName,
+      themeColor,
+      images,
+      isAndroid: android,
+      isIOS: ios
+    });
     setBlobPath(blob);
   }, []);
 
@@ -40,12 +47,14 @@ export const FaviconExporterSettings = () => {
 
     generateFavicon(formData)
       .unwrap()
-      .then(onGenerateArchive)
+      .then(async (images: ImageObject[]) => {
+        await onGenerateArchive(images, data);
+      })
 
     dispatch(updateFaviconSettings({
       faviconSettings: data
     }))
-  }, [imageData]);
+  }, [imageData, onGenerateArchive]);
 
   const handleOnOpenChange = useCallback((open: boolean) => {
     setIsOpenSheet(open);

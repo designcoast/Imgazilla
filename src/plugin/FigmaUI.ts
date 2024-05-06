@@ -56,8 +56,12 @@ export class FigmaUI {
     if (!Boolean(relaunchData)) {
       this.setRelaunchData();
     }
-
   };
+
+  // private async reopenApplication() {
+  //   figma.showUI(__html__, { width: this.width, height: this.height });
+  //   await this.init();
+  // };
 
   private clearConsole() {
     console.clear();
@@ -124,6 +128,10 @@ export class FigmaUI {
     if (type === UIEventType.GET_IMAGES_UINT_ARRAY_COLLECTION) {
       await this.collectNodes();
     }
+
+    // if (type === UIEventType.REOPEN_APPLICATION) {
+    //   await this.reopenApplication();
+    // }
 
     console.log('Message from UI', message)
   };

@@ -21,7 +21,7 @@ export const FaviconExporterSheet = ({open, onOpenChange, onDownload}: Props) =>
   const [isOpen, setIsOpen] = useState(false);
   const {copyText, textareaRef} = useClipboardCommand();
 
-  const {themeColor, platforms: {ios, android}} = useSelector(getFaviconSettings);
+  const {themeColor, websiteName, platforms: { ios, android }} = useSelector(getFaviconSettings);
 
   const handleOnCloseTooltip = useCallback(() => {
     setTimeout(() => {
@@ -33,17 +33,19 @@ export const FaviconExporterSheet = ({open, onOpenChange, onDownload}: Props) =>
     copyText(getHtmlSnippet({
       color: themeColor,
       isIOS: ios,
-      isAndroid: android
+      isAndroid: android,
+      websiteName
     }).join('').trim());
     setIsOpen(true);
     handleOnCloseTooltip();
-  }, [themeColor, ios, android]);
+  }, [themeColor, websiteName, ios, android]);
 
   const htmlSnippet = useMemo(() => getHtmlSnippet({
     color: themeColor,
     isIOS: ios,
-    isAndroid: android
-  }).join(''), [themeColor, ios, android]);
+    isAndroid: android,
+    websiteName
+  }).join(''), [themeColor, websiteName, ios, android]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
