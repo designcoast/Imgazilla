@@ -100,7 +100,7 @@ export const FaviconSettingsForm = ({
                     />
                   </FormControl>
                   <FormLabel className="text-sm ml-2 font-normal">
-                    iOS (icons)
+                    iOS (apple touch icons)
                   </FormLabel>
                 </FormItem>
               )}

@@ -15,13 +15,13 @@ type Props = {
   onDownload: () => void;
 };
 
-export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) => {
+export const FaviconExporterSheet = ({open, onOpenChange, onDownload}: Props) => {
   const elementToCopyRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const { copyText, textareaRef } = useClipboardCommand();
+  const {copyText, textareaRef} = useClipboardCommand();
 
-  const { themeColor } = useSelector(getFaviconSettings);
+  const {themeColor, platforms: {ios, android}} = useSelector(getFaviconSettings);
 
   const handleOnCloseTooltip = useCallback(() => {
     setTimeout(() => {
@@ -30,14 +30,20 @@ export const FaviconExporterSheet = ({ open, onOpenChange, onDownload }: Props) 
   }, []);
 
   const handleOnCopy = useCallback(async () => {
-    copyText(htmlSnippet.trim());
+    copyText(getHtmlSnippet({
+      color: themeColor,
+      isIOS: ios,
+      isAndroid: android
+    }).join('').trim());
     setIsOpen(true);
     handleOnCloseTooltip();
-  }, []);
+  }, [themeColor, ios, android]);
 
   const htmlSnippet = useMemo(() => getHtmlSnippet({
     color: themeColor,
-  }), [themeColor]);
+    isIOS: ios,
+    isAndroid: android
+  }).join(''), [themeColor, ios, android]);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
