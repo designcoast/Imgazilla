@@ -4,11 +4,18 @@ import { useSelector } from 'react-redux';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
-import { FAVICON_TAB, getImages, reset, setDisableTab, setImagesForOptimization } from '@/app/redux/features';
+import {
+  FAVICON_TAB,
+  getImages,
+  reset,
+  setDisableTab,
+  setImagesForOptimization
+} from '@/app/redux/features';
+
 import {
   Overlay,
   ImageOptimizationSettings,
-  ImageOptimizationList
+  ImageOptimizationList, ExportButton
 } from '@/app/components';
 
 export const ImageOptimization = () => {
@@ -62,9 +69,12 @@ export const ImageOptimization = () => {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col relative">
         <ImageOptimizationSettings onRefresh={handleOnRefresh} />
-        <ImageOptimizationList/>
+        <div className="min-h-[488px]">
+          <ImageOptimizationList />
+        </div>
+        <ExportButton />
       </div>
       {isLoading ? (<Overlay/>) : null }
     </>

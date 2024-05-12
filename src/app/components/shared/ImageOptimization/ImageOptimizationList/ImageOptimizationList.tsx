@@ -12,15 +12,21 @@ export const ImageOptimizationList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-full w-full justify-center items-center">
+      <div className="flex h-full w-full justify-center items-center min-h-[488px]">
         <Loading />
       </div>
     )
   }
 
+  if (!isLoading && images.length === 0) {
+    return (
+      <div className="flex">Empty</div>
+    )
+  }
+
   return (
     <AnimatePresence>
-      <ScrollArea className="h-[476px]">
+      <ScrollArea className="h-[488px]">
         {images.map((item, index) => (
             <motion.div
               key={item.uuid}

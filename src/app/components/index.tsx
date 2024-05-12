@@ -19,6 +19,7 @@ export { Loading } from '@/app/components/ui/Loading/Loading';
 export { AnimatedPage } from '@/app/components/ui/AnimatedPage/AnimatedPage';
 export { Overlay } from '@/app/components/ui/Overlay/Overlay';
 export { ColorPicker } from '@/app/components/ui/ColorPicker/ColorPicker';
+export { ExportButton } from '@/app/components/ui/ExportButton/ExportButton';
 
 export * from '@/app/components/ui/Tabs/Tabs';
 export * from '@/app/components/ui/Separator/Separator';
