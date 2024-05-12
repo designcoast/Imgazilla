@@ -35,6 +35,8 @@ module.exports = {
         borderSquare: "var(--border-square)",
         foreground: "hsl(var(--foreground))",
         exportButtonBGColor: "var(--export-button-bg-color)",
+        exportButtonShadowFrom: "var(--export-button-shadow-gradient-from)",
+        exportButtonShadowTo: "var(--export-button-shadow-gradient-to)",
         "midnight-slate": "var(--price-bg-color)",
         primary: {
           DEFAULT: "var(--primary)",

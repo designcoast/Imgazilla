@@ -84,6 +84,9 @@
     --ring: 216 34% 17%;
 
     --radius: 0.5rem;
+
+    --export-button-shadow-gradient-from: rgba(30, 30, 30, 0.81);
+    --export-button-shadow-gradient-to: rgba(49, 49, 49, 0);
   }
 }
 
