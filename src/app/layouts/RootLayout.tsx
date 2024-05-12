@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import {
   Tabs,
   TabsContent,
@@ -7,20 +9,30 @@ import {
   FaviconExporter,
   ImageOptimization, Account,
 } from '@/app/components';
-import { getSelectedTab } from '@/app/redux/features';
-import { useSelector } from 'react-redux';
+import {
+  FAVICON_TAB,
+  IMAGE_OPTIMIZATION_TAB,
+  selectActiveTab,
+  selectDisabledTab
+} from '@/app/redux/features';
 
 export const RootLayout = () => {
-  const activeTab = useSelector(getSelectedTab);
+  const { name } = useSelector(selectActiveTab);
+
+  const disabledTab= useSelector(selectDisabledTab);
+
+  const isFaviconTabDisabled = disabledTab?.name === FAVICON_TAB ?? false;
+  const isImagesOptimizationTabDisabled = disabledTab?.name === IMAGE_OPTIMIZATION_TAB ?? false;
+
   return (
     <>
       <div className='flex justify-end p-2.5'>
         <Account />
       </div>
-      <Tabs defaultValue={activeTab} className="w-full">
+      <Tabs defaultValue={name} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="favicon">Favicon exporter</TabsTrigger>
-          <TabsTrigger value="imagesOptimization">Image optimisation</TabsTrigger>
+          <TabsTrigger value="favicon" disabled={isFaviconTabDisabled}>Favicon exporter</TabsTrigger>
+          <TabsTrigger value="imagesOptimization" disabled={isImagesOptimizationTabDisabled}>Image optimisation</TabsTrigger>
         </TabsList>
         <>
           <TabsContent value="favicon">
@@ -32,6 +44,5 @@ export const RootLayout = () => {
         </>
       </Tabs>
     </>
-
   )
 }

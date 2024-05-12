@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
-import { getImages, reset, setImagesForOptimization } from '@/app/redux/features';
+import { FAVICON_TAB, getImages, reset, setDisableTab, setImagesForOptimization } from '@/app/redux/features';
 import {
   Overlay,
   ImageOptimizationSettings,
@@ -29,8 +29,13 @@ export const ImageOptimization = () => {
 
   }, []);
 
+  const onDisableTab = useCallback((isDisabled: boolean = true) => {
+    dispatch(setDisableTab({ name: FAVICON_TAB, isDisabled }));
+  }, [])
+
   const handleOnRefresh = useCallback(() => {
     dispatch(reset());
+    onDisableTab();
   }, []);
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
@@ -40,6 +45,7 @@ export const ImageOptimization = () => {
 
     if (message?.type === EventType.IMAGE_COLLECTION_COMPLETE) {
       setIsLoading(false);
+      onDisableTab(false);
     }
   }, []);
 
@@ -50,6 +56,7 @@ export const ImageOptimization = () => {
       return
     }
 
+    onDisableTab();
     onFetchImageCollection();
   }, [images]);
 
