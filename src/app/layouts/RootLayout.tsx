@@ -10,14 +10,13 @@ import {
   ImageOptimization, Account,
 } from '@/app/components';
 import {
-  FAVICON_TAB,
+  FAVICON_TAB, getActiveTab,
   IMAGE_OPTIMIZATION_TAB,
-  selectActiveTab,
   selectDisabledTab
 } from '@/app/redux/features';
 
 export const RootLayout = () => {
-  const { name } = useSelector(selectActiveTab);
+  const name = useSelector(getActiveTab);
 
   const disabledTab= useSelector(selectDisabledTab);
 
