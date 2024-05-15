@@ -1,4 +1,3 @@
-import { extractPngDimensions } from '@/plugin/utils/extractPngDimensions';
 import { generateUUID } from '@/plugin/utils/generateUUID';
 
 interface NodeProcessorOptions {
@@ -33,7 +32,7 @@ export class ImageUintArrayCollector {
         const image = figma.getImageByHash((node.fills[0] as ImagePaint).imageHash);
 
         const bytes = await image.getBytesAsync();
-        this.processImage(bytes, node.name);
+        this.processImage(bytes, node);
 
         if (this.imageInfos.length >= this.options.chunkSize) {
           this.options.onChunkProcessed([...this.imageInfos]);
@@ -61,20 +60,20 @@ export class ImageUintArrayCollector {
     processNext(0);
   }
 
-  private processImage(imageData: Uint8Array, name: string): void {
+  private processImage(imageData: Uint8Array, node: RectangleNode): void {
     try {
-      const dimensions = extractPngDimensions(imageData);
+      const { width, height, name } = node;
 
       // TODO Create general image info object, and make it more flexible
       const imageInfo: ImageInfo = {
         uuid: generateUUID(),
-        width: dimensions.width,
-        height: dimensions.height,
+        width,
+        height,
         extension: 'png',
         uintArray: imageData,
         optimizationPercent: 100,
         isSelected: true,
-        name: name
+        name
       };
 
       this.imageInfos.push(imageInfo);
