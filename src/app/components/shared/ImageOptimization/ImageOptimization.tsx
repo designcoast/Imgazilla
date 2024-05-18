@@ -6,7 +6,7 @@ import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
 import {
   FAVICON_TAB,
-  getImages,
+  getImages, getSelectedImages,
   reset,
   setDisableTab,
   setImagesForOptimization
@@ -17,13 +17,22 @@ import {
   ImageOptimizationSettings,
   ImageOptimizationList, ExportButton
 } from '@/app/components';
+import { useOptimizeImageMutation } from '@/app/redux/services';
 
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [optimizeImage, {}] = useOptimizeImageMutation();
 
   const dispatch = useTypedDispatch();
 
   const images = useSelector(getImages);
+  const selectedImages = useSelector(getSelectedImages);
+
+  const onOptimizeImage = useCallback(() => {
+  console.log('selectedImages', selectedImages);
+    optimizeImage(selectedImages)
+
+  }, [selectedImages]);
 
   const onFetchImageCollection = useCallback(() => {
 
@@ -74,7 +83,7 @@ export const ImageOptimization = () => {
         <div className="min-h-[488px]">
           <ImageOptimizationList />
         </div>
-        <ExportButton />
+        <ExportButton onClick={onOptimizeImage}/>
       </div>
       {isLoading ? (<Overlay/>) : null }
     </>

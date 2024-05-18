@@ -63,6 +63,10 @@ export class ImageUintArrayCollector {
   private processImage(imageData: Uint8Array, node: RectangleNode): void {
     try {
       const { width, height, name } = node;
+      // const sizeInMB = imageData.length / 1_000_000;
+      // Get the size in bytes
+      const sizeInBytes = imageData.length;
+      const sizeInKB = sizeInBytes / 1024;
 
       // TODO Create general image info object, and make it more flexible
       const imageInfo: ImageInfo = {
@@ -72,7 +76,8 @@ export class ImageUintArrayCollector {
         extension: 'png',
         uintArray: imageData,
         optimizationPercent: 100,
-        isSelected: true,
+        isSelected: false,
+        size: sizeInKB,
         name
       };
 

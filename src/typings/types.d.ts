@@ -19,4 +19,5 @@ declare interface ImageInfo {
   uintArray: Uint8Array;
   optimizationPercent: number;
   isSelected: boolean;
+  size: number;
 }

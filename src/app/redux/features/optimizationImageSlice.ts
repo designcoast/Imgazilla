@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/redux/store';
 
@@ -78,10 +78,17 @@ export const optimizationImageSlice = createSlice({
 });
 
 export const getImages = (state: RootState) => state.optimizationImages.images;
+
 export const getIsLoading = (state: RootState) => state.optimizationImages.isLoading;
 
 export const getSelectedImagesCount = (state: RootState) =>
   state.optimizationImages.images.filter((item) => item.isSelected).length;
+
+export const getSelectedImages = createSelector(
+  [getImages],
+  (images) => images.filter((item) => item.isSelected)
+);
+
 export const getGeneralOptimizationPercent = (state: RootState) => state.optimizationImages.generalOptimizationPercent;
 
 export const {
