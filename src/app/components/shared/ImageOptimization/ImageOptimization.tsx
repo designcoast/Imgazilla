@@ -18,6 +18,7 @@ import {
   ImageOptimizationList, ExportButton
 } from '@/app/components';
 import { useOptimizeImageMutation } from '@/app/redux/services';
+import { compressData } from '@/app/lib/compressData';
 
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,9 +30,7 @@ export const ImageOptimization = () => {
   const selectedImages = useSelector(getSelectedImages);
 
   const onOptimizeImage = useCallback(() => {
-  console.log('selectedImages', selectedImages);
-    optimizeImage(selectedImages)
-
+    optimizeImage(compressData(selectedImages));
   }, [selectedImages]);
 
   const onFetchImageCollection = useCallback(() => {
