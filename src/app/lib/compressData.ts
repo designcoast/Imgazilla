@@ -1,6 +1,13 @@
-import pako from 'pako';
+// import pako from 'pako';
+const uint8ArrayToBase64 = (data: Uint8Array): string => {
+  return btoa(
+    data.reduce((acc, current) => acc + String.fromCharCode(current), "")
+  );
+}
 
 export const compressData = (data: ImageInfo[]) => {
-  const compressed = pako.deflate(JSON.stringify(data));
-  return new Blob([compressed]);
+  return data.map(item => ({
+    ...item,
+    uintArray: uint8ArrayToBase64(item.uintArray),
+  }));
 }

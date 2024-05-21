@@ -30,6 +30,7 @@ export const ImageOptimization = () => {
   const selectedImages = useSelector(getSelectedImages);
 
   const onOptimizeImage = useCallback(() => {
+
     optimizeImage(compressData(selectedImages));
   }, [selectedImages]);
 
