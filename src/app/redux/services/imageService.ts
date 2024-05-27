@@ -12,8 +12,14 @@ export const imageOptimizationService = baseApi.injectEndpoints({
         method: 'POST',
         body,
       })
-    })
+    }),
+    getProcessStatus: builder.query({
+      query: (id: string) => `image/${id}/status`
+    }),
+    getOptimizedImage: builder.query({
+      query: (id: string) => `image/${id}/result`
+    }),
   })
 })
 
-export const { useOptimizeImageMutation } = imageOptimizationService;
+export const { useOptimizeImageMutation, useLazyGetProcessStatusQuery, useLazyGetOptimizedImageQuery } = imageOptimizationService;
