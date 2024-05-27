@@ -9,6 +9,9 @@ export { ImageOptimizationItem } from '@/app/components/shared/ImageOptimization
 export { ImageOptimizationList } from '@/app/components/shared/ImageOptimization/ImageOptimizationList/ImageOptimizationList';
 export { ImageOptimizationLevel } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationLevel/ImageOptimizationLevel';
 export { ImageOptimizationSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationSettings/ImageOptimizationSettings';
+export { ImageOptimizationResult } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResult';
+export { ImageOptimizationResultItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultItem/ImageOptimizationResultItem';
+export { ImageOptimizationResultList } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultList/ImageOptimizationResultList';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';

@@ -21,3 +21,8 @@ declare interface ImageInfo {
   isSelected: boolean;
   size: number;
 }
+
+declare interface ImageOptimizationResult {
+  base64Image: string;
+  optimizedImageSize: string;
+}
