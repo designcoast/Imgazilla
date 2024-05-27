@@ -6,32 +6,40 @@ import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
 import {
   FAVICON_TAB,
-  getImages, getSelectedImages,
+  getImages, getIsImageOptimizationResultsOpen, getSelectedImages,
   reset,
-  setDisableTab,
+  setDisableTab, setImageOptimizationJobId, setImageOptimizationResultPageState,
   setImagesForOptimization
 } from '@/app/redux/features';
 
 import {
   Overlay,
   ImageOptimizationSettings,
-  ImageOptimizationList, ExportButton
+  ImageOptimizationList, ExportButton, ImageOptimizationResult
 } from '@/app/components';
 import { useOptimizeImageMutation } from '@/app/redux/services';
-import { compressData } from '@/app/lib/compressData';
+import { transformAndCompressData } from '@/app/lib/compressData';
 
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [optimizeImage, {}] = useOptimizeImageMutation();
+  // TODO: Add error handling
+  const [optimizeImage, { }] = useOptimizeImageMutation();
 
   const dispatch = useTypedDispatch();
 
   const images = useSelector(getImages);
+  const isImageOptimizationResultsOpen = useSelector(getIsImageOptimizationResultsOpen)
   const selectedImages = useSelector(getSelectedImages);
 
   const onOptimizeImage = useCallback(() => {
-
-    optimizeImage(compressData(selectedImages));
+    optimizeImage(transformAndCompressData(selectedImages))
+      .unwrap()
+      .then(({ jobId }: {
+        jobId: string
+      }) => {
+        dispatch(setImageOptimizationJobId({ jobId }))
+        dispatch(setImageOptimizationResultPageState({ isOpen: true }))
+      })
   }, [selectedImages]);
 
   const onFetchImageCollection = useCallback(() => {
@@ -78,14 +86,20 @@ export const ImageOptimization = () => {
 
   return (
     <>
-      <div className="flex flex-col relative">
-        <ImageOptimizationSettings onRefresh={handleOnRefresh} />
-        <div className="min-h-[488px]">
-          <ImageOptimizationList />
-        </div>
-        <ExportButton onClick={onOptimizeImage}/>
-      </div>
-      {isLoading ? (<Overlay/>) : null }
+      {isImageOptimizationResultsOpen ? (
+        <ImageOptimizationResult />
+        ) : (
+        <>
+          <div className="flex flex-col relative">
+            <ImageOptimizationSettings onRefresh={handleOnRefresh} />
+            <div className="min-h-[488px]">
+              <ImageOptimizationList />
+            </div>
+            <ExportButton onClick={onOptimizeImage}/>
+          </div>
+          {isLoading ? (<Overlay/>) : null }
+        </>
+      )}
     </>
   )
 }
