@@ -5,9 +5,12 @@ const uint8ArrayToBase64 = (data: Uint8Array): string => {
   );
 }
 
-export const compressData = (data: ImageInfo[]) => {
+export const transformAndCompressData = (data: ImageInfo[]) => {
   return data.map(item => ({
-    ...item,
-    uintArray: uint8ArrayToBase64(item.uintArray),
+    uuid: item.uuid,
+    extension: item.extension,
+    name: item.name,
+    optimizationPercent: item.optimizationPercent,
+    base64Image: uint8ArrayToBase64(item.uintArray),
   }));
 }
