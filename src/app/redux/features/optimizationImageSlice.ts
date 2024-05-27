@@ -4,14 +4,20 @@ import { RootState } from '@/app/redux/store';
 
 interface ImagesState {
   images: ImageInfo[];
+  result: ImageOptimizationResult[];
+  jobId: string;
   generalOptimizationPercent: number;
   isLoading: boolean;
+  isImageOptimizationResultsOpen: boolean
 }
 
 const initialState = {
   images: [],
+  result: [],
+  jobId: undefined,
   generalOptimizationPercent: 100,
   isLoading: true,
+  isImageOptimizationResultsOpen: false,
 } satisfies ImagesState as ImagesState;
 
 export const optimizationImageSlice = createSlice({
@@ -73,11 +79,26 @@ export const optimizationImageSlice = createSlice({
         }
       })
     },
+
+    setImageOptimizationJobId(state, action: PayloadAction<{jobId: string}>){
+      state.jobId = action.payload.jobId;
+    },
+
+    setImageOptimizationResult(state, action: PayloadAction<{ result: ImageOptimizationResult[] }>) {
+      state.result = action.payload.result;
+    },
+
+    setImageOptimizationResultPageState(state, action: PayloadAction<{ isOpen: boolean}>) {
+      state.isImageOptimizationResultsOpen = action.payload.isOpen
+    },
     reset: () => initialState
   }
 });
 
 export const getImages = (state: RootState) => state.optimizationImages.images;
+export const getIsImageOptimizationResultsOpen = (state: RootState) => state.optimizationImages.isImageOptimizationResultsOpen;
+export const getImageOptimizationJobId = (state: RootState) => state.optimizationImages.jobId;
+export const getImageOptimizationResult = (state: RootState) => state.optimizationImages.result;
 
 export const getIsLoading = (state: RootState) => state.optimizationImages.isLoading;
 
@@ -92,12 +113,15 @@ export const getSelectedImages = createSelector(
 export const getGeneralOptimizationPercent = (state: RootState) => state.optimizationImages.generalOptimizationPercent;
 
 export const {
-  setImagesForOptimization,
-  setSelectedImages,
-  removeSelectedImages,
-  updateGeneralOptimizationPercent,
-  updateImageOptimizationPercent,
-  unselectAllImages,
-  selectAllImages,
   reset,
+  selectAllImages,
+  setSelectedImages,
+  unselectAllImages,
+  removeSelectedImages,
+  setImagesForOptimization,
+  setImageOptimizationJobId,
+  setImageOptimizationResult,
+  updateImageOptimizationPercent,
+  updateGeneralOptimizationPercent,
+  setImageOptimizationResultPageState,
 } = optimizationImageSlice.actions;
