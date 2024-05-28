@@ -4,10 +4,9 @@ import { useSelector } from 'react-redux';
 import { useLazyGetOptimizedImageQuery, useLazyGetProcessStatusQuery } from '@/app/redux/services';
 import {
   getImageOptimizationJobId,
-  getImageOptimizationResult,
   setImageOptimizationResult
 } from '@/app/redux/features';
-import { Loading } from '@/app/components';
+import { ImageOptimizationResultList } from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
 
 export const ImageOptimizationResult = () => {
@@ -15,7 +14,6 @@ export const ImageOptimizationResult = () => {
   const [pollingInterval, setPollingInterval] = useState(3000);
 
   const jobId = useSelector(getImageOptimizationJobId);
-  const imageOptimizationResult = useSelector(getImageOptimizationResult);
 
   const dispatch = useTypedDispatch();
 
@@ -47,15 +45,11 @@ export const ImageOptimizationResult = () => {
     }
   }, [data, jobId]);
 
-  if (isLoading) {
-    return (
-      <div className="flex h-full w-full justify-center items-center min-h-[488px]">
-        <Loading />
-      </div>
-    )
-  }
-
   return (
-    <>result</>
+    <>
+      <div className="min-h-[488px]">
+        <ImageOptimizationResultList isLoading={isLoading} />
+      </div>
+    </>
   )
 }
