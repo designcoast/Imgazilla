@@ -1,6 +1,7 @@
 export const DEFAULT_OPTIMIZATION_PERCENTAGE = 100;
 
-export const ARCHIVE_NAME = 'imgazilla';
+export const ARCHIVE_NAME = 'imgazilla-favicon';
+export const ARCHIVE_NAME_OPTIMIZATION = 'imgazilla-optimization';
 
 export const TITLE_TO_QUALITY_PERCENTAGE = {
   100: "Highest Quality",
@@ -12,3 +13,5 @@ export const TITLE_TO_QUALITY_PERCENTAGE = {
 
 //TODO: Return this options from the config API
 export const ANDROID_ICONS_SIZES = ['36x36', '48x48', '72x72', '96x96', '144x144', '192x192']
+
+export const MIME_TYPE = 'image/png';
