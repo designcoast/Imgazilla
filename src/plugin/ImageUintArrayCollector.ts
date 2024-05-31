@@ -26,13 +26,12 @@ export class ImageUintArrayCollector {
     });
   }
 
-  private processNode(node: BaseNode, callback: () => void): void {
+  private processNode(node: any, callback: () => void): void {
     setTimeout(async () => {
-      if (node.type === 'RECTANGLE' && (node.fills as Paint[]).some(fill => fill.type === 'IMAGE' && fill.imageHash)) {
-        const image = figma.getImageByHash((node.fills[0] as ImagePaint).imageHash);
+      const { exportSettings } = node;
+      for (let setting of exportSettings) {
 
-        const bytes = await image.getBytesAsync();
-        this.processImage(bytes, node);
+        await this.processImage(node, setting);
 
         if (this.imageInfos.length >= this.options.chunkSize) {
           this.options.onChunkProcessed([...this.imageInfos]);
@@ -60,21 +59,21 @@ export class ImageUintArrayCollector {
     processNext(0);
   }
 
-  private processImage(imageData: Uint8Array, node: RectangleNode): void {
+  private async processImage(node: RectangleNode, setting: ExportSettingsImage): Promise<void> {
     try {
+      const bytes = await node.exportAsync(setting)
+
       const { width, height, name } = node;
-      // const sizeInMB = imageData.length / 1_000_000;
-      // Get the size in bytes
-      const sizeInBytes = imageData.length;
+
+      const sizeInBytes = bytes.length;
       const sizeInKB = sizeInBytes / 1024;
 
-      // TODO Create general image info object, and make it more flexible
       const imageInfo: ImageInfo = {
         uuid: generateUUID(),
         width,
         height,
-        extension: 'png',
-        uintArray: imageData,
+        format: setting.format,
+        uintArray: bytes,
         optimizationPercent: 100,
         isSelected: false,
         size: sizeInKB,
