@@ -1,13 +1,16 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+
+import { RefreshCcw } from 'lucide-react';
+
 import {
   getGeneralOptimizationPercent,
   getImages,
   getSelectedImagesCount, selectAllImages, unselectAllImages,
   updateGeneralOptimizationPercent
 } from '@/app/redux/features';
-import { Button, Checkbox, Slider } from '@/app/components';
-import { RefreshCcw } from 'lucide-react';
+
+import { Checkbox, Slider, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
 import { TITLE_TO_QUALITY_PERCENTAGE } from '@/app/constants';
 
@@ -59,9 +62,16 @@ export const ImageOptimizationSettings = ({ onRefresh }: Props) => {
             <div className="flex text-xs font-semibold">Images selected</div>
           </div>
           <div className="flex">
-            <Button variant='ghost' className="p-0 h-fit" onClick={onRefresh}>
-              <RefreshCcw size={20} />
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="p-0 h-fit" onClick={onRefresh}>
+                  <RefreshCcw size={20} />
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p className="text-xs">Refresh and retrieve the latest images from the Page</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>

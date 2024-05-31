@@ -12,6 +12,7 @@ export { ImageOptimizationSettings } from '@/app/components/shared/ImageOptimiza
 export { ImageOptimizationResult } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResult';
 export { ImageOptimizationResultItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultItem/ImageOptimizationResultItem';
 export { ImageOptimizationResultList } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultList/ImageOptimizationResultList';
+export { ImageOptimizationResultSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultSettings/ImageOptimizationResultSettings';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
@@ -41,6 +42,7 @@ export * from '@/app/components/ui/Splash/Splash';
 export * from '@/app/components/ui/ErrorComponent/ErrorComponent';
 export * from '@/app/components/ui/Checkbox/Checkbox';
 export * from '@/app/components/ui/ScrollArea/ScrollArea';
+export * from '@/app/components/ui/Tooltip/Tooltip';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 
