@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import {
-  ColorPicker,
+  ColorPicker, ExportButton,
   Form,
   FormControl,
   FormField,
@@ -12,7 +12,7 @@ import {
   Input,
   Switch
 } from '@/app/components';
-import { getFaviconSettings } from '@/app/redux/features';
+import { getFaviconImageData, getFaviconSettings } from '@/app/redux/features';
 
 export interface FormDataType {
   websiteName: string;
@@ -32,6 +32,7 @@ export const FaviconSettingsForm = ({
    onSubmit
 }: Props) => {
   const formSettings = useSelector(getFaviconSettings);
+  const isSelectedImage = useSelector(getFaviconImageData);
 
   const form = useForm<FormDataType>({
     defaultValues: formSettings
@@ -40,7 +41,7 @@ export const FaviconSettingsForm = ({
   return (
     <Form {...form}>
       <form className="mb-0" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="mx-8 mb-6">
+        <div className="mx-8 mb-[1.95rem]">
         <div className="flex flex-row gap-3 mt-4">
           <FormField
             control={form.control}
@@ -125,7 +126,7 @@ export const FaviconSettingsForm = ({
           </div>
         </div>
         </div>
-        <button className="flex justify-center w-full bg-exportButtonBGColor text-center p-[9.6px]">Export</button>
+        <ExportButton isShowShadow={false} isDisabled={!isSelectedImage}>Export</ExportButton>
       </form>
     </Form>
   )
