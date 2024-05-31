@@ -5,7 +5,7 @@ import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
 import {
-  FAVICON_TAB,
+  FAVICON_TAB, getGeneralOptimizationPercent,
   getImages, getIsImageOptimizationResultsOpen, getSelectedImages,
   reset,
   setDisableTab, setImageOptimizationJobId, setImageOptimizationResultPageState,
@@ -19,16 +19,18 @@ import {
 } from '@/app/components';
 import { useOptimizeImageMutation } from '@/app/redux/services';
 import { transformAndCompressData } from '@/app/lib/compressData';
+import { useToast } from '@/app/hooks/useToast';
 
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
-  // TODO: Add error handling
-  const [optimizeImage, { }] = useOptimizeImageMutation();
+  const [optimizeImage] = useOptimizeImageMutation();
 
   const dispatch = useTypedDispatch();
+  const { toast } = useToast();
 
   const images = useSelector(getImages);
   const isImageOptimizationResultsOpen = useSelector(getIsImageOptimizationResultsOpen)
+  const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent)
   const selectedImages = useSelector(getSelectedImages);
 
   const onOptimizeImage = useCallback(() => {
@@ -39,8 +41,13 @@ export const ImageOptimization = () => {
       }) => {
         dispatch(setImageOptimizationJobId({ jobId }))
         dispatch(setImageOptimizationResultPageState({ isOpen: true }))
-      })
-  }, [selectedImages]);
+      }).catch((error) => {
+        toast({
+          title: 'Error while optimizing image',
+          description: error,
+        });
+    })
+  }, [selectedImages, generalOptimizationPercent]);
 
   const onFetchImageCollection = useCallback(() => {
 
@@ -75,6 +82,8 @@ export const ImageOptimization = () => {
 
   const { onSendMessage } = useWindowMessaging(handleFigmaPluginMessages);
 
+  const isDisabled = selectedImages.length === 0;
+
   useEffect(() => {
     if (images.length > 0) {
       return
@@ -95,7 +104,7 @@ export const ImageOptimization = () => {
             <div className="min-h-[488px]">
               <ImageOptimizationList />
             </div>
-            <ExportButton onClick={onOptimizeImage}/>
+            <ExportButton onClick={onOptimizeImage} isDisabled={isDisabled} className="absolute">Export</ExportButton>
           </div>
           {isLoading ? (<Overlay/>) : null }
         </>

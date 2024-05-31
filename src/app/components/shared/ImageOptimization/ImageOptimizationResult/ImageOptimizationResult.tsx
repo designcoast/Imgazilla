@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import { DateTime } from 'luxon';
+import { saveAs } from 'file-saver';
 
 import { useLazyGetOptimizedImageQuery, useLazyGetProcessStatusQuery } from '@/app/redux/services';
 import {
   getImageOptimizationJobId,
-  setImageOptimizationResult
+  getImageOptimizationResult, getSelectedImages,
+  setImageOptimizationResult, setImageOptimizationResultPageState
 } from '@/app/redux/features';
-import { ImageOptimizationResultList } from '@/app/components';
+import { ExportButton, ImageOptimizationResultList, ImageOptimizationResultSettings } from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
+import { ARCHIVE_NAME_OPTIMIZATION } from '@/app/constants';
+import { generateImagesArchive } from '@/app/lib/generateArchive';
+import { useSameUUIDs } from '@/app/lib/utils';
 
 export const ImageOptimizationResult = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pollingInterval, setPollingInterval] = useState(3000);
 
+  const selectedImages = useSelector(getSelectedImages);
+  const imageOptimizationResult = useSelector(getImageOptimizationResult);
   const jobId = useSelector(getImageOptimizationJobId);
 
   const dispatch = useTypedDispatch();
@@ -21,10 +30,31 @@ export const ImageOptimizationResult = () => {
     pollingInterval,
   });
 
-  const [getOptimizedImage] = useLazyGetOptimizedImageQuery()
+  const [getOptimizedImage] = useLazyGetOptimizedImageQuery();
 
+  const handleOnClosePageResult = useCallback(() => {
+    dispatch(setImageOptimizationResultPageState({ isOpen: false }))
+  }, [dispatch, setImageOptimizationResultPageState]);
+
+  const handleOnDownload = useCallback(async () => {
+    const fileName = `${ARCHIVE_NAME_OPTIMIZATION}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
+    const blobPath = await generateImagesArchive(imageOptimizationResult);
+    saveAs(blobPath, fileName);
+  }, [imageOptimizationResult]);
+
+  const isSameUUIDs = useMemo(() =>
+    useSameUUIDs(selectedImages, imageOptimizationResult),
+    [selectedImages, imageOptimizationResult]);
 
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    if (isSameUUIDs) {
+      return
+    }
+
     getProcessStatus(jobId)
     setIsLoading(true);
   }, [jobId]);
@@ -39,7 +69,7 @@ export const ImageOptimizationResult = () => {
       getOptimizedImage(jobId)
         .unwrap()
         .then(({ result }) => {
-          dispatch(setImageOptimizationResult(result));
+          dispatch(setImageOptimizationResult({ result }));
           setIsLoading(false);
         })
     }
@@ -47,9 +77,13 @@ export const ImageOptimizationResult = () => {
 
   return (
     <>
+      <ImageOptimizationResultSettings onClick={handleOnClosePageResult} isDisabled={isLoading}/>
       <div className="min-h-[488px]">
-        <ImageOptimizationResultList isLoading={isLoading} />
+        <ImageOptimizationResultList isLoading={isLoading}/>
       </div>
+      {isLoading ? null : (
+        <ExportButton onClick={handleOnDownload}>Download images package</ExportButton>
+      )}
     </>
   )
 }

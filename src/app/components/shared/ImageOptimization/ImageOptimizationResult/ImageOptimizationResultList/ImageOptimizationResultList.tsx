@@ -2,18 +2,18 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImageOptimizationResultItem, Loading, ScrollArea } from '@/app/components';
 import { useSelector } from 'react-redux';
-import { getImageOptimizationResult } from '@/app/redux/features';
+import { getFilteredOptimizationResult } from '@/app/redux/features';
 
 type Props = {
   isLoading: boolean;
 }
 
 export const ImageOptimizationResultList = ({ isLoading }: Props) => {
-  const imageOptimizationResult = useSelector(getImageOptimizationResult);
+  const filteredImageOptimizationResult = useSelector(getFilteredOptimizationResult);
 
   if (isLoading) {
     return (
-      <div className="flex h-full w-full justify-center items-center min-h-[488px]">
+      <div className="flex w-full justify-center items-center min-h-[488px]">
         <Loading />
       </div>
     )
@@ -22,7 +22,7 @@ export const ImageOptimizationResultList = ({ isLoading }: Props) => {
   return (
     <AnimatePresence>
       <ScrollArea className="h-[488px]">
-        {imageOptimizationResult.map((item, index) => (
+        {filteredImageOptimizationResult.map((item, index) => (
             <motion.div
               key={index}
               initial={{opacity: 0, y: 20}}
