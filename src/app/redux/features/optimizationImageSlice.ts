@@ -8,7 +8,8 @@ interface ImagesState {
   jobId: string;
   generalOptimizationPercent: number;
   isLoading: boolean;
-  isImageOptimizationResultsOpen: boolean
+  isImageOptimizationResultsOpen: boolean;
+  isArchiveDownloaded: boolean;
 }
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   generalOptimizationPercent: 100,
   isLoading: true,
   isImageOptimizationResultsOpen: false,
+  isArchiveDownloaded: false,
 } satisfies ImagesState as ImagesState;
 
 export const optimizationImageSlice = createSlice({
@@ -79,27 +81,28 @@ export const optimizationImageSlice = createSlice({
         }
       })
     },
-
     setImageOptimizationJobId(state, action: PayloadAction<{jobId: string}>){
       state.jobId = action.payload.jobId;
     },
-
     setImageOptimizationResult(state, action: PayloadAction<{ result: ImageOptimizationResult[] }>) {
       state.result = action.payload.result;
     },
-
     setImageOptimizationResultPageState(state, action: PayloadAction<{ isOpen: boolean}>) {
-      state.isImageOptimizationResultsOpen = action.payload.isOpen
+      state.isImageOptimizationResultsOpen = action.payload.isOpen;
+    },
+    setIsArchiveDownload(state, action: PayloadAction<{ isDownloaded: boolean }>) {
+      state.isArchiveDownloaded = action.payload.isDownloaded;
     },
     reset: () => initialState
   }
 });
 
 export const getImages = (state: RootState) => state.optimizationImages.images;
+
 export const getIsImageOptimizationResultsOpen = (state: RootState) => state.optimizationImages.isImageOptimizationResultsOpen;
 export const getImageOptimizationJobId = (state: RootState) => state.optimizationImages.jobId;
 export const getImageOptimizationResult = (state: RootState) => state.optimizationImages.result;
-
+export const getIsArchiveDownloadedState = (state: RootState) => state.optimizationImages.isArchiveDownloaded;
 export const getIsLoading = (state: RootState) => state.optimizationImages.isLoading;
 
 export const getSelectedImagesCount = (state: RootState) =>
@@ -109,6 +112,14 @@ export const getSelectedImages = createSelector(
   [getImages],
   (images) => images.filter((item) => item.isSelected)
 );
+
+export const getFilteredOptimizationResult = createSelector(
+  [getSelectedImages, getImageOptimizationResult],
+  (images, result) => {
+    const uuids = new Set(images.map(item => item.uuid));
+    return result.filter((img) => uuids.has(img.uuid));
+  }
+)
 
 export const getGeneralOptimizationPercent = (state: RootState) => state.optimizationImages.generalOptimizationPercent;
 
