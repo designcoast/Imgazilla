@@ -14,7 +14,7 @@ declare interface ImageInfo {
   uuid: string;
   width: number;
   height: number;
-  extension: string;
+  format: string;
   name: string;
   uintArray: Uint8Array;
   optimizationPercent: number;
@@ -23,6 +23,9 @@ declare interface ImageInfo {
 }
 
 declare interface ImageOptimizationResult {
+  uuid: string;
+  name: string;
   base64Image: string;
-  optimizedImageSize: string;
+  optimizedImageSize: number;
+  sourceImageSize: number;
 }
