@@ -1,24 +1,27 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { saveAs } from 'file-saver';
 import { DateTime } from 'luxon';
+import { encode } from 'base64-arraybuffer-es6';
 
 import { FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateFaviconSettings } from '@/app/redux/features';
 import { useGenerateFaviconMutation } from '@/app/redux/services';
-import { convertToBlob } from '@/app/lib/convertToBlob';
+
 import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
+import { useToast } from '@/app/hooks/useToast';
 
 export const FaviconExporterSettings = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [blobPath, setBlobPath] = useState<Blob>();
   const imageData = useSelector(getFaviconImageData);
 
-  const [generateFavicon, { isLoading, isError, isSuccess }] = useGenerateFaviconMutation();
+  const [generateFavicon, { isLoading }] = useGenerateFaviconMutation();
+  const { toast } = useToast();
 
   const dispatch = useTypedDispatch();
 
@@ -35,21 +38,21 @@ export const FaviconExporterSettings = () => {
   }, []);
 
   const handleOnSubmit = useCallback((data: FormDataType) => {
-    const blob = convertToBlob(imageData);
-
-    const formData = new FormData();
-    formData.append('image', blob);
-    formData.append('websiteName', data.websiteName);
-    formData.append('themeColor', data.themeColor);
-    formData.append('platforms[default]', data.platforms.default.toString());
-    formData.append('platforms[ios]', data.platforms.ios.toString());
-    formData.append('platforms[android]', data.platforms.android.toString());
-
-    generateFavicon(formData)
+    const result = {
+      image: encode(imageData),
+      ...data,
+    }
+    generateFavicon(result)
       .unwrap()
       .then(async (images: ImageObject[]) => {
         await onGenerateArchive(images, data);
-      })
+        setIsOpenSheet(true);
+      }).catch((error) => {
+      toast({
+        title: 'Error while generating favicon',
+        description: error,
+      });
+    })
 
     dispatch(updateFaviconSettings({
       faviconSettings: data
@@ -60,26 +63,10 @@ export const FaviconExporterSettings = () => {
     setIsOpenSheet(open);
   }, []);
 
-
   const handleOnDownload = useCallback(() => {
     const fileName = `${ARCHIVE_NAME}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
     saveAs(blobPath, fileName);
   }, [blobPath]);
-
-  useEffect(() => {
-    if (!isSuccess) {
-      return;
-    }
-
-    setIsOpenSheet(true);
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (!isError) {
-      return;
-    }
-    console.log('LOGGER: ')
-  }, [isError])
 
   return (
     <>
