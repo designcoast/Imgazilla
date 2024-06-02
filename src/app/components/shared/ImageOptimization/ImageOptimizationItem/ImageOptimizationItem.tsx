@@ -1,8 +1,16 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, CircleHelp } from 'lucide-react';
 
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
-import { Button, Checkbox, ImageOptimizationLevel } from '@/app/components';
+import {
+  Button,
+  Checkbox,
+  ImageOptimizationLevel,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/app/components';
 
 import {
   removeSelectedImages,
@@ -12,10 +20,11 @@ import {
 import { useTypedDispatch } from '@/app/redux/store';
 
 import { cn } from '@/app/lib/utils';
+import { calculateSize } from '@/app/lib/calculateSize';
 
 type Props = {
   item: ImageInfo;
-}
+};
 
 export const ImageOptimizationItem = memo(({ item }: Props) => {
   const {
@@ -27,11 +36,20 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
     format,
     optimizationPercent,
     isSelected,
+    setting
   } = item;
+
+  console.log('setting', setting);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const imageUrl = useMemo(() => convertToImageUrl(uintArray, format), [uintArray, format]);
+  const exportableImageSize = useMemo(() => calculateSize({
+    width,
+    height,
+    type: setting.constraint.type,
+    value: setting.constraint.value,
+  }), []);
 
   const dispatch = useTypedDispatch();
 
@@ -90,8 +108,35 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
         <div className={cn('flex text-xs', disabledStyles)}>
           {format}
         </div>
-        <div className={cn('flex text-xs', disabledStyles)}>
-          {width}x{height}
+        <div className={cn('flex gap-1.5 text-xs', disabledStyles)}>
+          <div className="flex">
+            {width}x{height}
+          </div>
+          {setting ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="p-0 h-fit">
+                  <CircleHelp size={16} />
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <div className="flex flex-col gap-1.5">
+                    {setting.constraint.value !== 1 ? (
+                      <div className="flex gap-1.5 justify-center align-baseline">
+                        <p className="text-xs">Exportable size:</p>
+                        <p className="text-xs">{exportableImageSize}</p>
+                      </div>
+                    ) : null}
+                    {setting?.suffix ? (
+                      <div className="flex gap-1.5">
+                        <p className="text-xs">Suffix:</p>
+                        <p className="text-xs">{setting?.suffix}</p>
+                      </div>
+                    ): null}
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : null}
         </div>
         <div className={cn(disabledStyles)}>
           <Button variant="ghost" onClick={handleOnOpen} disabled={isDisabled}>
