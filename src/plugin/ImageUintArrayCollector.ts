@@ -61,7 +61,10 @@ export class ImageUintArrayCollector {
 
   private async processImage(node: RectangleNode, setting: ExportSettingsImage): Promise<void> {
     try {
-      const bytes = await node.exportAsync(setting)
+      const bytes = await node.exportAsync({
+        format: 'PNG',
+        constraint: { type: 'WIDTH', value: 48 },
+      })
 
       const { width, height, name } = node;
 
@@ -70,14 +73,15 @@ export class ImageUintArrayCollector {
 
       const imageInfo: ImageInfo = {
         uuid: generateUUID(),
+        name,
         width,
         height,
+        setting,
         format: setting.format,
         uintArray: bytes,
         optimizationPercent: 100,
         isSelected: false,
         size: sizeInKB,
-        name
       };
 
       this.imageInfos.push(imageInfo);

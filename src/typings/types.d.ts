@@ -20,6 +20,15 @@ declare interface ImageInfo {
   optimizationPercent: number;
   isSelected: boolean;
   size: number;
+  setting: {
+    colorProfile: string;
+    format: string;
+    suffix?: string;
+    constraint: {
+      type: string;
+      value: number
+    }
+  };
 }
 
 declare interface ImageOptimizationResult {
