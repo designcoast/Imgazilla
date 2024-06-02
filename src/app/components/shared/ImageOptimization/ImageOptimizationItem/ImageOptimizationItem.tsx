@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
@@ -24,13 +24,14 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
     width,
     height,
     uintArray,
+    format,
     optimizationPercent,
     isSelected,
   } = item;
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const imageUrl = useMemo(() => convertToImageUrl(uintArray), [uintArray]);
+  const imageUrl = useMemo(() => convertToImageUrl(uintArray, format), [uintArray, format]);
 
   const dispatch = useTypedDispatch();
 
@@ -59,6 +60,15 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
     }));
   }, []);
 
+  useEffect(() => {
+    if (isSelected || !isOpen) {
+      return;
+    }
+
+    setIsOpen(false)
+
+  }, [isSelected, isOpen]);
+
   const isDisabled = !isSelected;
 
   const disabledStyles = isDisabled ? 'opacity-50 cursor-not-allowed' : '';
@@ -67,25 +77,28 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
     <div className={cn('flex flex-col border-b', isOpen ? 'bg-primary-grayCard' : '')}>
       <div className="flex items-center justify-between gap-5 py-2.5 space-x-4 px-4">
         <div className="flex items-center space-x-3">
-          <Checkbox onClick={handleOnCheck} checked={isSelected} />
+          <Checkbox onClick={handleOnCheck} checked={isSelected}/>
           <div className={cn(disabledStyles)}>
             <div className="w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md">
               <img src={imageUrl} alt={name} className="rounded-md min-w-full min-h-full object-cover"/>
             </div>
           </div>
-          <div className={cn('flex w-64', disabledStyles)}>
+          <div className={cn('flex w-56 text-xs', disabledStyles)}>
             <p className="truncate">{name}</p>
           </div>
         </div>
-        <div className={cn('flex', disabledStyles)}>
+        <div className={cn('flex text-xs', disabledStyles)}>
+          {format}
+        </div>
+        <div className={cn('flex text-xs', disabledStyles)}>
           {width}x{height}
         </div>
         <div className={cn(disabledStyles)}>
           <Button variant="ghost" onClick={handleOnOpen} disabled={isDisabled}>
             {isOpen ? (
-              <ChevronUp />
-              ) : (
-              <ChevronDown/>
+              <ChevronUp size={20}/>
+            ) : (
+              <ChevronDown size={20}/>
             )}
           </Button>
         </div>
