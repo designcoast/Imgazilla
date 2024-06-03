@@ -7,6 +7,6 @@ export const transformAndCompressData = (data: ImageInfo[]) => {
     name: item.name,
     optimizationPercent: item.optimizationPercent,
     base64Image: encode(item.uintArray),
-    setting: item.setting,
+    settings: item.setting,
   }));
 }

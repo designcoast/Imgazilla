@@ -14,5 +14,6 @@ export const calculatePercentageDifference = (value1: number, value2: number): s
 
 export const useSameUUIDs = (source: ImageInfo[], result: ImageOptimizationResult[]): boolean => {
   const uuidsSet = new Set(result.map(item => item.uuid));
+  // const precentage = new Set(result.map(item => item.sourceImageSize));
   return source.every(item => uuidsSet.has(item.uuid));
 };

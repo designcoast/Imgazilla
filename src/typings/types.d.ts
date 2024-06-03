@@ -21,12 +21,12 @@ declare interface ImageInfo {
   isSelected: boolean;
   size: number;
   setting: {
-    colorProfile: string;
+    colorProfile?: string;
     format: string;
     suffix?: string;
-    constraint: {
-      type: string;
-      value: number
+    constraint?: {
+      type?: string;
+      value?: number
     }
   };
 }
@@ -36,5 +36,7 @@ declare interface ImageOptimizationResult {
   name: string;
   base64Image: string;
   optimizedImageSize: number;
+  format: string;
   sourceImageSize: number;
+  pdfBuffer?: string;
 }
