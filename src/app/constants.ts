@@ -20,4 +20,7 @@ export const MIME_TYPE_SVG = 'image/svg+xml';
 export const FORMAT_TO_MIME_TYPE = {
   'PNG': MIME_TYPE_PNG,
   'SVG': MIME_TYPE_SVG,
-}
+};
+
+export const SUPPORTED_IMAGE_FORMATS = ['png', 'jpg', 'svg'];
+export const SUPPORTED_FILE_FORMATS = ['pdf'];
