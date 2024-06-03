@@ -59,12 +59,15 @@ export class ImageUintArrayCollector {
     processNext(0);
   }
 
-  private async processImage(node: RectangleNode, setting: ExportSettingsImage): Promise<void> {
+  private async processImage(node: RectangleNode, setting: ExportSettings): Promise<void> {
     try {
-      const bytes = await node.exportAsync({
-        format: 'PNG',
+      const updatedSettings = (setting.format === 'SVG' || setting.format === 'PDF') ? setting : {
+        ...setting,
+        format: setting.format,
         constraint: { type: 'WIDTH', value: 48 },
-      })
+      } as ExportSettings;
+
+      const bytes = await node.exportAsync(updatedSettings);
 
       const { width, height, name } = node;
 
