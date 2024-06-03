@@ -39,17 +39,15 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
     setting
   } = item;
 
-  console.log('setting', setting);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const imageUrl = useMemo(() => convertToImageUrl(uintArray, format), [uintArray, format]);
   const exportableImageSize = useMemo(() => calculateSize({
     width,
     height,
-    type: setting.constraint.type,
-    value: setting.constraint.value,
-  }), []);
+    type: setting?.constraint?.type,
+    value: setting?.constraint?.value,
+  }), [width, height, format, setting]);
 
   const dispatch = useTypedDispatch();
 
@@ -87,7 +85,12 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
 
   }, [isSelected, isOpen]);
 
+  console.log('setting', setting);
+
   const isDisabled = !isSelected;
+  const isShowExportableSize = setting?.constraint?.value && setting?.constraint?.value !== 1;
+
+  const isShowSettings = setting.suffix || isShowExportableSize;
 
   const disabledStyles = isDisabled ? 'opacity-50 cursor-not-allowed' : '';
 
@@ -112,7 +115,7 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
           <div className="flex">
             {width}x{height}
           </div>
-          {setting ? (
+          {isShowSettings ? (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger className="p-0 h-fit">
@@ -120,7 +123,7 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
                   <div className="flex flex-col gap-1.5">
-                    {setting.constraint.value !== 1 ? (
+                    {(isShowExportableSize) ? (
                       <div className="flex gap-1.5 justify-center align-baseline">
                         <p className="text-xs">Exportable size:</p>
                         <p className="text-xs">{exportableImageSize}</p>

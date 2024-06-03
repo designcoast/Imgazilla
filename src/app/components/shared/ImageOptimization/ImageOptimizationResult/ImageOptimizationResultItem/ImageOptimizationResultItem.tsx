@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { calculatePercentageDifference, cn } from '@/app/lib/utils';
-import { MIME_TYPE_PNG } from '@/app/constants';
+import { FORMAT_TO_MIME_TYPE } from '@/app/constants';
 
 type Props = {
   item: ImageOptimizationResult
 }
 
 export const ImageOptimizationResultItem = ({ item }: Props) => {
-  const { name, sourceImageSize, optimizedImageSize } = item;
+  const { name, sourceImageSize, format, optimizedImageSize } = item;
 
   const optimizationPercentage = useMemo(() =>
     calculatePercentageDifference(sourceImageSize, optimizedImageSize),
@@ -20,7 +20,7 @@ export const ImageOptimizationResultItem = ({ item }: Props) => {
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md">
             <img
-              src={`data:${MIME_TYPE_PNG};base64,${item.base64Image}`}
+              src={`data:${FORMAT_TO_MIME_TYPE[format.toUpperCase()]};base64,${item.base64Image}`}
               alt={name}
               className="rounded-md min-w-full min-h-full object-cover"
             />
