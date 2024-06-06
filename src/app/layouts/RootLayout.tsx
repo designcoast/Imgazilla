@@ -31,7 +31,7 @@ export const RootLayout = () => {
       <Tabs defaultValue={name} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="favicon" disabled={isFaviconTabDisabled}>Favicon exporter</TabsTrigger>
-          <TabsTrigger value="imagesOptimization" disabled={isImagesOptimizationTabDisabled}>Image optimisation</TabsTrigger>
+          <TabsTrigger value="imagesOptimization" disabled={isImagesOptimizationTabDisabled}>Image optimization</TabsTrigger>
         </TabsList>
         <>
           <TabsContent value="favicon">
