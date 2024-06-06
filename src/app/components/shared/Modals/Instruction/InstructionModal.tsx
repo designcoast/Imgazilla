@@ -1,5 +1,4 @@
 import React from 'react';
-import { Dot } from 'lucide-react';
 
 import {
   Button,
@@ -33,16 +32,17 @@ export const InstructionModal = () => {
           <p className="font-semibold">Image Optimization:</p>
           <ul className="flex flex-col gap-3">
             <li className="text-sm">1. Select the image you wish to optimise.</li>
-            <li className="text-sm">2. Click on the "Optimize Image" button.</li>
-            <li className="text-sm">3. Each image optimisation will cost you 1 credit.</li>
+            <li className="text-sm">2. Click on the "Image optimization" tab.</li>
+            <li className="text-sm">3. Each image optimisation will cost you 2 credits.</li>
           </ul>
         </div>
         <div className="grid gap-4 pt-4">
           <p className="font-semibold">Credit Management:</p>
           <ul className="flex flex-col gap-3">
-            <li className="text-sm flex"><Dot /> Check your current credit balance in the top-right corner.</li>
-            <li className="text-sm flex"><Dot /> Monitor your usage and balance to ensure smooth usage of the plugin.</li>
-            <li className="text-sm flex"><Dot /> Remember, you can earn 30 free credits each month to support your operations.</li>
+            <li className="text-sm flex">1. Check your current credit balance in the top-right corner.</li>
+            <li className="text-sm flex">2. Monitor your usage and balance to ensure smooth usage of the plugin.</li>
+            <li className="text-sm flex">3. Remember, you earn 30 free credits each month to support your operations.</li>
+            <li className="text-sm flex">4. Credits stack and <span className="inline-block font-bold ml-0.5">expire monthly</span>, with no rollover.</li>
           </ul>
         </div>
       </DialogContent>
