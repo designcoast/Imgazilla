@@ -139,7 +139,7 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-          ) : null}
+          ) : <div className="h-4 w-4" />}
         </div>
         <div className={cn(disabledStyles)}>
           <Button variant="ghost" onClick={handleOnOpen} disabled={isDisabled}>

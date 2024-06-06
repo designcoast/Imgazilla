@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Button,
   Dialog,
@@ -10,9 +10,11 @@ import {
 } from '@/app/components';
 import { useSelector } from 'react-redux';
 import { getAccount } from '@/app/redux/features';
+import { calculateCredits } from '@/app/lib/calculateCredits';
 
 export const EarnCreditsModal = () => {
   const accountDetails = useSelector(getAccount);
+  const { favicon, images } = useMemo(() => calculateCredits(accountDetails.credits), [accountDetails]);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,8 +29,8 @@ export const EarnCreditsModal = () => {
               <p className="text-lg">credits</p>
             </div>
           </div>
-          <DialogDescription className="text-primary-gray">~ 3 export favicon archives or 15 optimise images</DialogDescription>
-          <DialogDescription className="text-primary-gray">Credits stack and <span className="font-bold">expire monthly</span>, with no rollover.</DialogDescription>
+          <DialogDescription className="text-primary-gray">~ {favicon} export favicon archives or {images} optimized images</DialogDescription>
+          <DialogDescription className="text-primary-gray font-bold">All credits stack.</DialogDescription>
           <div className="!mt-4 !mb-2">
             <Separator/>
           </div>
