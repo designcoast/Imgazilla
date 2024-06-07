@@ -1,21 +1,20 @@
-import React, { ReactNode, useCallback } from 'react';
-import { useCreateAccountMutation, useLazyCheckAccountQuery, useNotifyMutation } from '@/app/redux/services';
+import React, { ReactNode, useCallback, useState } from 'react';
+import { useCreateAccountMutation, useLazyCheckAccountQuery } from '@/app/redux/services';
 import { AnimatedPage, ErrorComponent, Splash } from '@/app/components';
 import { EventType } from '@/eventType';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { setAccount } from '@/app/redux/features';
 import { isFetchBaseQueryError, isErrorWithMessage } from '@/app/redux/helpers';
 import { useTypedDispatch } from '@/app/redux/store';
-import { useToast } from '@/app/hooks/useToast';
 
 type Props = {
   children: ReactNode
 }
 export const AccountStatusChecker = ({ children }: Props) => {
-  const [onCheckAccount, { isError, isLoading }] = useLazyCheckAccountQuery();
-  const [createAccount, { isLoading: isCreatingAccount, isError: isCreatingAccountError }] = useCreateAccountMutation();
-  const [notify] = useNotifyMutation();
-  const { toast } = useToast();
+  const [isShowError, setIsShowError] = useState(false);
+  const [onCheckAccount, { isLoading }] = useLazyCheckAccountQuery();
+
+  const [createAccount, { isLoading: isCreatingAccount }] = useCreateAccountMutation();
 
   const dispatch = useTypedDispatch();
 
@@ -33,18 +32,21 @@ export const AccountStatusChecker = ({ children }: Props) => {
             if (error.status === 404) {
               createAccount(message?.payload?.data)
                 .unwrap()
+                .then(() => {
+                  onCheckAccount(id)
+                    .unwrap()
+                    .then((data) => {
+                      dispatch(setAccount(data));
+                    })
+                })
                 .catch((error) => {
                   if (isErrorWithMessage(error)) {
-                    notify({ message: `[CREATING ACCOUNT]: ${error.message}` });
-                    toast({
-                      title: 'Error while creating account',
-                      description: error.message,
-                    })
+                    setIsShowError(true);
                   }
                 })
               return
             }
-            notify({ message: `[CHECK ACCOUNT]: ${error.data}` });
+            setIsShowError(true);
           }
         })
     }
@@ -52,7 +54,7 @@ export const AccountStatusChecker = ({ children }: Props) => {
 
   useWindowMessaging(handleFigmaPluginMessages);
 
-  if (isError || isCreatingAccountError) {
+  if (isShowError) {
     return (
       <AnimatedPage>
         <ErrorComponent/>
