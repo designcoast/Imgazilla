@@ -1813,6 +1813,11 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@lemonsqueezy/lemonsqueezy.js@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@lemonsqueezy/lemonsqueezy.js/-/lemonsqueezy.js-3.0.0.tgz#34074e148ae120da411095e7ed5befef8fab47d9"
+  integrity sha512-EomAGkJLisI0/ptpe6a0plB++1Pqoe+FgMip4etfg2de05y58dkI+OA+HSdaFyXxpn1g0OtB50ofNVVoYQJX5A==
+
 "@module-federation/runtime-tools@0.1.6":
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/@module-federation/runtime-tools/-/runtime-tools-0.1.6.tgz#ee9bbe8c6e823b4c641695c91ab0b0bfdc5b3102"
