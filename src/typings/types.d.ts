@@ -3,6 +3,8 @@ declare module '*.svg' {
   export default content;
 }
 
+declare module 'crypto-browserify';
+
 declare module 'react-syntax-highlighter';
 
 declare type MessageType = {
