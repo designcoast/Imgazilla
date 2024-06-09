@@ -49,7 +49,10 @@ module.exports = (_env, { mode }) => ({
     alias: {
       '@': resolve(__dirname, 'src'),
     },
-    extensions: ['.tsx', '.ts', '.jsx', '.js']
+    extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    fallback: {
+      'stream': require.resolve('stream-browserify')
+    }
   },
 
   optimization: {
