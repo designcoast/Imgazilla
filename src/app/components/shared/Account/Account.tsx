@@ -25,9 +25,9 @@ export const Account = () => {
       <Popover onOpenChange={setIsOpen}>
         <PopoverTrigger>
           <div className="flex gap-2 items-center bg-tabBG py-2 px-5 rounded-lg">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger className="p-0 h-fit">
+            {/*<TooltipProvider>*/}
+            {/*  <Tooltip>*/}
+            {/*    <TooltipTrigger className="p-0 h-fit">*/}
                   <div className="flex gap-1 items-center">
                     <p className="font-bold text-sm">{accountDetails.credits}</p>
                     <p className="text-sm">credits</p>
@@ -36,15 +36,15 @@ export const Account = () => {
                       <img src={accountDetails.photoUrl} alt={accountDetails.name}/>
                     </div>
                   </div>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  <p className="flex">
-                    Credits stack and <span className="inline-block font-bold ml-0.5">expire monthly</span>, with no
-                    rollover.
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {/*    </TooltipTrigger>*/}
+            {/*    <TooltipContent side="bottom">*/}
+            {/*      <p className="flex">*/}
+            {/*        Credits stack and <span className="inline-block font-bold ml-0.5">expire monthly</span>, with no*/}
+            {/*        rollover.*/}
+            {/*      </p>*/}
+            {/*    </TooltipContent>*/}
+            {/*  </Tooltip>*/}
+            {/*</TooltipProvider>*/}
             {isOpen ? (
               <ChevronUp className="stroke-input"/>
             ) : (
