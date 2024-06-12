@@ -1,8 +1,9 @@
 import React from 'react';
-import { AnimatedPage, Button, Loading } from '@/app/components';
-import { usePriceList } from '@/app/hooks/usePriceList';
 
-const CREDITS = process.env.CREDITS;
+import { Coins } from 'lucide-react';
+
+import { AnimatedPage, Loading, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/components';
+import { usePriceList } from '@/app/hooks/usePriceList';
 
 export const PriceSelector = () => {
   const { isLoading, princeList } = usePriceList();
@@ -10,27 +11,36 @@ export const PriceSelector = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
-        <Loading />
+        <Loading/>
       </div>
     )
   }
 
   return (
     <AnimatedPage>
-      {princeList.map((variant, index) => (
-        <div key={index} className="flex flex-col bg-midnight-slate rounded-lg p-6">
-          <div className="flex flex-col items-center justify-center">
-            <div className="flex font-bold text-4xl">{variant.price}</div>
-            <div className="flex">
-              <div className="flex gap-1 justify-center items-baseline text-primary my-3">
-                <p className="font-medium text-lg">+ {CREDITS} / </p>
-                <p className="text-xs">credits</p>
-              </div>
-            </div>
+      <div className="flex flex-col w-full">
+        {princeList.map((variant, index) => (
+          <div key={index}>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="p-0 h-fit w-full">
+                  <div className="flex flex-row cursor-pointer justify-between bg-midnight-slate rounded-lg p-3 mb-3"
+                       onClick={() => window.open(variant.link, '_blank')}>
+                    <div className="flex items-center align-baseline gap-1.5">
+                      <Coins size={25} className="fill-amber-400 stroke-amber-600"/>
+                      <p className="text-lg">{variant.credits} Credits</p>
+                    </div>
+                    <div className="text-gray-400 text-lg">${variant.price}</div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p className="flex">{variant.tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
-          <Button onClick={() => window.open(variant.link, '_blank')}>Add credits</Button>
-        </div>
-      ))}
+        ))}
+      </div>
     </AnimatedPage>
   )
 };
