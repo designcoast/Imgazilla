@@ -4,11 +4,12 @@ import { createCheckout, listProducts } from '@lemonsqueezy/lemonsqueezy.js';
 import { useSelector } from 'react-redux';
 import { getAccount } from '@/app/redux/features';
 import { useDelay } from '@/app/hooks/useDelay';
+import { generateTooltip } from '@/app/lib/generatePriceTooltip';
 
 const storeID = process.env.LEMONSQUEEZY_STORE_ID;
 
 export const usePriceList = () => {
-  const [princeList, setPriceList] = useState<{ price: string, link: string, credits: number }[]>([]);
+  const [princeList, setPriceList] = useState<{ price: string, link: string, credits: number, tooltip: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const accountDetails = useSelector(getAccount);
@@ -45,6 +46,8 @@ export const usePriceList = () => {
               // Format the price
               const priceFormatted = (variant.attributes.price as number / 100).toFixed(2);
 
+              const tooltip = generateTooltip(credits);
+
               const checkoutLink = await createCheckout(storeID, variant.id, {
                 checkoutData: {
                   custom: {
@@ -56,7 +59,8 @@ export const usePriceList = () => {
               return {
                 link: checkoutLink.data.data.attributes.url,
                 price: priceFormatted,
-                credits
+                credits,
+                tooltip
               };
             })
           );
