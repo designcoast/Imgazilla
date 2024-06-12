@@ -18,7 +18,7 @@ export const EarnCreditsModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='ghost'>Earn More Credits</Button>
+        <Button variant='ghost'>Buy More Credits</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
