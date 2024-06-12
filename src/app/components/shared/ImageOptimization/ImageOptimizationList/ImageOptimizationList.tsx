@@ -26,7 +26,7 @@ export const ImageOptimizationList = () => {
 
   return (
     <AnimatePresence>
-      <ScrollArea className="h-[488px]">
+      <ScrollArea className="h-[425px]">
         {images.map((item, index) => (
             <motion.div
               key={item.uuid}
