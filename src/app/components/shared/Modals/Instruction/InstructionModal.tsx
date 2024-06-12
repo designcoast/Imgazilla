@@ -8,6 +8,10 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/app/components';
+
+const IMAGE_CREDITS_COST = process.env.IMAGE_CREDITS_COST;
+const FAVICON_ARCHIVE_CREDITS_COST = process.env.FAVICON_ARCHIVE_CREDITS_COST;
+
 //TODO: Extract all text from the component into json file
 export const InstructionModal = () => {
   return (
@@ -24,8 +28,7 @@ export const InstructionModal = () => {
           <ul className="flex flex-col gap-3">
             <li className="text-sm">1. Select the image you want to use for your favicon.</li>
             <li className="text-sm">2. Click on the "Export" button.</li>
-            <li className="text-sm">3. Each export of a favicon archive will cost you 10 credits.</li>
-            <li className="text-sm">4. You receive 30 free credits each month.</li>
+            <li className="text-sm">3. Each export of a favicon archive will cost you {FAVICON_ARCHIVE_CREDITS_COST} credits.</li>
           </ul>
         </div>
         <div className="grid gap-4 pt-4">
@@ -33,7 +36,7 @@ export const InstructionModal = () => {
           <ul className="flex flex-col gap-3">
             <li className="text-sm">1. Select the image you wish to optimise.</li>
             <li className="text-sm">2. Click on the "Image optimization" tab.</li>
-            <li className="text-sm">3. Each image optimisation will cost you 2 credits.</li>
+            <li className="text-sm">3. Each image optimisation will cost you {IMAGE_CREDITS_COST} credits <span className="inline-block font-bold ml-0.5">(Without limiting the number of images in each optimization)</span>.</li>
           </ul>
         </div>
         <div className="grid gap-4 pt-4">
@@ -41,8 +44,7 @@ export const InstructionModal = () => {
           <ul className="flex flex-col gap-3">
             <li className="text-sm flex">1. Check your current credit balance in the top-right corner.</li>
             <li className="text-sm flex">2. Monitor your usage and balance to ensure smooth usage of the plugin.</li>
-            <li className="text-sm flex">3. Remember, you earn 30 free credits each month to support your operations.</li>
-            <li className="text-sm flex">4. Credits stack and <span className="inline-block font-bold ml-0.5">expire monthly</span>, with no rollover.</li>
+            <li className="text-sm flex">3. Credits stack.</li>
           </ul>
         </div>
       </DialogContent>
