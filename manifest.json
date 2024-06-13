@@ -6,10 +6,10 @@
   "ui": "dist/index.html",
   "documentAccess": "dynamic-page",
   "editorType": ["figma", "dev"],
-  "permissions": ["currentuser", "payments"],
+  "permissions": ["currentuser"],
   "networkAccess": {
     "allowedDomains": ["*"],
-    "reasoning": "We use various external endpoints TEST"
+    "reasoning": "We use various external endpoints"
   },
   "relaunchButtons": [
     { "command": "favicon", "name": "Imgazilla - Favicon exporter" },
