@@ -8,8 +8,8 @@
   "editorType": ["figma", "dev"],
   "permissions": ["currentuser"],
   "networkAccess": {
-    "allowedDomains": ["*"],
-    "reasoning": "We use various external endpoints"
+    "allowedDomains": ["https://api.imgazilla.com", "https://s3-alpha.figma.com", "https://api.lemonsqueezy.com"],
+    "devAllowedDomains": ["http://localhost:3000"]
   },
   "relaunchButtons": [
     { "command": "favicon", "name": "Imgazilla - Favicon exporter" },
