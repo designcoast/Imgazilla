@@ -21,7 +21,7 @@ export const ImageOptimizationResultList = ({ isLoading }: Props) => {
 
   return (
     <AnimatePresence>
-      <ScrollArea className="h-[488px]">
+      <ScrollArea className="h-[515px]">
         {filteredImageOptimizationResult.map((item, index) => (
             <motion.div
               key={index}

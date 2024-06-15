@@ -68,7 +68,7 @@ export const ImageOptimizationResult = () => {
   return (
     <div className="relative">
       <ImageOptimizationResultSettings onClick={handleOnClosePageResult} isDisabled={isLoading}/>
-      <div className="min-h-[488px]">
+      <div className="min-h-[515px]">
         <ImageOptimizationResultList isLoading={isLoading}/>
       </div>
       {isLoading ? null : (
