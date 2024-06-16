@@ -7,6 +7,7 @@ import {
 import { faviconService, accountService, signalService, imageOptimizationService } from '@/app/redux/services';
 
 import { faviconSlice, accountSlice, optimizationImageSlice, tabSlice } from '@/app/redux/features';
+import { errorHandlingMiddleware } from '@/app/redux/middlewares/errorHandlingMiddleware';
 
 export const reducers = {
   [FAVICON_SERVICE_REDUCER_KEY]: faviconService.reducer,
@@ -24,4 +25,5 @@ export const middlewares = [
   faviconService.middleware,
   signalService.middleware,
   imageOptimizationService.middleware,
+  errorHandlingMiddleware
 ]

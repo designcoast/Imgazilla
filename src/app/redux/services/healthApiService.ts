@@ -10,6 +10,7 @@ interface ServerResponse {
 
 export const healthApiService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // @ts-ignore
     getStatus: builder.query<ServerResponse, void>({
       query: () => 'status'
     })

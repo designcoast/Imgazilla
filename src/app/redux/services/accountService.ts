@@ -14,6 +14,7 @@ interface CreateAccountBody {
 
 export const accountService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    // @ts-ignore
     checkAccount: builder.query<AccountState, string>({
       query: (id: string) => `/account/getAccount?id=${id}`
     }),
