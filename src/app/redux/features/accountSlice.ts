@@ -24,10 +24,14 @@ export const accountSlice = createSlice({
       state.figmaUserID = action.payload.figmaUserID;
       state.photoUrl = action.payload.photoUrl;
       state.credits = action.payload.credits;
+    },
+
+    updateAccountCredits(state, action: PayloadAction<{ credits: string }>) {
+      state.credits = action.payload.credits
     }
   }
 });
 
 export const getAccount = (state: RootState) => state.account;
 
-export const { setAccount } = accountSlice.actions;
+export const { setAccount, updateAccountCredits } = accountSlice.actions;

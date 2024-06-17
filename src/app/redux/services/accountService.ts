@@ -14,18 +14,22 @@ interface CreateAccountBody {
 
 export const accountService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // @ts-ignore
     checkAccount: builder.query<AccountState, string>({
       query: (id: string) => `/account/getAccount?id=${id}`
     }),
+
     createAccount: builder.mutation({
       query: (body: CreateAccountBody) => ({
         url: '/account/createAccount',
         method: 'POST',
         body: body
       })
+    }),
+
+    getAccountCredits: builder.query({
+      query: () => `/account/getAccountCredits`,
     })
   })
 })
 
-export const { useLazyCheckAccountQuery, useCreateAccountMutation } = accountService;
+export const { useLazyCheckAccountQuery, useCreateAccountMutation, useLazyGetAccountCreditsQuery } = accountService;
