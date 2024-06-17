@@ -6,7 +6,7 @@ export const createBaseApi = (reducerPath: string) => createApi({
   reducerPath,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.BASE_API_URL,
-    prepareHeaders: (headers, { endpoint, getState }) => {
+    prepareHeaders: (headers, { endpoint, getState }): void | Headers => {
       const figmaId = (getState() as RootState)?.account?.figmaUserID || endpoint;
       return prepareHeaders(headers, endpoint, figmaId);
     },
