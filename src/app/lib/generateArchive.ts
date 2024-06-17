@@ -34,8 +34,6 @@ export const generateArchive = async ({
     zip.file(name, buffer.data);
   }
 
-  console.log('isAndroid', isAndroid);
-
   if (isAndroid) {
     const manifest = getManifestObject({
       websiteName,
