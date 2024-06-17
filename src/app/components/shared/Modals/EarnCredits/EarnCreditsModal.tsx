@@ -29,7 +29,7 @@ export const EarnCreditsModal = () => {
               <p className="text-lg">credits</p>
             </div>
           </div>
-          <DialogDescription className="text-primary-gray">~ {favicon} export favicon archives or {images} optimized images</DialogDescription>
+          <DialogDescription className="text-primary-gray">~ {favicon} export favicon archives or {images} optimized image archives</DialogDescription>
           <DialogDescription className="text-primary-gray font-bold">All credits stack.</DialogDescription>
           <div className="!mt-4 !mb-2">
             <Separator/>
