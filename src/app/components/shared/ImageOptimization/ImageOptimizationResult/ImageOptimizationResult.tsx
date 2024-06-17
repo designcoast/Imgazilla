@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux';
 import { DateTime } from 'luxon';
 import { saveAs } from 'file-saver';
 
-import { useLazyGetOptimizedImageQuery, useLazyGetProcessStatusQuery } from '@/app/redux/services';
+import {
+  useLazyGetAccountCreditsQuery,
+  useLazyGetOptimizedImageQuery,
+  useLazyGetProcessStatusQuery
+} from '@/app/redux/services';
 import {
   getImageOptimizationJobId,
   getImageOptimizationResult,
-  setImageOptimizationResult, setImageOptimizationResultPageState
+  setImageOptimizationResult, setImageOptimizationResultPageState, updateAccountCredits
 } from '@/app/redux/features';
 import { ExportButton, ImageOptimizationResultList, ImageOptimizationResultSettings } from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
@@ -29,6 +33,7 @@ export const ImageOptimizationResult = () => {
   });
 
   const [getOptimizedImage] = useLazyGetOptimizedImageQuery();
+  const [getAccountCredits] = useLazyGetAccountCreditsQuery();
 
   const handleOnClosePageResult = useCallback(() => {
     dispatch(setImageOptimizationResultPageState({ isOpen: false }))
@@ -60,7 +65,14 @@ export const ImageOptimizationResult = () => {
         .unwrap()
         .then(({ result }) => {
           dispatch(setImageOptimizationResult({ result }));
-          setIsLoading(false);
+
+          getAccountCredits('')
+            .unwrap()
+            .then((credits) => {
+              dispatch(updateAccountCredits({ credits }));
+            }).finally(() => {
+            setIsLoading(false);
+          })
         })
     }
   }, [data, jobId]);
