@@ -8,8 +8,8 @@ import { encode } from 'base64-arraybuffer-es6';
 import { FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
-import { getFaviconImageData, updateFaviconSettings } from '@/app/redux/features';
-import { useGenerateFaviconMutation } from '@/app/redux/services';
+import { getFaviconImageData, updateAccountCredits, updateFaviconSettings } from '@/app/redux/features';
+import { useGenerateFaviconMutation, useLazyGetAccountCreditsQuery } from '@/app/redux/services';
 
 import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
@@ -21,6 +21,8 @@ export const FaviconExporterSettings = () => {
   const imageData = useSelector(getFaviconImageData);
 
   const [generateFavicon, { isLoading }] = useGenerateFaviconMutation();
+  const [getAccountCredits] = useLazyGetAccountCreditsQuery();
+
   const { toast } = useToast();
 
   const dispatch = useTypedDispatch();
@@ -46,7 +48,15 @@ export const FaviconExporterSettings = () => {
       .unwrap()
       .then(async (images: ImageObject[]) => {
         await onGenerateArchive(images, data);
-        setIsOpenSheet(true);
+
+        getAccountCredits('')
+          .unwrap()
+          .then((credits: string) => {
+            dispatch(updateAccountCredits({ credits }));
+          }).finally(() => {
+          setIsOpenSheet(true);
+        })
+
       }).catch((error) => {
       toast({
         title: 'Error while generating favicon',

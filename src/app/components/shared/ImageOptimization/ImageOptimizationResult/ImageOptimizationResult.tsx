@@ -68,7 +68,7 @@ export const ImageOptimizationResult = () => {
 
           getAccountCredits('')
             .unwrap()
-            .then((credits) => {
+            .then((credits: string) => {
               dispatch(updateAccountCredits({ credits }));
             }).finally(() => {
             setIsLoading(false);

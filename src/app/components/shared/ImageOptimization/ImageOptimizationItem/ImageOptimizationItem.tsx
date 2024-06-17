@@ -85,8 +85,6 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
 
   }, [isSelected, isOpen]);
 
-  console.log('setting', setting);
-
   const isDisabled = !isSelected;
   const isShowExportableSize = setting?.constraint?.value && setting?.constraint?.value !== 1;
 
