@@ -130,7 +130,7 @@ export class FigmaUI {
   private async collectNodes() {
 
     const collector = new ImageUintArrayCollector({
-      chunkSize: 3,
+      chunkSize: 1,
       onChunkProcessed: (collection: ImageInfo[]) => {
         this.figmaAPI.sendImageCollectionToUI(collection);
       },
