@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 type Player = 'X' | 'O' | null;
+type Difficulty = 'Easy' | 'Medium' | 'Hard';
 
 export const TicTacToe: React.FC = () => {
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<Player>('X');
   const [winner, setWinner] = useState<Player>(null);
+  const [difficulty] = useState<Difficulty>('Medium');
 
   const handleClick = (index: number) => {
     if (board[index] || winner || currentPlayer === 'O') return;
@@ -24,7 +26,7 @@ export const TicTacToe: React.FC = () => {
 
   useEffect(() => {
     if (currentPlayer === 'O' && !winner) {
-      const aiMove = calculateAiMove(board);
+      const aiMove = calculateAiMove(board, difficulty);
       const newBoard = board.slice();
       newBoard[aiMove] = 'O';
       setBoard(newBoard);
@@ -36,7 +38,7 @@ export const TicTacToe: React.FC = () => {
         setCurrentPlayer('X');
       }
     }
-  }, [currentPlayer, board, winner]);
+  }, [currentPlayer, board, winner, difficulty]);
 
   const calculateWinner = (board: Player[]): Player => {
     const lines = [
@@ -58,9 +60,22 @@ export const TicTacToe: React.FC = () => {
     return null;
   };
 
-  const calculateAiMove = (board: Player[]): number => {
-    const bestMove = minimax(board, 'O').index;
-    return bestMove;
+  const calculateAiMove = (board: Player[], difficulty: Difficulty): number => {
+    if (difficulty === 'Easy') {
+      const emptyIndices = board.map((value, index) => value === null ? index : null).filter(index => index !== null) as number[];
+      return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+    }
+
+    if (difficulty === 'Medium') {
+      const randomMove = Math.random();
+      if (randomMove < 0.5) {
+        const emptyIndices = board.map((value, index) => value === null ? index : null).filter(index => index !== null) as number[];
+        return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+      }
+    }
+
+    // Hard difficulty uses minimax algorithm
+    return minimax(board, 'O').index;
   };
 
   const minimax = (newBoard: Player[], player: Player) => {
