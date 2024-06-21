@@ -13,6 +13,7 @@ export { ImageOptimizationResult } from '@/app/components/shared/ImageOptimizati
 export { ImageOptimizationResultItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultItem/ImageOptimizationResultItem';
 export { ImageOptimizationResultList } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultList/ImageOptimizationResultList';
 export { ImageOptimizationResultSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultSettings/ImageOptimizationResultSettings';
+export { TicTacToe } from '@/app/components/shared/TicTacToe/TicTacToe';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
