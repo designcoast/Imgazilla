@@ -1,7 +1,6 @@
 import JSZip from 'jszip';
 import { decode } from 'base64-arraybuffer-es6';
 import { getHtmlSnippet, getManifestObject } from '@/app/utils/code-template';
-import { SUPPORTED_FILE_FORMATS } from '@/app/constants';
 
 export interface ImageObject {
   name: string;
@@ -53,18 +52,23 @@ export const generateArchive = async ({
 export const generateImagesArchive = async (items: ImageOptimizationResult[], folderName: string) => {
   const zip = new JSZip();
   const folder = zip.folder(folderName);
+  const nameCountMap: { [key: string]: number } = {};
 
   for (const item of items) {
     const { name, base64Image, format, pdfBuffer } = item;
-    const fileName = `${name}.${format}`;
+    let fileName = `${name}.${format}`;
+    const originName = `${name}.${format}`;
 
-    if (SUPPORTED_FILE_FORMATS.includes(format) && pdfBuffer) {
-      const buffer = decode(pdfBuffer);
-      folder.file(fileName, buffer);
+    if (nameCountMap[originName]) {
+      fileName = `${name}(${nameCountMap[fileName]}).${format}`;
+      nameCountMap[originName] += 1;
     } else {
-      const buffer = decode(base64Image);
-      folder.file(fileName, buffer);
+      nameCountMap[originName] = 1;
     }
+
+    const buffer = pdfBuffer ? decode(pdfBuffer) : decode(base64Image);
+    folder.file(fileName, buffer);
   }
+
   return await zip.generateAsync({ type: 'blob', compressionOptions: { level: 9 }});
 }

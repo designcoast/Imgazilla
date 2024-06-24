@@ -16,11 +16,16 @@ export const ANDROID_ICONS_SIZES = ['36x36', '48x48', '72x72', '96x96', '144x144
 
 export const MIME_TYPE_PNG = 'image/png';
 export const MIME_TYPE_SVG = 'image/svg+xml';
+export const MIME_TYPE_PDF = 'application/pdf';
 
 export const FORMAT_TO_MIME_TYPE = {
   'PNG': MIME_TYPE_PNG,
   'SVG': MIME_TYPE_SVG,
+  'PDF': MIME_TYPE_PDF,
 };
+
+export const PDF_FORMAT = 'PDF';
+export const SVG_FORMAT = 'SVG';
 
 export const SUPPORTED_IMAGE_FORMATS = ['png', 'jpg', 'svg'];
 export const SUPPORTED_FILE_FORMATS = ['pdf'];
