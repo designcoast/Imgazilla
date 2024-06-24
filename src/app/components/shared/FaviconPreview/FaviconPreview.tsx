@@ -25,7 +25,7 @@ export const FaviconPreview = () => {
   return (
     <div className="flex items-center justify-center my-8">
       {imageData ? (
-        <ImagePreview imageUrl={convertToImageUrl(imageData)} />
+        <ImagePreview imageUrl={convertToImageUrl(imageData, 'PNG')} />
       ): (
         <EmptyImageSelector />
       )}
