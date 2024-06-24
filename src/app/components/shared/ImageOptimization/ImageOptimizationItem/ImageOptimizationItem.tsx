@@ -21,6 +21,7 @@ import { useTypedDispatch } from '@/app/redux/store';
 
 import { cn } from '@/app/lib/utils';
 import { calculateSize } from '@/app/lib/calculateSize';
+import { PDF_FORMAT, SVG_FORMAT } from '@/app/constants';
 
 type Props = {
   item: ImageInfo;
@@ -85,7 +86,10 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
 
   }, [isSelected, isOpen]);
 
+  const isNotSupportedFormat = format === PDF_FORMAT || format === SVG_FORMAT;
+
   const isDisabled = !isSelected;
+
   const isShowExportableSize = setting?.constraint?.value && setting?.constraint?.value !== 1;
 
   const isShowSettings = setting.suffix || isShowExportableSize;
@@ -99,7 +103,11 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
           <Checkbox onClick={handleOnCheck} checked={isSelected}/>
           <div className={cn(disabledStyles)}>
             <div className="w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md">
-              <img src={imageUrl} alt={name} className="rounded-md min-w-full min-h-full object-cover"/>
+              {format === PDF_FORMAT ? (
+                <iframe src={imageUrl} width="100%" height="100%" className="rounded-md min-w-full min-h-full object-cover"/>
+              ) : (
+                <img src={imageUrl} alt={name} className="rounded-md min-w-full min-h-full object-cover"/>
+              )}
             </div>
           </div>
           <div className={cn('flex w-56 text-xs', disabledStyles)}>
@@ -140,13 +148,26 @@ export const ImageOptimizationItem = memo(({ item }: Props) => {
           ) : <div className="h-4 w-4" />}
         </div>
         <div className={cn(disabledStyles)}>
-          <Button variant="ghost" onClick={handleOnOpen} disabled={isDisabled}>
-            {isOpen ? (
-              <ChevronUp size={20}/>
-            ) : (
-              <ChevronDown size={20}/>
-            )}
-          </Button>
+          {isNotSupportedFormat ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="px-4 h-fit opacity-50 cursor-not-allowed" disabled={true}>
+                  <ChevronDown size={20}/>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <span>Optimization settings are currently not supported.</span>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            <Button variant="ghost" onClick={handleOnOpen} disabled={isDisabled}>
+              {isOpen ? (
+                <ChevronUp size={20}/>
+              ) : (
+                <ChevronDown size={20}/>
+              )}
+            </Button>
+          )}
         </div>
       </div>
       {isOpen ? (
