@@ -40,6 +40,10 @@ export const PriceSelector = () => {
             </TooltipProvider>
           </div>
         ))}
+        <p className="flex gap-1.5 text-primary-gray font-bold text-sm">
+          <span className="flex text-red-600">*</span>
+          Please reload the plugin after purchase.
+        </p>
       </div>
     </AnimatedPage>
   )
