@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getAccount } from '@/app/redux/features';
@@ -6,19 +6,18 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Button,
   InstructionModal, EarnCreditsModal
 } from '@/app/components';
 
-const DISCORD_URL = process.env.DISCORD_HELP_COMMUNITY_URL;
+// const DISCORD_URL = process.env.DISCORD_HELP_COMMUNITY_URL;
 
 export const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
   const accountDetails = useSelector(getAccount);
 
-  const handleOnHelpClick = useCallback(() => {
-    window.open(DISCORD_URL, '_blank');
-  }, []);
+  // const handleOnHelpClick = useCallback(() => {
+  //   window.open(DISCORD_URL, '_blank');
+  // }, []);
 
   return (
     <div className="flex">
@@ -42,7 +41,7 @@ export const Account = () => {
         <PopoverContent className="flex flex-col items-start border-none w-full">
           <EarnCreditsModal/>
           <InstructionModal/>
-          <Button variant='link' onClick={handleOnHelpClick}>Need Help?</Button>
+          {/*<Button variant='link' onClick={handleOnHelpClick}>Need Help?</Button>*/}
         </PopoverContent>
       </Popover>
     </div>
