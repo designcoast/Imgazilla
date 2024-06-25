@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { calculatePercentageDifference, cn } from '@/app/lib/utils';
-import { FORMAT_TO_MIME_TYPE } from '@/app/constants';
+import { FORMAT_TO_MIME_TYPE, PDF_FORMAT } from '@/app/constants';
+import { base64ToBlobUrl } from '@/app/lib/base64ToBlobUrl';
 
 type Props = {
   item: ImageOptimizationResult
@@ -14,16 +15,23 @@ export const ImageOptimizationResultItem = ({ item }: Props) => {
     [sourceImageSize, optimizedImageSize]
   );
 
+  const fileFormat = format.toUpperCase();
+
   return (
     <div className={cn('flex flex-col border-b')}>
       <div className="flex items-center justify-between gap-5 py-2.5 space-x-4 px-4">
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md">
-            <img
-              src={`data:${FORMAT_TO_MIME_TYPE[format.toUpperCase()]};base64,${item.base64Image}`}
-              alt={name}
-              className="rounded-md min-w-full min-h-full object-cover"
-            />
+            {fileFormat === PDF_FORMAT ? (
+              <iframe src={base64ToBlobUrl(item.pdfBuffer, PDF_FORMAT)} width="100%" height="100%" className="rounded-md min-w-full min-h-full object-cover"/>
+            ) : (
+              <img
+                src={`data:${FORMAT_TO_MIME_TYPE[fileFormat]};base64,${item.base64Image}`}
+                alt={name}
+                className="rounded-md min-w-full min-h-full object-cover"
+              />
+            )}
+
           </div>
           <div className='flex w-64'>
             <p className="truncate">{name}</p>
