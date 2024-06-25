@@ -34,9 +34,8 @@ export const InstructionModal = () => {
         <div className="grid gap-4 pt-4">
           <p className="font-semibold">Image Optimization:</p>
           <ul className="flex flex-col gap-3">
-            <li className="text-sm">1. Select the image you wish to optimise.</li>
-            <li className="text-sm">2. Click on the "Image optimization" tab.</li>
-            <li className="text-sm">3. Each image optimisation will cost you {IMAGE_CREDITS_COST} credits <span className="inline-block font-bold ml-0.5">(Without limiting the number of images in each optimization)</span>.</li>
+            <li className="text-sm">1. Click on the "Image optimization" tab.</li>
+            <li className="text-sm">2. Each archive will cost you {IMAGE_CREDITS_COST} credits <span className="inline-block font-bold ml-0.5">(Without limiting the number of images in each archive)</span>.</li>
           </ul>
         </div>
         <div className="grid gap-4 pt-4">
