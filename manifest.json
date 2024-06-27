@@ -8,7 +8,7 @@
   "editorType": ["figma", "dev"],
   "permissions": ["currentuser"],
   "networkAccess": {
-    "allowedDomains": ["https://api.imgazilla.com", "https://s3-alpha.figma.com", "https://api.lemonsqueezy.com"],
+    "allowedDomains": ["https://figma.imgazilla.app", "https://s3-alpha.figma.com", "https://api.lemonsqueezy.com"],
     "devAllowedDomains": ["http://localhost:3000"]
   },
   "relaunchButtons": [
