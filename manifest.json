@@ -5,7 +5,7 @@
   "main": "dist/code.js",
   "ui": "dist/index.html",
   "documentAccess": "dynamic-page",
-  "editorType": ["figma", "dev"],
+  "editorType": ["figma"],
   "permissions": ["currentuser"],
   "networkAccess": {
     "allowedDomains": ["https://figma.imgazilla.app", "https://s3-alpha.figma.com", "https://api.lemonsqueezy.com"],
