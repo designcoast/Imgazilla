@@ -3,24 +3,21 @@ import { useSelector } from 'react-redux';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { getImages, getIsLoading } from '@/app/redux/features';
-import { ImageOptimizationItem, Loading, ScrollArea } from '@/app/components';
+import { getImages } from '@/app/redux/features';
+import { ImageOptimizationItem, ScrollArea } from '@/app/components';
 
-export const ImageOptimizationList = () => {
+type Props = {
+  isLoading: boolean;
+}
+
+export const ImageOptimizationList = ({ isLoading }: Props) => {
   const images = useSelector(getImages);
-  const isLoading = useSelector(getIsLoading);
-
-  if (isLoading) {
-    return (
-      <div className="flex h-full w-full justify-center items-center min-h-[488px]">
-        <Loading />
-      </div>
-    )
-  }
 
   if (!isLoading && images.length === 0) {
     return (
-      <div className="flex">Empty</div>
+      <div className="h-[425px] px-10 text-center text-sm font-bold flex justify-center items-center">
+        No images available for export. Please select images in your Figma project and add export settings.
+      </div>
     )
   }
 

@@ -5,10 +5,13 @@ import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
 import {
-  FAVICON_TAB, getGeneralOptimizationPercent,
-  getImages, getIsImageOptimizationResultsOpen, getSelectedImages,
+  FAVICON_TAB,
+  getGeneralOptimizationPercent,
+  getIsImageOptimizationResultsOpen,
+  getSelectedImages,
   reset,
-  setDisableTab, setImageOptimizationJobId, setImageOptimizationResultPageState,
+  setDisableTab, setImageOptimizationJobId,
+  setImageOptimizationResultPageState,
   setImagesForOptimization
 } from '@/app/redux/features';
 
@@ -28,7 +31,6 @@ export const ImageOptimization = () => {
   const dispatch = useTypedDispatch();
   const { toast } = useToast();
 
-  const images = useSelector(getImages);
   const isImageOptimizationResultsOpen = useSelector(getIsImageOptimizationResultsOpen)
   const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent)
   const selectedImages = useSelector(getSelectedImages);
@@ -50,7 +52,6 @@ export const ImageOptimization = () => {
   }, [selectedImages, generalOptimizationPercent]);
 
   const onFetchImageCollection = useCallback(() => {
-
     setIsLoading(true);
 
     onSendMessage({
@@ -66,7 +67,12 @@ export const ImageOptimization = () => {
 
   const handleOnRefresh = useCallback(() => {
     dispatch(reset());
+    handleOnFetchImageCollection();
+  }, []);
+
+  const handleOnFetchImageCollection = useCallback(() => {
     onDisableTab();
+    onFetchImageCollection();
   }, []);
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
@@ -85,13 +91,8 @@ export const ImageOptimization = () => {
   const isDisabled = selectedImages.length === 0;
 
   useEffect(() => {
-    if (images.length > 0) {
-      return
-    }
-
-    onDisableTab();
-    onFetchImageCollection();
-  }, [images]);
+    handleOnFetchImageCollection();
+  }, [handleOnFetchImageCollection]);
 
   return (
     <>
@@ -102,7 +103,7 @@ export const ImageOptimization = () => {
           <div className="flex flex-col relative">
             <ImageOptimizationSettings onRefresh={handleOnRefresh} />
             <div className="min-h-[488px]">
-              <ImageOptimizationList />
+              <ImageOptimizationList isLoading={isLoading}/>
             </div>
             <ExportButton onClick={onOptimizeImage} isDisabled={isDisabled} className="absolute">Export</ExportButton>
           </div>

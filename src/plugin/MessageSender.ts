@@ -4,6 +4,8 @@ export class MessageSender {
   constructor() {}
 
   sendMessageToUI(message: MessageType) {
-    figma.ui.postMessage(message);
+    figma.ui.postMessage(message, {
+      origin: '*'
+    });
   }
 }
