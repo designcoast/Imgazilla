@@ -24,9 +24,8 @@ export const useWindowMessaging = (onMessage?: (data: any) => void) => {
       return
     }
     window.parent.postMessage({
-      pluginMessage: message,
-      pluginId: '1212822984289711531'
-    }, 'https://www.figma.com');
+      pluginMessage: message
+    }, '*');
   }, [])
 
   return { onSendMessage };
