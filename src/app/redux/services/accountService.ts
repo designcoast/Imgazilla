@@ -5,7 +5,7 @@ export const ACCOUNT_SERVICE_REDUCER_KEY = 'accountService';
 
 const baseApi = createBaseApi(ACCOUNT_SERVICE_REDUCER_KEY);
 
-interface CreateAccountBody {
+export interface CreateAccountBody {
   id: string;
   name: string;
   photoUrl: string;

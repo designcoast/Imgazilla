@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useState } from 'react';
-import { useCreateAccountMutation, useLazyCheckAccountQuery } from '@/app/redux/services';
+import { CreateAccountBody, useCreateAccountMutation, useLazyCheckAccountQuery } from '@/app/redux/services';
 import { AnimatedPage, ErrorComponent, Splash } from '@/app/components';
 import { EventType } from '@/eventType';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
@@ -18,6 +18,19 @@ export const AccountStatusChecker = ({ children }: Props) => {
 
   const dispatch = useTypedDispatch();
 
+  const handleCreateAccount = useCallback((userData: CreateAccountBody) => {
+    createAccount(userData)
+      .unwrap()
+      .then((data) => {
+        dispatch(setAccount(data));
+      })
+      .catch((error) => {
+        if (isErrorWithMessage(error)) {
+          setIsShowError(true);
+        }
+      })
+  }, [createAccount, setAccount]);
+
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message?.type === EventType.USER_ACCOUNT_DATA) {
       const { id } = message?.payload?.data;
@@ -25,27 +38,17 @@ export const AccountStatusChecker = ({ children }: Props) => {
       onCheckAccount(id)
         .unwrap()
         .then((data) => {
-          dispatch(setAccount(data));
+          const accountData = Object.keys(data);
+
+          if (accountData.length > 0) {
+            dispatch(setAccount(data));
+            return;
+          }
+
+          handleCreateAccount(message?.payload?.data)
         })
         .catch((error) => {
           if (isFetchBaseQueryError(error)) {
-            if (error.status === 404) {
-              createAccount(message?.payload?.data)
-                .unwrap()
-                .then(() => {
-                  onCheckAccount(id)
-                    .unwrap()
-                    .then((data) => {
-                      dispatch(setAccount(data));
-                    })
-                })
-                .catch((error) => {
-                  if (isErrorWithMessage(error)) {
-                    setIsShowError(true);
-                  }
-                })
-              return
-            }
             setIsShowError(true);
           }
         })
