@@ -19,7 +19,7 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action: Acti
     }
 
     toast.warning('Error', {
-      description: action.payload.data.message
+      description: action?.payload?.data?.message
     });
   }
 
