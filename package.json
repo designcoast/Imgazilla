@@ -1,6 +1,6 @@
 {
   "name": "imgazilla",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Image optimisation and representation plugin for Figma",
   "license": "ISC",
   "scripts": {
