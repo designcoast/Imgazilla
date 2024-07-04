@@ -79,7 +79,7 @@ module.exports = (_env, { mode }) => ({
 
   plugins: [
     new Dotenv({
-      path: mode === 'production' ? '.env.production' : '.env',
+      path: mode === 'production' ? '.env' : '.env.development.local',
     }),
     new HtmlWebpackPlugin({
       template: './src/app/index.html',
