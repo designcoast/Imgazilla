@@ -11,5 +11,4 @@ export enum EventType {
 
 export enum UIEventType {
   GET_IMAGES_UINT_ARRAY_COLLECTION = 'get_images_uint_array_collection',
-  REOPEN_APPLICATION = 'open_application'
 }
