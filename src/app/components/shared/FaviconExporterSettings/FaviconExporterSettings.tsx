@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { saveAs } from 'file-saver';
 import { DateTime } from 'luxon';
 import { encode } from 'base64-arraybuffer-es6';
+import { toast, } from 'sonner';
 
-import { FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
+import { EarnCreditsModal, FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateAccountCredits, updateFaviconSettings } from '@/app/redux/features';
@@ -13,17 +14,15 @@ import { useGenerateFaviconMutation, useLazyGetAccountCreditsQuery } from '@/app
 
 import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
-import { useToast } from '@/app/hooks/useToast';
 
 export const FaviconExporterSettings = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [blobPath, setBlobPath] = useState<Blob>();
   const imageData = useSelector(getFaviconImageData);
 
   const [generateFavicon, { isLoading }] = useGenerateFaviconMutation();
   const [getAccountCredits] = useLazyGetAccountCreditsQuery();
-
-  const { toast } = useToast();
 
   const dispatch = useTypedDispatch();
 
@@ -56,12 +55,15 @@ export const FaviconExporterSettings = () => {
           }).finally(() => {
           setIsOpenSheet(true);
         })
-
       }).catch((error) => {
-      toast({
-        title: 'Error while generating favicon',
-        description: error,
-      });
+        toast.info('Error while generating favicon', {
+          description: error?.data?.message,
+          action: {
+            label: 'Purchase',
+            onClick: () => setIsOpenModal(true)
+          },
+          duration: 5000
+        });
     })
 
     dispatch(updateFaviconSettings({
@@ -84,6 +86,7 @@ export const FaviconExporterSettings = () => {
         <p className="font-bold">Customise</p>
       </div>
       <FaviconSettingsForm onSubmit={handleOnSubmit}/>
+      <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} />
       <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload} />
       {isLoading ? (
         <Overlay />
