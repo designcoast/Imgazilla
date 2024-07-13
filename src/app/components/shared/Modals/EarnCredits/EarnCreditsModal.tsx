@@ -12,14 +12,21 @@ import { useSelector } from 'react-redux';
 import { getAccount } from '@/app/redux/features';
 import { calculateCredits } from '@/app/lib/calculateCredits';
 
-export const EarnCreditsModal = () => {
+type Props = {
+  isOpen?: boolean;
+  showTrigger?: boolean;
+};
+
+export const EarnCreditsModal = ({ isOpen = false, showTrigger = true }: Props) => {
   const accountDetails = useSelector(getAccount);
   const { favicon, images } = useMemo(() => calculateCredits(accountDetails.credits), [accountDetails]);
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant='ghost'>Buy More Credits</Button>
-      </DialogTrigger>
+    <Dialog open={isOpen}>
+      {showTrigger ? (
+        <DialogTrigger asChild>
+          <Button variant='ghost'>Buy More Credits</Button>
+        </DialogTrigger>
+      ) : null}
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-center font-medium">Your account balance</DialogTitle>
