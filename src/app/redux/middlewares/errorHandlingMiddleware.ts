@@ -18,6 +18,11 @@ export const errorHandlingMiddleware: Middleware = () => (next) => (action: Acti
       return next(action);
     }
 
+    // Handle error regarding credits inside the component
+    if (action?.payload?.data?.statusCode === 406) {
+      return next(action);
+    }
+
     toast.warning('Error', {
       description: action?.payload?.data?.message
     });
