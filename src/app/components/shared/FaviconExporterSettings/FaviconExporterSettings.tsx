@@ -78,6 +78,10 @@ export const FaviconExporterSettings = () => {
     setIsOpenSheet(open);
   }, []);
 
+  const handleOnCreditModalOpenChange = useCallback((isOpen: boolean) => {
+    setIsOpenModal(isOpen);
+  }, []);
+
   const handleOnDownload = useCallback(() => {
     const fileName = `${ARCHIVE_NAME}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
 
@@ -97,7 +101,7 @@ export const FaviconExporterSettings = () => {
         <p className="font-bold">Customise</p>
       </div>
       <FaviconSettingsForm onSubmit={handleOnSubmit}/>
-      <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} />
+      <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnCreditModalOpenChange}/>
       <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload} />
       {isLoading ? (
         <Overlay />

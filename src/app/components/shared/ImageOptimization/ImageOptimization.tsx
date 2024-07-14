@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import { toast, } from 'sonner';
+
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
@@ -18,18 +20,17 @@ import {
 import {
   Overlay,
   ImageOptimizationSettings,
-  ImageOptimizationList, ExportButton, ImageOptimizationResult
+  ImageOptimizationList, ExportButton, ImageOptimizationResult, EarnCreditsModal
 } from '@/app/components';
 import { useOptimizeImageMutation } from '@/app/redux/services';
 import { transformAndCompressData } from '@/app/lib/compressData';
-import { useToast } from '@/app/hooks/useToast';
 
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [optimizeImage] = useOptimizeImageMutation();
 
   const dispatch = useTypedDispatch();
-  const { toast } = useToast();
 
   const isImageOptimizationResultsOpen = useSelector(getIsImageOptimizationResultsOpen)
   const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent)
@@ -44,9 +45,13 @@ export const ImageOptimization = () => {
         dispatch(setImageOptimizationJobId({ jobId }))
         dispatch(setImageOptimizationResultPageState({ isOpen: true }))
       }).catch((error) => {
-        toast({
-          title: 'Error while optimizing image',
-          description: error,
+        toast.info('Error while generating favicon', {
+          description: error?.data?.message,
+          action: {
+            label: 'Purchase',
+            onClick: () => setIsOpenModal(true)
+          },
+          duration: 5000
         });
     })
   }, [selectedImages, generalOptimizationPercent]);
@@ -59,6 +64,10 @@ export const ImageOptimization = () => {
       payload: {}
     })
 
+  }, []);
+
+  const handleOnOpenChange = useCallback((isOpen: boolean) => {
+    setIsOpenModal(isOpen);
   }, []);
 
   const onDisableTab = useCallback((isDisabled: boolean = true) => {
@@ -102,6 +111,7 @@ export const ImageOptimization = () => {
         <>
           <div className="flex flex-col relative">
             <ImageOptimizationSettings onRefresh={handleOnRefresh} />
+            <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnOpenChange} />
             <div className="min-h-[488px]">
               <ImageOptimizationList isLoading={isLoading}/>
             </div>

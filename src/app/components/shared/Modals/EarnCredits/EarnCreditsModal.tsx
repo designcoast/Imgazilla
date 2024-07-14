@@ -15,13 +15,14 @@ import { calculateCredits } from '@/app/lib/calculateCredits';
 type Props = {
   isOpen?: boolean;
   showTrigger?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
-export const EarnCreditsModal = ({ isOpen = false, showTrigger = true }: Props) => {
+export const EarnCreditsModal = ({ isOpen = undefined, showTrigger = true, onOpenChange }: Props) => {
   const accountDetails = useSelector(getAccount);
   const { favicon, images } = useMemo(() => calculateCredits(accountDetails.credits), [accountDetails]);
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       {showTrigger ? (
         <DialogTrigger asChild>
           <Button variant='ghost'>Buy More Credits</Button>
