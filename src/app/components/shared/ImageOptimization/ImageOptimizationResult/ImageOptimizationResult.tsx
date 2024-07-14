@@ -18,6 +18,7 @@ import { ExportButton, ImageOptimizationResultList, ImageOptimizationResultSetti
 import { useTypedDispatch } from '@/app/redux/store';
 import { ARCHIVE_NAME_OPTIMIZATION } from '@/app/constants';
 import { generateImagesArchive } from '@/app/lib/generateArchive';
+import { useSentryAnalytics } from '@/app/hooks/useSentryAnalytics';
 
 export const ImageOptimizationResult = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +26,8 @@ export const ImageOptimizationResult = () => {
 
   const imageOptimizationResult = useSelector(getImageOptimizationResult);
   const jobId = useSelector(getImageOptimizationJobId);
+
+  const sendAnalyticsEvent = useSentryAnalytics();
 
   const dispatch = useTypedDispatch();
 
@@ -41,6 +44,14 @@ export const ImageOptimizationResult = () => {
 
   const handleOnDownload = useCallback(async () => {
     const fileName = `${ARCHIVE_NAME_OPTIMIZATION}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
+
+    sendAnalyticsEvent({
+      eventName: 'button_click',
+      category: 'user_interaction',
+      label: 'download_images_archive',
+      value: 1,
+    });
+
     const blobPath = await generateImagesArchive(imageOptimizationResult, fileName);
     saveAs(blobPath, fileName);
   }, [imageOptimizationResult]);

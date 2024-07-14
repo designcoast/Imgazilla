@@ -14,6 +14,7 @@ import { useGenerateFaviconMutation, useLazyGetAccountCreditsQuery } from '@/app
 
 import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
+import { useSentryAnalytics } from '@/app/hooks/useSentryAnalytics';
 
 export const FaviconExporterSettings = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
@@ -23,6 +24,8 @@ export const FaviconExporterSettings = () => {
 
   const [generateFavicon, { isLoading }] = useGenerateFaviconMutation();
   const [getAccountCredits] = useLazyGetAccountCreditsQuery();
+
+  const sendAnalyticsEvent = useSentryAnalytics();
 
   const dispatch = useTypedDispatch();
 
@@ -77,6 +80,14 @@ export const FaviconExporterSettings = () => {
 
   const handleOnDownload = useCallback(() => {
     const fileName = `${ARCHIVE_NAME}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
+
+    sendAnalyticsEvent({
+      eventName: 'button_click',
+      category: 'user_interaction',
+      label: 'download_favicon_archive',
+      value: 1,
+    });
+
     saveAs(blobPath, fileName);
   }, [blobPath]);
 
