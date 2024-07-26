@@ -15,6 +15,8 @@ export { ImageOptimizationResultList } from '@/app/components/shared/ImageOptimi
 export { ImageOptimizationResultSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultSettings/ImageOptimizationResultSettings';
 export { TicTacToe } from '@/app/components/shared/TicTacToe/TicTacToe';
 
+export { Navigation } from '@/app/components/shared/Navigation/Navigation';
+
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
 export { EmptyImageSelector } from '@/app/components/ui/EmptyImageSelector/EmptyImageSelector';

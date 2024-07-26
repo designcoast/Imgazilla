@@ -12,7 +12,7 @@ import { RELAUNCH_DATA_STORE_KEY } from '@/plugin/constants';
 import { CommandHandler } from '@/plugin/CommandHandler';
 
 export class FigmaUI {
-  private readonly width: number = 615;
+  private readonly width: number = 670;
   private readonly height: number = 716;
 
   private logger: Logger;
@@ -57,7 +57,6 @@ export class FigmaUI {
       this.setRelaunchData();
     }
   };
-
 
   private clearConsole() {
     console.clear();
