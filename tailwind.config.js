@@ -48,6 +48,13 @@ module.exports = {
           coralBlush: "var(--coral-blush-color)",
           grayBG: "var(--gray-bg-color)",
           grayCard: "var(--gray-card-color)",
+          darkGreen: "var(--dark-green)",
+          lightGreen: "var(--light-green)",
+          primaryDark: "var(--primary-dark)",
+          secondDark: "var(--second-dark)",
+          dark: "var(--dark)",
+          mainDark: "var(--main-dark)",
+          lightGray: "var(--light-gray)"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
