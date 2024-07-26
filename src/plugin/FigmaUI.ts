@@ -12,8 +12,8 @@ import { RELAUNCH_DATA_STORE_KEY } from '@/plugin/constants';
 import { CommandHandler } from '@/plugin/CommandHandler';
 
 export class FigmaUI {
-  private readonly width: number = 670;
-  private readonly height: number = 716;
+  private readonly width: number = 692;
+  private readonly height: number = 650;
 
   private logger: Logger;
   private figmaUIMessaging: FigmaUIMessaging;
