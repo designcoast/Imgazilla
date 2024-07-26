@@ -20,7 +20,7 @@ export const AnimatedPage = ({ children }: Props) => {
   };
   return (
     <motion.div
-      className="page-container"
+      className="flex h-full w-full"
       variants={fadeInVariants}
       initial="initial"
       animate="in"
