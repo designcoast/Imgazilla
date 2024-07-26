@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { ChevronDown, ChevronUp } from 'lucide-react';
+
 import { getAccount } from '@/app/redux/features';
 import {
   Popover,
@@ -9,21 +11,15 @@ import {
   InstructionModal, EarnCreditsModal
 } from '@/app/components';
 
-// const DISCORD_URL = process.env.DISCORD_HELP_COMMUNITY_URL;
-
 export const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
   const accountDetails = useSelector(getAccount);
-
-  // const handleOnHelpClick = useCallback(() => {
-  //   window.open(DISCORD_URL, '_blank');
-  // }, []);
 
   return (
     <div className="flex">
       <Popover onOpenChange={setIsOpen}>
         <PopoverTrigger>
-          <div className="flex gap-2 items-center bg-tabBG py-2 px-5 rounded-lg">
+          <div className="flex gap-2 items-center bg-primary-secondDark py-2 px-3 rounded-lg border border-primary-primaryDark">
             <div className="flex gap-1 items-center">
               <p className="font-bold text-sm">{accountDetails.credits}</p>
               <p className="text-sm">credits</p>
@@ -32,16 +28,15 @@ export const Account = () => {
               </div>
             </div>
             {isOpen ? (
-              <ChevronUp className="stroke-input"/>
+              <ChevronUp className="stroke-input" size={14} />
             ) : (
-              <ChevronDown className="stroke-input"/>
+              <ChevronDown className="stroke-input" size={14} />
             )}
           </div>
         </PopoverTrigger>
-        <PopoverContent className="flex flex-col items-start border-none w-full">
+        <PopoverContent sideOffset={6} className="flex flex-col items-start rounded-lg bg-primary-secondDark border border-primary-primaryDark w-full py-2 px-2">
           <EarnCreditsModal/>
           <InstructionModal/>
-          {/*<Button variant='link' onClick={handleOnHelpClick}>Need Help?</Button>*/}
         </PopoverContent>
       </Popover>
     </div>
