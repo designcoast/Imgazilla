@@ -37,7 +37,7 @@ interface NavigationComponent extends FC<NavigationProps> {
 export const Navigation: NavigationComponent = ({ children, defaultValue }) => {
   const [activeItem, setActiveItem] = useState(defaultValue ?? '');
 
-  const { slipperyRef, setActiveElement, handleMouseEnter, handleMouseLeave, addElementRef, elementsRef } = useHoverSlippery({ speed: 600 });
+  const { slipperyRef, setActiveElement, handleMouseEnter, handleMouseLeave, addElementRef, elementsRef } = useHoverSlippery({ speed: 400 });
 
   useEffect(() => {
     setActiveElement(elementsRef.current[activeItem]);
@@ -52,7 +52,7 @@ export const Navigation: NavigationComponent = ({ children, defaultValue }) => {
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave
     }}>
-      <div className="navigation">{children}</div>
+      <div className="flex flex-col h-full w-full">{children}</div>
     </NavigationContext.Provider>
   );
 };
@@ -67,9 +67,9 @@ const NavigationList: FC<{ children: ReactNode }> = ({ children }) => {
   const { slipperyRef } = context;
 
   return (
-    <div className="flex relative z-1 bg-primary-secondDark rounded-lg border px-1 py-0.5 gap-2 border-primary-primaryDark">
+    <div className="flex relative z-1 bg-primary-secondDark rounded-lg border px-0.5 py-0.5 gap-1.5 border-primary-primaryDark">
       {children}
-      <li ref={slipperyRef} className="slippery absolute top-[3px] bg-primary-mainDark rounded-md transition-all list-none h-[34px] border-primary-secondDark" />
+      <li ref={slipperyRef} className="slippery absolute top-[2px] bg-primary-mainDark rounded-md transition-all list-none h-[36px] border border-primary-primaryDark" />
     </div>
   );
 };
@@ -106,7 +106,7 @@ const NavigationItem: FC<NavigationItemProps> = ({value, children}) => {
     <Button
       ref={handleAddElementRef}
       variant="ghost"
-      className={cn('relative z-10', isActive ? 'text-primary-lightGray hover:text-primary-lightGray' : 'hover:text-primary-lightGray font-normal')}
+      className={cn('relative z-10 !p-2', isActive ? 'text-primary-lightGray hover:text-primary-lightGray' : 'hover:text-primary-lightGray font-normal')}
       onClick={handleActiveItem}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -130,7 +130,7 @@ const NavigationContent: FC<NavigationContentProps> = ({ value, children }) => {
 
   const { activeItem } = context;
 
-  return activeItem === value ? <div className="p-4 bg-gray-900 text-white">{children}</div> : null;
+  return activeItem === value ? <>{children}</> : null;
 };
 
 Navigation.List = NavigationList;

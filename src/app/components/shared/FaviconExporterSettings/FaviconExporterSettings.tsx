@@ -97,9 +97,9 @@ export const FaviconExporterSettings = () => {
 
   return (
     <>
-      <div className="m-8 mb-1.5">
-        <p className="font-bold">Customise</p>
-      </div>
+      {/*<div className="m-8 mb-1.5">*/}
+      {/*  <p className="font-bold">Customise</p>*/}
+      {/*</div>*/}
       <FaviconSettingsForm onSubmit={handleOnSubmit}/>
       <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnCreditModalOpenChange}/>
       <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload} />
