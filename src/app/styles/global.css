@@ -83,10 +83,19 @@
 
     --ring: 216 34% 17%;
 
-    --radius: 0.5rem;
+    --radius: 8px;
 
     --export-button-shadow-gradient-from: rgba(30, 30, 30, 0.81);
     --export-button-shadow-gradient-to: rgba(49, 49, 49, 0);
+
+    --dark-green: #5E9979;
+    --light-green: #C2F0D7;
+    --dark: #0D0D0F;
+    --main-dark: #101010;
+    --primary-dark: #1E1E1E;
+    --second-dark: #19191B;
+
+    --light-gray: #F3F6F9;
   }
 }
 
