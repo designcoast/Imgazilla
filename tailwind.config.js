@@ -55,7 +55,8 @@ module.exports = {
           dark: "var(--dark)",
           mainDark: "var(--main-dark)",
           lightGray: "var(--light-gray)",
-          darkGray: "var(--dark-gray)"
+          darkGray: "var(--dark-gray)",
+          darkText: "var(--dark-text)"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
