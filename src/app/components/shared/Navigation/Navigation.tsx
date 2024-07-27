@@ -69,7 +69,7 @@ const NavigationList: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="flex relative z-1 bg-primary-secondDark rounded-lg border px-0.5 py-0.5 gap-1.5 border-primary-primaryDark">
       {children}
-      <li ref={slipperyRef} className="slippery absolute top-[2px] bg-primary-mainDark rounded-md transition-all list-none h-[36px] border border-primary-primaryDark" />
+      <li ref={slipperyRef} className="slippery absolute top-[2px] bg-primary-mainDark rounded-md transition-all list-none h-[37px] border border-primary-primaryDark" />
     </div>
   );
 };
