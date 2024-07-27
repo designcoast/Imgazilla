@@ -17,7 +17,7 @@ export const ExportButton = ({ onClick, children, isDisabled = false, isShowShad
         <div className="bg-gradient-to-t from-exportButtonShadowFrom via-exportButtonShadowFrom to-exportButtonShadowTo h-14 w-full absolute bottom-[36px]"></div>
       ) : null}
       <Button
-        className="rounded-none w-full"
+        className="w-full"
         type={onClick ? "button" : "submit"}
         onClick={onClick}
         disabled={isDisabled}

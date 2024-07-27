@@ -96,16 +96,15 @@ export const FaviconExporterSettings = () => {
   }, [blobPath]);
 
   return (
-    <>
-      {/*<div className="m-8 mb-1.5">*/}
-      {/*  <p className="font-bold">Customise</p>*/}
-      {/*</div>*/}
+    <div className="flex flex-col p-3 w-full">
+      <p className="font-semibold text-center">Settings</p>
       <FaviconSettingsForm onSubmit={handleOnSubmit}/>
+
       <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnCreditModalOpenChange}/>
-      <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload} />
+      <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload}/>
       {isLoading ? (
-        <Overlay />
+        <Overlay/>
       ) : null}
-    </>
+    </div>
   )
 }

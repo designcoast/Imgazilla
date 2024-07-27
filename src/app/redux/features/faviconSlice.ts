@@ -19,7 +19,7 @@ const initialState = {
   imageData: undefined,
   faviconSettings: {
     websiteName: '',
-    themeColor: '#FFFFFF',
+    themeColor: '',
     platforms: {
       default: true,
       ios: false,

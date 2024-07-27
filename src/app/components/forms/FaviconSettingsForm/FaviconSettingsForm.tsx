@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
@@ -17,6 +17,7 @@ import { getFaviconImageData, getFaviconSettings } from '@/app/redux/features';
 export interface FormDataType {
   websiteName: string;
   themeColor: string;
+  bgColor: string;
   platforms: {
     default: boolean;
     ios: boolean;
@@ -28,6 +29,9 @@ type Props = {
   onSubmit: (data: FormDataType) => void
 }
 
+const themeColorHistory = ['#F25350', '#2ED47A'];
+const bgColorHistory = ['#F25350'];
+
 export const FaviconSettingsForm = ({
    onSubmit
 }: Props) => {
@@ -38,39 +42,59 @@ export const FaviconSettingsForm = ({
     defaultValues: formSettings
   });
 
+  const handleThemeColorChange = useCallback((value) => {
+    form.setValue('themeColor', value);
+  }, [form]);
+
+  const handleBgColorChange = useCallback((value) => {
+    form.setValue('bgColor', value);
+  }, [form]);
+
   return (
     <Form {...form}>
-      <form className="mb-0" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="mx-8 mb-[1.95rem]">
-        <div className="flex flex-row gap-3 mt-4">
+      <form className="mb-0 flex flex-col justify-between items-center h-full" onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="flex flex-col">
+        <div className="flex flex-col gap-3 mt-4 w-full">
           <FormField
             control={form.control}
             name="websiteName"
             render={({field}) => (
-              <FormItem className="flex-1">
-                <FormLabel className="mb-3 font-light">Website Name</FormLabel>
+              <FormItem className="flex w-full">
                 <FormControl>
-                  <Input placeholder="imgazilla.com" {...field} />
+                  <Input placeholder="Website Name" {...field} />
                 </FormControl>
+              </FormItem>
+            )}
+          />
+          <label className="flex font-normal text-sm my-3">Colors</label>
+          <FormField
+            control={form.control}
+            name="themeColor"
+            render={({field}) => (
+              <FormItem className="flex flex-row items-center gap-4 relative">
+                <FormControl>
+                  <ColorPicker onChange={handleThemeColorChange} color={field.value} history={themeColorHistory}/>
+                </FormControl>
+                <FormLabel className="font-light text-sm !mt-0">Theme color</FormLabel>
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="themeColor"
+            name="bgColor"
             render={({field}) => (
-              <FormItem className="flex-1">
-                <FormLabel className="mb-3 font-light">Theme color</FormLabel>
+              <FormItem className="flex flex-row items-center gap-4 relative">
                 <FormControl>
-                  <ColorPicker onChange={field.onChange} color={field.value} />
+                  <ColorPicker onChange={handleBgColorChange} color={field.value} history={bgColorHistory}/>
                 </FormControl>
+                <FormLabel className="font-light text-sm !mt-0">Background color</FormLabel>
               </FormItem>
             )}
           />
         </div>
         <div className="mt-5">
-          <label className="font-light">Platforms</label>
-          <div>
+          <label className="flex font-normal text-sm my-3">Platforms</label>
+          <div className="flex flex-row gap-5">
             <FormField
               control={form.control}
               name="platforms.default"
@@ -101,7 +125,7 @@ export const FaviconSettingsForm = ({
                     />
                   </FormControl>
                   <FormLabel className="text-sm ml-2 font-normal">
-                    iOS (apple touch icons)
+                    iOS
                   </FormLabel>
                 </FormItem>
               )}
@@ -126,7 +150,7 @@ export const FaviconSettingsForm = ({
           </div>
         </div>
         </div>
-        <ExportButton isShowShadow={false} isDisabled={!isSelectedImage}>Export</ExportButton>
+        <ExportButton isShowShadow={false} isDisabled={!isSelectedImage} className="max-w-[200px]">Export</ExportButton>
       </form>
     </Form>
   )
