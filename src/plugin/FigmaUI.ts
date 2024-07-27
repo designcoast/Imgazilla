@@ -13,7 +13,7 @@ import { CommandHandler } from '@/plugin/CommandHandler';
 
 export class FigmaUI {
   private readonly width: number = 692;
-  private readonly height: number = 650;
+  private readonly height: number = 510;
 
   private logger: Logger;
   private figmaUIMessaging: FigmaUIMessaging;
