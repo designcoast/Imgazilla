@@ -19,6 +19,10 @@ module.exports = {
       height: {
         previewSquareHeight: '150px',
       },
+      boxShadow: {
+        custom: '0 8px 12px 6px rgba(0, 0, 0, 0.15)',
+        customLight: '0 4px 4px 0 rgba(0, 0, 0, 0.30)',
+      },
       colors: {
         border: "var(--border)",
         input: "var(--input)",
@@ -53,7 +57,7 @@ module.exports = {
           primaryDark: "var(--primary-dark)",
           secondDark: "var(--second-dark)",
           dark: "var(--dark)",
-          mainDark: "var(--main-dark)",
+          mainDark: "hsl(var(--main-dark))",
           lightGray: "var(--light-gray)",
           darkGray: "var(--dark-gray)",
           darkText: "var(--dark-text)"
