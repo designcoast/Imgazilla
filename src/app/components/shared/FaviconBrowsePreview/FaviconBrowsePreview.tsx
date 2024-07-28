@@ -27,8 +27,8 @@ export const FaviconBrowsePreview = () => {
             onCheckedChange={handleOnThemeChange}
           />
         </div>
-        <div className="flex">
-          <ChromePreviewImage imageData={url} />
+        <div className="flex mt-3">
+          <ChromePreviewImage imageData={url} isLight={isLightTheme} />
         </div>
       </div>
       <div className="flex"></div>

@@ -20,7 +20,7 @@ import {
 import {
   Overlay,
   ImageOptimizationSettings,
-  ImageOptimizationList, ExportButton, ImageOptimizationResult, EarnCreditsModal
+  ImageOptimizationList, ExportButton, ImageOptimizationResult, EarnCreditsSheet
 } from '@/app/components';
 import { useOptimizeImageMutation } from '@/app/redux/services';
 import { transformAndCompressData } from '@/app/lib/compressData';
@@ -111,7 +111,7 @@ export const ImageOptimization = () => {
         <>
           <div className="flex flex-col relative">
             <ImageOptimizationSettings onRefresh={handleOnRefresh} />
-            <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnOpenChange} />
+            <EarnCreditsSheet showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnOpenChange} />
             <div className="min-h-[488px]">
               <ImageOptimizationList isLoading={isLoading}/>
             </div>
