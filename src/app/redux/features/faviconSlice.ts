@@ -7,6 +7,7 @@ interface FaviconState {
   faviconSettings: {
     websiteName?: string;
     themeColor?: string;
+    bgColor?: string;
     platforms: {
       default: boolean;
       ios: boolean;
@@ -20,6 +21,7 @@ const initialState = {
   faviconSettings: {
     websiteName: '',
     themeColor: '',
+    bgColor: '',
     platforms: {
       default: true,
       ios: false,

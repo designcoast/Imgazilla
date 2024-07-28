@@ -20,7 +20,10 @@ export default {
     "padding": "1em",
     "margin": ".5em 0",
     "overflow": "auto",
-    "background": "#1e1e1e"
+    "background": "#27272A",
+    "borderRadius": "6px",
+    "borderWidth": "1px",
+    "borderColor": "#1E1E1E"
   },
   "code[class*=\"language-\"]": {
     "color": "#d4d4d4",

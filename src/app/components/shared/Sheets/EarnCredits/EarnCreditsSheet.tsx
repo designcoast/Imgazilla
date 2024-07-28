@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+
 import {
   Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger, PriceSelector, Separator
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  PriceSelector,
+  Separator, SheetDescription
 } from '@/app/components';
-import { useSelector } from 'react-redux';
 import { getAccount } from '@/app/redux/features';
 import { calculateCredits } from '@/app/lib/calculateCredits';
 
@@ -18,33 +20,33 @@ type Props = {
   onOpenChange?: (open: boolean) => void;
 };
 
-export const EarnCreditsModal = ({ isOpen = undefined, showTrigger = true, onOpenChange }: Props) => {
+export const EarnCreditsSheet = ({ isOpen = undefined, showTrigger = true, onOpenChange }: Props) => {
   const accountDetails = useSelector(getAccount);
   const { favicon, images } = useMemo(() => calculateCredits(accountDetails.credits), [accountDetails]);
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Sheet open={isOpen} onOpenChange={onOpenChange}>
       {showTrigger ? (
-        <DialogTrigger asChild>
+        <SheetTrigger asChild>
           <Button variant='ghost'>Buy More Credits</Button>
-        </DialogTrigger>
+        </SheetTrigger>
       ) : null}
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-center font-medium">Your account balance</DialogTitle>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle className="text-center font-medium">Your account balance</SheetTitle>
           <div className="text-center">
             <div className="flex gap-1 justify-center items-baseline text-primary my-3">
               <p className="font-bold text-3xl">{accountDetails.credits} / </p>
               <p className="text-lg">credits</p>
             </div>
           </div>
-          <DialogDescription className="text-primary-gray">~ {favicon} export favicon archives or {images} optimized archives with images</DialogDescription>
-          <DialogDescription className="text-primary-gray font-bold">All credits stack.</DialogDescription>
+          <SheetDescription className="text-primary-gray text-center">~ {favicon} export favicon archives or {images} optimized archives with images</SheetDescription>
+          <SheetDescription className="text-primary-gray font-bold text-center">All credits stack.</SheetDescription>
           <div className="!mt-4 !mb-2">
             <Separator/>
           </div>
-        </DialogHeader>
+        </SheetHeader>
         <PriceSelector />
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   )
 };
