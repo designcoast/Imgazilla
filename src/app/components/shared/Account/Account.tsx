@@ -8,7 +8,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  InstructionModal, EarnCreditsModal
+  InstructionSheet,
+  EarnCreditsSheet
 } from '@/app/components';
 
 export const Account = () => {
@@ -34,9 +35,9 @@ export const Account = () => {
             )}
           </div>
         </PopoverTrigger>
-        <PopoverContent sideOffset={6} className="flex flex-col items-start rounded-lg bg-primary-secondDark border border-primary-primaryDark w-full py-2 px-2">
-          <EarnCreditsModal/>
-          <InstructionModal/>
+        <PopoverContent sideOffset={6} className="flex flex-col shadow-custom items-start rounded-lg bg-primary-secondDark border border-primary-primaryDark w-full py-2 px-2">
+          <EarnCreditsSheet />
+          <InstructionSheet />
         </PopoverContent>
       </Popover>
     </div>
