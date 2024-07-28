@@ -1,15 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { EventType } from '@/eventType';
 
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
-import { EmptyImageSelector, ImagePreview } from '@/app/components';
+import { EmptyImageSelector, FaviconPreviewSheet, ImagePreview } from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateSelectedImage } from '@/app/redux/features';
-import { useSelector } from 'react-redux';
 
 export const FaviconPreview = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const imageData = useSelector(getFaviconImageData);
 
   const dispatch = useTypedDispatch();
@@ -20,16 +23,22 @@ export const FaviconPreview = () => {
     }
   }, []);
 
+  const handleOnOpenModal = useCallback((open: boolean) => {
+    setIsOpen(open);
+  }, []);
+
   useWindowMessaging(handleFigmaPluginMessages);
 
   return (
-    <div className="flex items-center justify-center my-8">
-      {imageData ? (
-        <ImagePreview imageUrl={convertToImageUrl(imageData, 'PNG')} />
-      ): (
-        <EmptyImageSelector />
-      )}
-
+    <div className="flex flex-col items-center justify-between p-3">
+      <div className="flex my-11">
+        {imageData ? (
+          <ImagePreview imageUrl={convertToImageUrl(imageData, 'PNG')} />
+        ): (
+          <EmptyImageSelector />
+        )}
+      </div>
+      <FaviconPreviewSheet isOpen={isOpen} onOpenChange={handleOnOpenModal} isDisabled={!imageData} />
     </div>
   )
 }

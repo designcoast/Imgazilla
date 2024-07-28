@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { encode } from 'base64-arraybuffer-es6';
 import { toast, } from 'sonner';
 
-import { EarnCreditsModal, FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
+import { EarnCreditsSheet, FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateAccountCredits, updateFaviconSettings } from '@/app/redux/features';
@@ -100,7 +100,7 @@ export const FaviconExporterSettings = () => {
       <p className="font-semibold text-center">Settings</p>
       <FaviconSettingsForm onSubmit={handleOnSubmit}/>
 
-      <EarnCreditsModal showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnCreditModalOpenChange}/>
+      <EarnCreditsSheet showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnCreditModalOpenChange} />
       <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload}/>
       {isLoading ? (
         <Overlay/>

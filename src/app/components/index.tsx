@@ -1,8 +1,8 @@
 export { FaviconExporter } from '@/app/components/shared/FaviconExporter/FaviconExporter';
 export { ImageOptimization } from '@/app/components/shared/ImageOptimization/ImageOptimization';
 export { Account } from '@/app/components/shared/Account/Account';
-export { InstructionModal } from '@/app/components/shared/Modals/Instruction/InstructionModal';
-export { EarnCreditsModal } from '@/app/components/shared/Modals/EarnCredits/EarnCreditsModal';
+export { InstructionSheet } from '@/app/components/shared/Sheets/Instruction/InstructionSheet';
+export { EarnCreditsSheet } from '@/app/components/shared/Sheets/EarnCredits/EarnCreditsSheet';
 export { PriceSelector } from '@/app/components/shared/PriceSelector/PriceSelector';
 export { FaviconExporterSheet } from '@/app/components/shared/FaviconExporterSheet/FaviconExporterSheet';
 export { ImageOptimizationItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationItem/ImageOptimizationItem';
@@ -16,6 +16,8 @@ export { ImageOptimizationResultSettings } from '@/app/components/shared/ImageOp
 export { TicTacToe } from '@/app/components/shared/TicTacToe/TicTacToe';
 
 export { Navigation } from '@/app/components/shared/Navigation/Navigation';
+export { FaviconPreviewSheet } from '@/app/components/shared/Sheets/FaviconPreview/FaviconPreviewSheet';
+export { FaviconBrowsePreview } from '@/app/components/shared/FaviconBrowsePreview/FaviconBrowsePreview';
 
 export { FaviconPreview } from '@/app/components/shared/FaviconPreview/FaviconPreview';
 export { FaviconExporterSettings } from '@/app/components/shared/FaviconExporterSettings/FaviconExporterSettings';
@@ -48,5 +50,6 @@ export * from '@/app/components/ui/ScrollArea/ScrollArea';
 export * from '@/app/components/ui/Tooltip/Tooltip';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
+export { ChromePreviewImage } from '@/app/components/icons/ChromePreviewImage';
 
 export { FaviconSettingsForm, type FormDataType } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
