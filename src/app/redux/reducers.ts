@@ -6,7 +6,7 @@ import {
 } from '@/app/redux/services';
 import { faviconService, accountService, signalService, imageOptimizationService } from '@/app/redux/services';
 
-import { faviconSlice, accountSlice, optimizationImageSlice, tabSlice } from '@/app/redux/features';
+import { faviconSlice, accountSlice, optimizationImageSlice, tabSlice, settingsSlice } from '@/app/redux/features';
 import { errorHandlingMiddleware } from '@/app/redux/middlewares/errorHandlingMiddleware';
 
 export const reducers = {
@@ -17,7 +17,8 @@ export const reducers = {
   [faviconSlice.name]: faviconSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
   [optimizationImageSlice.name]: optimizationImageSlice.reducer,
-  [tabSlice.name]: tabSlice.reducer
+  [tabSlice.name]: tabSlice.reducer,
+  [settingsSlice.name]: settingsSlice.reducer,
 }
 
 export const middlewares = [
