@@ -51,5 +51,6 @@ export * from '@/app/components/ui/Tooltip/Tooltip';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 export { ChromePreviewImage } from '@/app/components/icons/ChromePreviewImage';
+export { IPhonePreviewImage } from '@/app/components/icons/IPhonePreviewImage';
 
 export { FaviconSettingsForm, type FormDataType } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';

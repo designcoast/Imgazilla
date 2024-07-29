@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { ChromePreviewImage, Switch } from '@/app/components';
+import { ChromePreviewImage, IPhonePreviewImage, Switch } from '@/app/components';
 import { useSelector } from 'react-redux';
 import { getFaviconImageData } from '@/app/redux/features';
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
@@ -9,8 +9,6 @@ export const FaviconBrowsePreview = () => {
   const imageData = useSelector(getFaviconImageData);
 
   const url = useMemo(() => convertToImageUrl(imageData, 'PNG'), [imageData]);
-
-  console.log('url', url)
 
   const handleOnThemeChange = useCallback((checked: boolean) => {
     setIsLightTheme(checked);
@@ -31,7 +29,14 @@ export const FaviconBrowsePreview = () => {
           <ChromePreviewImage imageData={url} isLight={isLightTheme} />
         </div>
       </div>
-      <div className="flex"></div>
+      <div className="flex flex-col mt-6">
+        <div className="flex justify-between items-center">
+          <p>iPhone:</p>
+        </div>
+        <div className="flex justify-center mt-3">
+          <IPhonePreviewImage imageData={url} />
+        </div>
+      </div>
     </div>
   )
 }
