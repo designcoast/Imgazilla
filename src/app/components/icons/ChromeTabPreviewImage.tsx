@@ -5,7 +5,7 @@ type Props = {
   isLight: boolean;
 };
 
-export const ChromePreviewImage = ({ imageData, isLight }: Props) => {
+export const ChromeTabPreviewImage = ({ imageData, isLight }: Props) => {
   return (
     <svg width="620" height="80" viewBox="0 0 620 80" fill="none">
       <rect width="620" height="42" fill={isLight ? "#DEE1E6" : "#202124"} />
