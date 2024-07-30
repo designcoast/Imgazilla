@@ -12,7 +12,8 @@ import {
   Input,
   Switch
 } from '@/app/components';
-import { getFaviconImageData, getFaviconSettings } from '@/app/redux/features';
+import { getFaviconImageData, getFaviconSettings, updateFaviconSettings } from '@/app/redux/features';
+import { useTypedDispatch } from '@/app/redux/store';
 
 export interface FormDataType {
   websiteName: string;
@@ -38,17 +39,25 @@ export const FaviconSettingsForm = ({
   const formSettings = useSelector(getFaviconSettings);
   const isSelectedImage = useSelector(getFaviconImageData);
 
+  const dispatch = useTypedDispatch();
+
   const form = useForm<FormDataType>({
     defaultValues: formSettings
   });
 
-  const handleThemeColorChange = useCallback((value) => {
+  const handleThemeColorChange = useCallback((value: string) => {
     form.setValue('themeColor', value);
   }, [form]);
 
-  const handleBgColorChange = useCallback((value) => {
+  const handleBgColorChange = useCallback((value: string) => {
     form.setValue('bgColor', value);
-  }, [form]);
+    dispatch(updateFaviconSettings({
+      faviconSettings: {
+        ...formSettings,
+        bgColor: value
+      }
+    }))
+  }, [formSettings, form]);
 
   return (
     <Form {...form}>

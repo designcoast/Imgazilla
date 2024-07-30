@@ -12,18 +12,6 @@ export class PluginDataStorage {
     return figma.currentPage.getPluginData(key);
   }
 
-  public getNodeData(node: SceneNode, key: string): string {
-    return node.getPluginData(key);
-  }
-
-  public setDocumentData(key: string, value: string): void {
-    figma.root.setPluginData(key, value);
-  }
-
-  public getDocumentData(key: string): string {
-    return figma.root.getPluginData(key);
-  }
-
   public async setGlobalData(key: string, value: string): Promise<void> {
     await figma.clientStorage.setAsync(key, value);
   }
