@@ -38,10 +38,10 @@ export const FaviconBrowsePreview = () => {
             />
           </div>
           <div className="flex mt-3">
-            <ChromeTabPreviewImage imageData={url} isLight={isLightTheme}/>
+            <ChromeTabPreviewImage imageData={url} isLight={isLightTheme} backgroundColor={faviconSettings.bgColor} />
           </div>
           <div className="flex mt-3 mr-3">
-            <ChromeSearchResultBrowserPreview imageData={url} isLight={isLightTheme}/>
+            <ChromeSearchResultBrowserPreview imageData={url} isLight={isLightTheme} backgroundColor={faviconSettings.bgColor} />
           </div>
         </div>
         <div className="flex flex-col mt-6">
@@ -49,7 +49,7 @@ export const FaviconBrowsePreview = () => {
             <p>iPhone:</p>
           </div>
           <div className="flex justify-center mt-3">
-            <IPhonePreviewImage imageData={url}/>
+            <IPhonePreviewImage imageData={url} backgroundColor={faviconSettings.bgColor} />
           </div>
         </div>
       </ScrollArea>

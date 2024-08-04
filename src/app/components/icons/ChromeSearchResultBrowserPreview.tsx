@@ -4,16 +4,18 @@ import { cn } from '@/app/lib/utils';
 type Props = {
   imageData: string;
   isLight: boolean;
+  backgroundColor: string;
 };
 
-export const ChromeSearchResultBrowserPreview = ({ imageData, isLight }: Props) => {
+export const ChromeSearchResultBrowserPreview = ({ imageData, isLight, backgroundColor }: Props) => {
   return (
     <div className={cn("p-4 rounded shadow-md", isLight ? "bg-white" : "bg-gray-800")}>
       <div className="flex items-center mb-2">
         <img
           src={imageData}
           alt="imgazilla.app"
-          className="rounded-full w-7 h-7"
+          style={{ backgroundColor }}
+          className="w-7 h-7"
         />
         <div className={cn("ml-2 text-sm", isLight ? "text-gray-600" : "text-gray-400")}>
           <a href="#" className="hover:underline">
