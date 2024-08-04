@@ -50,7 +50,8 @@ export * from '@/app/components/ui/ScrollArea/ScrollArea';
 export * from '@/app/components/ui/Tooltip/Tooltip';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
-export { ChromePreviewImage } from '@/app/components/icons/ChromePreviewImage';
+export { ChromeTabPreviewImage } from '@/app/components/icons/ChromeTabPreviewImage';
 export { IPhonePreviewImage } from '@/app/components/icons/IPhonePreviewImage';
+export { ChromeSearchResultBrowserPreview } from '@/app/components/icons/ChromeSearchResultBrowserPreview';
 
 export { FaviconSettingsForm, type FormDataType } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';

@@ -12,8 +12,14 @@ import {
   Input,
   Switch
 } from '@/app/components';
-import { getFaviconImageData, getFaviconSettings, updateFaviconSettings } from '@/app/redux/features';
+import {
+  getFaviconImageData,
+  getFaviconSettings,
+  updateFaviconSettings
+} from '@/app/redux/features';
 import { useTypedDispatch } from '@/app/redux/store';
+import { useGlobalPluginSettings } from '@/app/HOC/WithGlobalPluginSettings';
+import { updateColorHistory } from '@/app/lib/utils';
 
 export interface FormDataType {
   websiteName: string;
@@ -30,14 +36,13 @@ type Props = {
   onSubmit: (data: FormDataType) => void
 }
 
-const themeColorHistory = ['#F25350', '#2ED47A'];
-const bgColorHistory = ['#F25350'];
-
 export const FaviconSettingsForm = ({
    onSubmit
 }: Props) => {
   const formSettings = useSelector(getFaviconSettings);
   const isSelectedImage = useSelector(getFaviconImageData);
+
+  const { settings, updateGlobalSettings } = useGlobalPluginSettings();
 
   const dispatch = useTypedDispatch();
 
@@ -47,9 +52,69 @@ export const FaviconSettingsForm = ({
 
   const handleThemeColorChange = useCallback((value: string) => {
     form.setValue('themeColor', value);
-  }, [form]);
+
+    if (value === '') {
+      return;
+    }
+
+    const [updatedColorHistory, newReplaceIndex] =
+      updateColorHistory(settings.themeColorHistory.colorHistory, value, settings.themeColorHistory.replaceIndex);
+
+    const updatedSettings = {
+      settings: {
+        ...settings,
+        themeColorHistory: {
+          ...settings.themeColorHistory,
+          colorHistory: updatedColorHistory,
+          replaceIndex: newReplaceIndex,
+        },
+      },
+    };
+
+    updateGlobalSettings(updatedSettings)
+  }, [form, settings]);
+
+  const handleOnSelectThemeColorHistoryColor = useCallback((value: string) => {
+    form.setValue('themeColor', value);
+    dispatch(updateFaviconSettings({
+      faviconSettings: {
+        ...formSettings,
+        bgColor: value
+      }
+    }))
+  }, [formSettings, form]);
 
   const handleBgColorChange = useCallback((value: string) => {
+    form.setValue('bgColor', value);
+
+    if (value === '') {
+      return;
+    }
+
+    const [updatedColorHistory, newReplaceIndex] =
+      updateColorHistory(settings.bgColorHistory.colorHistory, value, settings.bgColorHistory.replaceIndex);
+
+    const updatedSettings = {
+      settings: {
+        ...settings,
+        bgColorHistory: {
+          ...settings.bgColorHistory,
+          colorHistory: updatedColorHistory,
+          replaceIndex: newReplaceIndex,
+        },
+      },
+    };
+
+    updateGlobalSettings(updatedSettings)
+    dispatch(updateFaviconSettings({
+      faviconSettings: {
+        ...formSettings,
+        bgColor: value
+      }
+    }))
+  }, [formSettings, form, settings]);
+
+  const handleOnSelectBgHistoryColor = useCallback((value: string) => {
     form.setValue('bgColor', value);
     dispatch(updateFaviconSettings({
       faviconSettings: {
@@ -82,7 +147,12 @@ export const FaviconSettingsForm = ({
             render={({field}) => (
               <FormItem className="flex flex-row items-center gap-4 relative">
                 <FormControl>
-                  <ColorPicker onChange={handleThemeColorChange} color={field.value} history={themeColorHistory}/>
+                  <ColorPicker
+                    onChange={handleThemeColorChange}
+                    color={field.value}
+                    history={settings.themeColorHistory.colorHistory}
+                    onSelectHistoryColor={handleOnSelectThemeColorHistoryColor}
+                  />
                 </FormControl>
                 <FormLabel className="font-light text-sm !mt-0">Theme color</FormLabel>
               </FormItem>
@@ -94,7 +164,12 @@ export const FaviconSettingsForm = ({
             render={({field}) => (
               <FormItem className="flex flex-row items-center gap-4 relative">
                 <FormControl>
-                  <ColorPicker onChange={handleBgColorChange} color={field.value} history={bgColorHistory}/>
+                  <ColorPicker
+                    color={field.value}
+                    history={settings.bgColorHistory.colorHistory}
+                    onChange={handleBgColorChange}
+                    onSelectHistoryColor={handleOnSelectBgHistoryColor}
+                  />
                 </FormControl>
                 <FormLabel className="font-light text-sm !mt-0">Background color</FormLabel>
               </FormItem>

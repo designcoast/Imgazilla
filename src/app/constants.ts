@@ -29,3 +29,5 @@ export const SVG_FORMAT = 'SVG';
 
 export const SUPPORTED_IMAGE_FORMATS = ['png', 'jpg', 'svg'];
 export const SUPPORTED_FILE_FORMATS = ['pdf'];
+
+export const MAX_COLOR_HISTORY_LENGTH = 10;

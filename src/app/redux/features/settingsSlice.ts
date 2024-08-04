@@ -1,27 +1,16 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/redux/store';
+import { globalSettingsInitState, GlobalSettingsType } from '@/plugin/FigmaGlobalSettingsManager';
 
-export interface SettingsState {
-  settings: {
-    themeColorHistory: string[];
-    bgColorHistory: string[];
-  }
-}
-
-const initialState = {
-  settings: {
-    themeColorHistory: [],
-    bgColorHistory: [],
-  }
-} satisfies SettingsState as SettingsState;
+export const initialSettingsState = globalSettingsInitState satisfies GlobalSettingsType as GlobalSettingsType;
 
 export const settingsSlice = createSlice({
   name: 'pluginSettings',
-  initialState,
+  initialState: initialSettingsState,
   reducers: {
-    setPluginSettings(state, action: PayloadAction<{ themeColorHistory: string[]; bgColorHistory: string[] }>) {
-      state.settings = action.payload;
-    }
+    setPluginSettings(state, action: PayloadAction<GlobalSettingsType>) {
+      state.settings = action.payload.settings;
+    },
   }
 })
 

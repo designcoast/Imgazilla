@@ -10,6 +10,7 @@ import { RelaunchDataManager } from '@/plugin/RelaunchDataManager';
 import { PluginDataStorage } from '@/plugin/PluginDataStorage';
 import { RELAUNCH_DATA_STORE_KEY } from '@/plugin/constants';
 import { CommandHandler } from '@/plugin/CommandHandler';
+import { FigmaGlobalSettingsManager } from '@/plugin/FigmaGlobalSettingsManager';
 
 export class FigmaUI {
   private readonly width: number = 692;
@@ -24,6 +25,7 @@ export class FigmaUI {
   private relaunchDataManager: RelaunchDataManager;
   private pluginDataStorage: PluginDataStorage;
   private commandHandler: CommandHandler;
+  private globalSettings: FigmaGlobalSettingsManager;
 
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
@@ -37,12 +39,15 @@ export class FigmaUI {
     this.relaunchDataManager = new RelaunchDataManager();
     this.pluginDataStorage = new PluginDataStorage();
     this.commandHandler = new CommandHandler();
+    this.globalSettings = new FigmaGlobalSettingsManager();
   };
 
   async init() {
     this.clearConsole();
 
     this.commandHandler.handleCommand();
+
+    await this.globalSettings.sendToUIGlobalSettings();
 
     const relaunchData = this.pluginDataStorage.getCurrentPageData(RELAUNCH_DATA_STORE_KEY);
 
@@ -117,14 +122,22 @@ export class FigmaUI {
 
   private async handleUIMessage(message: MessageType) {
 
-    const { type } = message;
+    const { type, payload } = message;
 
 
     if (type === UIEventType.GET_IMAGES_UINT_ARRAY_COLLECTION) {
       await this.collectNodes();
     }
 
+    if (type === UIEventType.SET_CLIENT_STORE_DATA) {
+      await this.handleClientStoreData(payload);
+    }
+
   };
+
+  private async handleClientStoreData(payload) {
+    await this.globalSettings.updateGlobalSettings(payload)
+  }
 
   private async collectNodes() {
 

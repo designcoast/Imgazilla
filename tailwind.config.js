@@ -52,7 +52,7 @@ module.exports = {
           coralBlush: "var(--coral-blush-color)",
           grayBG: "var(--gray-bg-color)",
           grayCard: "var(--gray-card-color)",
-          darkGreen: "var(--dark-green)",
+          darkGreen: "hsl(var(--dark-green))",
           lightGreen: "var(--light-green)",
           primaryDark: "var(--primary-dark)",
           secondDark: "var(--second-dark)",
@@ -96,6 +96,11 @@ module.exports = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       keyframes: {
+        'move-up': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -108,6 +113,7 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'move-up': 'move-up 0.8s ease-in-out 3',
       },
     },
   },
