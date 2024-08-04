@@ -1,16 +1,24 @@
 import React, { useRef, useState, useCallback } from 'react';
+import { Plus } from 'lucide-react';
+import { debounce } from 'lodash';
 
 import { useClickOutside } from '@/app/hooks/useClickOutside';
-import { cn } from '@/app/lib/utils';
+import { cn, validateAndFormatHexColor } from '@/app/lib/utils';
+import { Button } from '@/app/components';
 
 type Props = {
   color?: string;
   onChange: (value: string) => void;
+  onSelectHistoryColor: (value: string) => void;
   className?: string;
   history: string[];
 }
 
-export const ColorPicker = ({ color, onChange, history }: Props) => {
+export const ColorPicker = ({ color, onChange, history, onSelectHistoryColor }: Props) => {
+  const [value, setValue] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isError, setIsError] = useState(false);
+
   const popover = useRef();
 
   const [isOpen, toggle] = useState(false);
@@ -19,8 +27,36 @@ export const ColorPicker = ({ color, onChange, history }: Props) => {
 
   const handleOnClose = useCallback(() => toggle(false), []);
 
+  const handleColorChange = useCallback((value: string) => {
+    const validatedColor = validateAndFormatHexColor(value);
+    if (!validatedColor) {
+      setIsError(true);
+      return;
+    }
+
+    setIsError(false);
+    setIsDisabled(false);
+  }, []);
+
+  const debouncedHandleColorChange = useCallback(debounce(handleColorChange, 300), []);
+
   const handleOnChange = useCallback((e) => {
-    onChange(e.target.value);
+    const value = e.target.value;
+    setValue(value);
+    debouncedHandleColorChange(value);
+  }, []);
+
+  const handleOnSubmit = useCallback(() => {
+    const validatedValue = validateAndFormatHexColor(value);
+
+    onChange(validatedValue);
+    handleOnClose();
+  }, [value]);
+
+  const handleOnSelectHistoryColor = useCallback((color: string) => {
+    setValue('');
+    onSelectHistoryColor(color);
+    handleOnClose();
   }, []);
 
   useClickOutside(popover, handleOnClose);
@@ -39,31 +75,50 @@ export const ColorPicker = ({ color, onChange, history }: Props) => {
           <ul className="flex p-3 border-b border-primary-primaryDark gap-1.5">
             <li
               className="flex relative justify-center items-center h-4 w-4 border border-primary-primaryDark rounded-md hover:cursor-pointer bg-white"
-              onClick={() => onChange('')}>
+              onClick={() => handleOnSelectHistoryColor('')}>
               <span className="w-[12px] h-[1px] bg-red-600 -rotate-45"/>
             </li>
             {
               history ?
-                history.map((item) => (
-                  <li
-                    key={item}
-                    style={{ backgroundColor: item }}
-                    className={cn(`flex relative justify-center items-center h-4 w-4 p-0.5 border border-primary-primaryDark rounded-md hover:cursor-pointer`)}
-                    onClick={() => onChange(item)}
-                  />
-                )) : null
+                history.map((item) => {
+                  const isEqual = item?.toLowerCase() === validateAndFormatHexColor(value)?.toLowerCase() || item?.toLowerCase() === color?.toLowerCase();
+                  return (
+                    <li
+                      key={item}
+                      style={{ backgroundColor: item }}
+                      className={cn(`flex relative justify-center items-center h-4 w-4 p-0.5 border border-primary-primaryDark rounded-md hover:cursor-pointer`, isEqual ? "animate-move-up" : null)}
+                      onClick={() => handleOnSelectHistoryColor(item)}
+                    />
+                  )
+                }) : null
             }
           </ul>
-          <div className="flex justify-between items-center p-3">
+          <div className="flex justify-between items-center p-3 gap-1">
             <p className="text-sm text-primary-gray">Custom color</p>
-            <div
-              className="flex items-center justify-between gap-3 px-3 py-2 bg-primary-mainDark rounded-md border border-primary-primaryDark">
-              <div style={{ backgroundColor: color }} className={`flex relative justify-center items-center h-4 w-4 p-0.5 border border-primary-primaryDark rounded-md bg-[${color}]`} />
-              <input type="text" placeholder="hex color" className="bg-primary-mainDark focus:outline-none rounded-md max-w-20 placeholder:text-sm placeholder:text-gray-700" value={color} onChange={handleOnChange}/>
+            <div className="flex gap-2">
+              <div
+                className={cn("flex items-center justify-between gap-2 px-1 py-1 bg-primary-mainDark rounded-md border border-primary-primaryDark", isError ? "border-red-500" : "border-primary-primaryDark")}>
+                <div style={{backgroundColor: isError ? '' : value}}
+                     className={`flex relative justify-center items-center h-4 w-4 p-0.5 border border-primary-primaryDark rounded-md bg-[${value}]`}/>
+                <input
+                  type="text"
+                  placeholder="hex color"
+                  className="bg-primary-mainDark focus:outline-none rounded-md max-w-20 placeholder:text-sm placeholder:text-gray-700"
+                  value={value}
+                  onChange={handleOnChange}
+                />
+              </div>
+              <Button
+                className="h-auto p-1 rounded-md bg-primary-darkGreen border border-primary-primaryDark hover:bg-primary-darkGreen/90"
+                type="button"
+                disabled={isDisabled}
+                onClick={handleOnSubmit}>
+                <Plus className="stroke-primary-lightGreen"/>
+              </Button>
             </div>
           </div>
         </div>
-      ): null}
+      ) : null}
     </div>
   )
 }
