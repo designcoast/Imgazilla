@@ -9,12 +9,15 @@ import {
   PopoverContent,
   PopoverTrigger,
   InstructionSheet,
-  EarnCreditsSheet
+  EarnCreditsSheet, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent
 } from '@/app/components';
+import { cn } from '@/app/lib/utils';
 
 export const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
   const accountDetails = useSelector(getAccount);
+
+  const isLongCount = accountDetails.credits?.length >= 4;
 
   return (
     <div className="flex">
@@ -22,7 +25,16 @@ export const Account = () => {
         <PopoverTrigger>
           <div className="flex gap-2 items-center bg-primary-secondDark py-2 px-3 rounded-lg border border-primary-primaryDark">
             <div className="flex gap-1 items-center">
-              <p className="font-bold text-sm">{accountDetails.credits}</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="p-0 h-fit" asChild>
+                    <p className={cn("font-bold truncate max-w-[121px]", isLongCount ? 'text-xs' : 'text-sm')}>{accountDetails.credits}</p>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p className="font-bold text-sm">{accountDetails.credits}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               <p className="text-sm">credits</p>
               <div className="w-[32px] h-[25px] overflow-hidden rounded-sm ml-2.5">
                 <img src={accountDetails.photoUrl} alt={accountDetails.name}/>

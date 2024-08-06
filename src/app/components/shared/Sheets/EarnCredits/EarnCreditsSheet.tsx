@@ -34,7 +34,7 @@ export const EarnCreditsSheet = ({ isOpen = undefined, showTrigger = true, onOpe
         <SheetHeader>
           <SheetTitle className="text-center font-medium">Your account balance</SheetTitle>
           <div className="text-center">
-            <div className="flex gap-1 justify-center items-baseline text-primary my-3">
+            <div className="flex gap-1 justify-center items-baseline text-primary my-1.5">
               <p className="font-bold text-3xl">{accountDetails.credits} / </p>
               <p className="text-lg">credits</p>
             </div>

@@ -9,7 +9,7 @@ export const ModernLayout = () => {
   return (
     <div className="flex p-3 h-full w-full">
       <Navigation defaultValue={ROUTE_KEYS[0]}>
-        <div className="flex justify-between gap-1.5">
+        <div className="flex justify-center gap-1.5">
           <Navigation.List>
             {Object.keys(APP_ROUTES).map((item, index) => (
               <Navigation.Item key={index} value={item}>

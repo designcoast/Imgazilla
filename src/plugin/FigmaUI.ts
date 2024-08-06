@@ -13,7 +13,7 @@ import { CommandHandler } from '@/plugin/CommandHandler';
 import { FigmaGlobalSettingsManager } from '@/plugin/FigmaGlobalSettingsManager';
 
 export class FigmaUI {
-  private readonly width: number = 692;
+  private readonly width: number = 700;
   private readonly height: number = 510;
 
   private logger: Logger;
