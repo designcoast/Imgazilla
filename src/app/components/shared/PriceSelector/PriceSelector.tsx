@@ -10,7 +10,7 @@ export const PriceSelector = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center h-[60%]">
         <Loading/>
       </div>
     )
