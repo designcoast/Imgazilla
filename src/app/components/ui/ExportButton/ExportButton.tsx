@@ -1,23 +1,18 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Button } from '@/app/components';
 import { cn } from '@/app/lib/utils';
 
 type Props = {
   onClick?: () => void;
-  children?: React.ReactNode;
+  children: ReactNode;
   isDisabled?: boolean;
-  isShowShadow?: boolean;
   className?: string;
 }
 
-export const ExportButton = ({ onClick, children, isDisabled = false, isShowShadow = true, className }: Props) => {
+export const ExportButton = ({ onClick, children, isDisabled = false, className }: Props) => {
   return (
-    <div className={cn('flex bottom-0 w-full', className)}>
-      {isShowShadow ? (
-        <div className="bg-gradient-to-t from-exportButtonShadowFrom via-exportButtonShadowFrom to-exportButtonShadowTo h-14 w-full absolute bottom-[36px]"></div>
-      ) : null}
+    <div className={cn("flex justify-end mt-0.5 p-3 bg-primary-secondDark rounded-lg border border-primary-primaryDark", className)}>
       <Button
-        className="w-full"
         type={onClick ? "button" : "submit"}
         onClick={onClick}
         disabled={isDisabled}

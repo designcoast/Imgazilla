@@ -14,7 +14,7 @@ import { FigmaGlobalSettingsManager } from '@/plugin/FigmaGlobalSettingsManager'
 
 export class FigmaUI {
   private readonly width: number = 700;
-  private readonly height: number = 510;
+  private readonly height: number = 650;
 
   private logger: Logger;
   private figmaUIMessaging: FigmaUIMessaging;

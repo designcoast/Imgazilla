@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import {
-  ColorPicker, ExportButton,
+  Button,
+  ColorPicker,
   Form,
   FormControl,
   FormField,
@@ -234,7 +235,15 @@ export const FaviconSettingsForm = ({
           </div>
         </div>
         </div>
-        <ExportButton isShowShadow={false} isDisabled={!isSelectedImage} className="max-w-[200px]">Export</ExportButton>
+        <div className="w-full max-w-[200px]">
+          <Button
+            className="w-full"
+            type="submit"
+            disabled={!isSelectedImage}
+          >
+            Export
+          </Button>
+        </div>
       </form>
     </Form>
   )

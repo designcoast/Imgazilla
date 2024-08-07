@@ -9,3 +9,11 @@ export const calculateSize = ({ type, value, width, height }) => {
 
   return `${calcWidth}x${calcHeight}`
 }
+
+export const scaleFormat = ({ type, value }) => {
+  if (type === 'WIDTH' || type === 'HEIGHT') {
+    return `${value}x${value}`
+  }
+
+  return `${value}x`
+}
