@@ -1,7 +1,7 @@
-import React, { memo, useMemo } from 'react';
-import { Slider } from '@/app/components';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Slider, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/components';
 
-import { TITLE_TO_QUALITY_PERCENTAGE } from '@/app/constants';
+import { QUALITY_PERCENTAGE_STEP } from '@/app/constants';
 
 type Props = {
   optimizationPercent: number;
@@ -9,28 +9,41 @@ type Props = {
 };
 
 export const ImageOptimizationLevel = memo(({ optimizationPercent, handleOnOptimizationLevel }: Props) => {
+  const [optimizationLevel, setOptimizationLevel] = useState(100);
 
-  const optimizationTitle = useMemo(() => TITLE_TO_QUALITY_PERCENTAGE[optimizationPercent], [optimizationPercent]);
+  const onChange = useCallback((value: number[]) => {
+    const percent = value[0];
+
+    setOptimizationLevel(percent);
+    handleOnOptimizationLevel(value);
+  }, []);
+
+  useEffect(() => {
+    setOptimizationLevel(optimizationPercent);
+  }, [optimizationPercent]);
 
   return (
-    <div className="border-t">
-      <div className="flex flex-col mx-4 my-3.5">
-        <div className="flex justify-between mb-2.5">
-          <div className="text-xs font-semibold">Image Quality (All)</div>
-          <div className="flex items-baseline">
-            <p className="text-sm font-bold mr-1">{optimizationPercent}</p>
-            <p className="text-xs">%</p>
-            <p className="text-xs ml-1">({optimizationTitle})</p>
-          </div>
-        </div>
-        <Slider
-          max={100}
-          min={0}
-          step={25}
-          defaultValue={[optimizationPercent]}
-          onValueChange={handleOnOptimizationLevel}
-        />
-      </div>
+    <div className="flex flex-row gap-3">
+      <Slider
+        max={100}
+        min={0}
+        step={QUALITY_PERCENTAGE_STEP}
+        defaultValue={[optimizationPercent]}
+        value={[optimizationLevel]}
+        onValueChange={onChange}
+      />
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger className="p-0 h-fit">
+            <div
+              className="flex bg-primary-secondDark border border-primary-primaryDark rounded-sm text-primary-gray px-3 py-0.5 font-semibold text-xs min-w-[58px] justify-center">{optimizationLevel}%
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="bottom">
+            <p className="text-xs">Optimization level for this image.</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
     </div>
   )

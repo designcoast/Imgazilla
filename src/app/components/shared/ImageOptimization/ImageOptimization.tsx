@@ -8,7 +8,7 @@ import { EventType, UIEventType } from '@/eventType';
 import { useTypedDispatch } from '@/app/redux/store';
 import {
   FAVICON_TAB,
-  getGeneralOptimizationPercent,
+  getGeneralOptimizationPercent, getImages,
   getIsImageOptimizationResultsOpen,
   getSelectedImages,
   reset,
@@ -25,6 +25,92 @@ import {
 import { useOptimizeImageMutation } from '@/app/redux/services';
 import { transformAndCompressData } from '@/app/lib/compressData';
 
+const mockedImage = [
+  {
+  "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
+  "name": "Logo",
+  "width": 800,
+  "height": 900,
+  "setting": {
+      "format": "PNG",
+      "suffix": "suffix_for_testing",
+      "contentsOnly": true,
+      "colorProfile": "DOCUMENT",
+      "constraint": {
+          "type": "SCALE",
+          "value": 4
+      }
+  },
+  "format": "SVG",
+  "uintArray": '',
+  "optimizationPercent": 100,
+  "isSelected": false,
+  "size": 32.41015625
+}, {
+  "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
+  "name": "Logo",
+  "width": 38,
+  "height": 38,
+  "setting": {
+      "format": "PNG",
+      "suffix": "",
+      "contentsOnly": true,
+      "colorProfile": "DOCUMENT",
+      "constraint": {
+          "type": "SCALE",
+          "value": 4
+      }
+  },
+  "format": "PNG",
+  "uintArray": '',
+  "optimizationPercent": 100,
+  "isSelected": false,
+  "size": 32.41015625
+},
+  {
+    "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
+    "name": "Logo",
+    "width": 1200,
+    "height": 2600,
+    "setting": {
+      "format": "PNG",
+      "suffix": "",
+      "contentsOnly": true,
+      "colorProfile": "DOCUMENT",
+      "constraint": {
+        "type": "SCALE",
+        "value": 4
+      }
+    },
+    "format": "JPG",
+    "uintArray": '',
+    "optimizationPercent": 100,
+    "isSelected": false,
+    "size": 32.41015625
+  },
+  {
+    "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
+    "name": "Logo",
+    "width": 38,
+    "height": 38,
+    "setting": {
+      "format": "PNG",
+      "suffix": "",
+      "contentsOnly": true,
+      "colorProfile": "DOCUMENT",
+      "constraint": {
+        "type": "SCALE",
+        "value": 4
+      }
+    },
+    "format": "PDF",
+    "uintArray": '',
+    "optimizationPercent": 100,
+    "isSelected": false,
+    "size": 32.41015625
+  }
+]
+
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -35,6 +121,7 @@ export const ImageOptimization = () => {
   const isImageOptimizationResultsOpen = useSelector(getIsImageOptimizationResultsOpen)
   const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent)
   const selectedImages = useSelector(getSelectedImages);
+  const images = useSelector(getImages);
 
   const onOptimizeImage = useCallback(() => {
     optimizeImage(transformAndCompressData(selectedImages))
@@ -100,7 +187,11 @@ export const ImageOptimization = () => {
   const isDisabled = selectedImages.length === 0;
 
   useEffect(() => {
-    handleOnFetchImageCollection();
+    if (images.length !== 0) {
+      return;
+    }
+    // handleOnFetchImageCollection();
+    dispatch(setImagesForOptimization(mockedImage as any));
   }, [handleOnFetchImageCollection]);
 
   return (
@@ -109,13 +200,13 @@ export const ImageOptimization = () => {
         <ImageOptimizationResult />
         ) : (
         <>
-          <div className="flex flex-col relative">
+          <div className="flex flex-col relative w-full">
             <ImageOptimizationSettings onRefresh={handleOnRefresh} />
+            <ImageOptimizationList isLoading={isLoading} data={images}/>
+            <ExportButton onClick={onOptimizeImage} isDisabled={isDisabled}>
+              Optimize {selectedImages.length} images
+            </ExportButton>
             <EarnCreditsSheet showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnOpenChange} />
-            <div className="min-h-[488px]">
-              <ImageOptimizationList isLoading={isLoading}/>
-            </div>
-            <ExportButton onClick={onOptimizeImage} isDisabled={isDisabled} className="absolute">Export</ExportButton>
           </div>
           {isLoading ? (<Overlay/>) : null }
         </>
