@@ -90,15 +90,17 @@
 
     --dark-gray: #27272A;
     --dark-green: 147 24 48;
+    --green: 147 66 51;
     --light-green: #C2F0D7;
     --dark: #0D0D0F;
     --main-dark: 0 0 6;
     --primary-dark: #1E1E1E;
     --second-dark: #19191B;
-
     --light-gray: #F3F6F9;
-
     --dark-text: #282B2F;
+    --light-blue: 203 89 50;
+    --light-yellow: 37 100 64;
+    --light-red: 1 65 55;
   }
 }
 
