@@ -15,6 +15,8 @@ export { ImageOptimizationResultList } from '@/app/components/shared/ImageOptimi
 export { ImageOptimizationResultSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultSettings/ImageOptimizationResultSettings';
 export { TicTacToe } from '@/app/components/shared/TicTacToe/TicTacToe';
 
+export { FormatBadge } from '@/app/components/shared/FormatBadge/FormatBadge';
+
 export { Navigation } from '@/app/components/shared/Navigation/Navigation';
 export { FaviconPreviewSheet } from '@/app/components/shared/Sheets/FaviconPreview/FaviconPreviewSheet';
 export { FaviconBrowsePreview } from '@/app/components/shared/FaviconBrowsePreview/FaviconBrowsePreview';
@@ -48,6 +50,7 @@ export * from '@/app/components/ui/ErrorComponent/ErrorComponent';
 export * from '@/app/components/ui/Checkbox/Checkbox';
 export * from '@/app/components/ui/ScrollArea/ScrollArea';
 export * from '@/app/components/ui/Tooltip/Tooltip';
+export * from '@/app/components/ui/Select/Select';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 export { ChromeTabPreviewImage } from '@/app/components/icons/ChromeTabPreviewImage';
@@ -55,3 +58,5 @@ export { IPhonePreviewImage } from '@/app/components/icons/IPhonePreviewImage';
 export { ChromeSearchResultBrowserPreview } from '@/app/components/icons/ChromeSearchResultBrowserPreview';
 
 export { FaviconSettingsForm, type FormDataType } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
+
+export { MainContainer } from '@/app/components/templates/MainContainer';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Account, FaviconExporter, Navigation } from '@/app/components';
-import { APP_ROUTES, FAVICON_EXPORT } from '@/app/routes';
+import { Account, FaviconExporter, ImageOptimization, Navigation } from '@/app/components';
+import { APP_ROUTES, FAVICON_EXPORT, IMAGE_OPTIMIZATION } from '@/app/routes';
 
 export const ModernLayout = () => {
   const ROUTE_KEYS = Object.keys(APP_ROUTES);
@@ -22,6 +22,9 @@ export const ModernLayout = () => {
         <div className="flex mt-2 h-full w-full">
           <Navigation.Content value={FAVICON_EXPORT}>
             <FaviconExporter />
+          </Navigation.Content>
+          <Navigation.Content value={IMAGE_OPTIMIZATION}>
+            <ImageOptimization />
           </Navigation.Content>
         </div>
       </Navigation>

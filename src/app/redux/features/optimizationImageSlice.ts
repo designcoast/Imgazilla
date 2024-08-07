@@ -65,6 +65,14 @@ export const optimizationImageSlice = createSlice({
         return item;
       })
     },
+    updateAllImageOptimizationPercent(state, action: PayloadAction<number>) {
+      state.images = state.images.map((item) => {
+        return {
+          ...item,
+          optimizationPercent: action.payload
+        }
+      })
+    },
     unselectAllImages(state) {
       state.images = state.images.map((item) => {
         return {
@@ -134,5 +142,6 @@ export const {
   setImageOptimizationResult,
   updateImageOptimizationPercent,
   updateGeneralOptimizationPercent,
+  updateAllImageOptimizationPercent,
   setImageOptimizationResultPageState,
 } = optimizationImageSlice.actions;
