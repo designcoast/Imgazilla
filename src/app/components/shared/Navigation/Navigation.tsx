@@ -52,7 +52,7 @@ export const Navigation: NavigationComponent = ({ children, defaultValue }) => {
       onMouseEnter: handleMouseEnter,
       onMouseLeave: handleMouseLeave
     }}>
-      <div className="flex flex-col h-full w-full">{children}</div>
+      <div className="flex flex-col h-full w-full bg-primary-mainDark">{children}</div>
     </NavigationContext.Provider>
   );
 };
