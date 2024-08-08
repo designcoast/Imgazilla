@@ -1,19 +1,7 @@
-
-export const calculateSize = ({ type, value, width, height }) => {
-  if (type === 'WIDTH' || type === 'HEIGHT') {
-    return `${value}x${value}`
-  }
-
-  const calcWidth = width * value;
-  const calcHeight = height * value;
-
-  return `${calcWidth}x${calcHeight}`
-}
-
 export const scaleFormat = ({ type, value }) => {
   if (type === 'WIDTH' || type === 'HEIGHT') {
     return `${value}x${value}`
   }
 
-  return `${value}x`
+  return `${value || '1'}x`
 }
