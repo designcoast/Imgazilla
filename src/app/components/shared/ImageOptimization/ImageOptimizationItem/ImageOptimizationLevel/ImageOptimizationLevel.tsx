@@ -6,9 +6,10 @@ import { QUALITY_PERCENTAGE_STEP } from '@/app/constants';
 type Props = {
   optimizationPercent: number;
   handleOnOptimizationLevel: (value: number[]) => void;
+  isDisable?: boolean;
 };
 
-export const ImageOptimizationLevel = memo(({ optimizationPercent, handleOnOptimizationLevel }: Props) => {
+export const ImageOptimizationLevel = memo(({ optimizationPercent, handleOnOptimizationLevel, isDisable }: Props) => {
   const [optimizationLevel, setOptimizationLevel] = useState(100);
 
   const onChange = useCallback((value: number[]) => {
@@ -31,6 +32,7 @@ export const ImageOptimizationLevel = memo(({ optimizationPercent, handleOnOptim
         defaultValue={[optimizationPercent]}
         value={[optimizationLevel]}
         onValueChange={onChange}
+        disabled={isDisable}
       />
       <TooltipProvider>
         <Tooltip>

@@ -78,6 +78,8 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
 
   const disabledStyles = isDisabled ? 'opacity-50 cursor-not-allowed' : '';
 
+  const isPDF = format === PDF_FORMAT;
+
   return (
     <div className={cn("flex flex-col border bg-primary-mainDark border-primary-primaryDark w-full", className)}>
       <div className="flex items-center justify-between gap-5 py-2.5 space-x-4 px-3 w-full">
@@ -85,7 +87,7 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
           <Checkbox onClick={handleOnCheck} checked={isSelected}/>
           <div className={cn(disabledStyles)}>
             <div className="w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md">
-              {format === PDF_FORMAT ? (
+              {isPDF ? (
                 <iframe src={imageUrl} width="100%" height="100%"
                         className="rounded-md min-w-full min-h-full object-cover"/>
               ) : (
@@ -100,6 +102,7 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
             <ImageOptimizationLevel
               optimizationPercent={optimizationPercent}
               handleOnOptimizationLevel={handleOnOptimizationLevel}
+              isDisable={isPDF}
             />
           </div>
         </div>

@@ -58,6 +58,9 @@ export const ImageOptimization = () => {
           },
           duration: 5000
         });
+    }).finally(() => {
+      setIsLoading(false);
+      setIsOptimizationStarted(false);
     })
   }, [selectedImages, generalOptimizationPercent]);
 
