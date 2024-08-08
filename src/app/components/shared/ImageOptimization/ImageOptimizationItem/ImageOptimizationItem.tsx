@@ -80,7 +80,7 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
 
   return (
     <div className={cn("flex flex-col border bg-primary-mainDark border-primary-primaryDark w-full", className)}>
-      <div className="flex items-center justify-between gap-5 py-2.5 space-x-4 px-4 w-full">
+      <div className="flex items-center justify-between gap-5 py-2.5 space-x-4 px-3 w-full">
         <div className="flex items-center space-x-3">
           <Checkbox onClick={handleOnCheck} checked={isSelected}/>
           <div className={cn(disabledStyles)}>

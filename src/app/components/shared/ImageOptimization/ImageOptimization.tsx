@@ -25,94 +25,10 @@ import {
 import { useOptimizeImageMutation } from '@/app/redux/services';
 import { transformAndCompressData } from '@/app/lib/compressData';
 
-const mockedImage = [
-  {
-  "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
-  "name": "Logo",
-  "width": 800,
-  "height": 900,
-  "setting": {
-      "format": "PNG",
-      "suffix": "suffix_for_testing",
-      "contentsOnly": true,
-      "colorProfile": "DOCUMENT",
-      "constraint": {
-          "type": "SCALE",
-          "value": 4
-      }
-  },
-  "format": "SVG",
-  "uintArray": '',
-  "optimizationPercent": 100,
-  "isSelected": false,
-  "size": 32.41015625
-}, {
-  "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
-  "name": "Logo",
-  "width": 38,
-  "height": 38,
-  "setting": {
-      "format": "PNG",
-      "suffix": "",
-      "contentsOnly": true,
-      "colorProfile": "DOCUMENT",
-      "constraint": {
-          "type": "SCALE",
-          "value": 4
-      }
-  },
-  "format": "PNG",
-  "uintArray": '',
-  "optimizationPercent": 100,
-  "isSelected": false,
-  "size": 32.41015625
-},
-  {
-    "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
-    "name": "Logo",
-    "width": 1200,
-    "height": 2600,
-    "setting": {
-      "format": "PNG",
-      "suffix": "",
-      "contentsOnly": true,
-      "colorProfile": "DOCUMENT",
-      "constraint": {
-        "type": "SCALE",
-        "value": 4
-      }
-    },
-    "format": "JPG",
-    "uintArray": '',
-    "optimizationPercent": 100,
-    "isSelected": false,
-    "size": 32.41015625
-  },
-  {
-    "uuid": "86fd1fa0-d9bf-4ad8-95cb-1f426460b889",
-    "name": "Logo",
-    "width": 38,
-    "height": 38,
-    "setting": {
-      "format": "PNG",
-      "suffix": "",
-      "contentsOnly": true,
-      "colorProfile": "DOCUMENT",
-      "constraint": {
-        "type": "SCALE",
-        "value": 4
-      }
-    },
-    "format": "PDF",
-    "uintArray": '',
-    "optimizationPercent": 100,
-    "isSelected": false,
-    "size": 32.41015625
-  }
-]
-
 export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isHideScrollTo, setIsHideScrollTo] = useState(false);
+  const [isOptimizationStarted, setIsOptimizationStarted] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [optimizeImage] = useOptimizeImageMutation();
 
@@ -124,13 +40,15 @@ export const ImageOptimization = () => {
   const images = useSelector(getImages);
 
   const onOptimizeImage = useCallback(() => {
+    setIsOptimizationStarted(true);
+    setIsLoading(true);
     optimizeImage(transformAndCompressData(selectedImages))
       .unwrap()
       .then(({ jobId }: {
         jobId: string
       }) => {
         dispatch(setImageOptimizationJobId({ jobId }))
-        dispatch(setImageOptimizationResultPageState({ isOpen: true }))
+        dispatch(setImageOptimizationResultPageState({ isOpen: true }));
       }).catch((error) => {
         toast.info('Error while generating favicon', {
           description: error?.data?.message,
@@ -190,8 +108,7 @@ export const ImageOptimization = () => {
     if (images.length !== 0) {
       return;
     }
-    // handleOnFetchImageCollection();
-    dispatch(setImagesForOptimization(mockedImage as any));
+    handleOnFetchImageCollection();
   }, [handleOnFetchImageCollection]);
 
   return (
@@ -202,8 +119,13 @@ export const ImageOptimization = () => {
         <>
           <div className="flex flex-col relative w-full">
             <ImageOptimizationSettings onRefresh={handleOnRefresh} />
-            <ImageOptimizationList isLoading={isLoading} data={images}/>
-            <ExportButton onClick={onOptimizeImage} isDisabled={isDisabled}>
+            <ImageOptimizationList
+              data={images}
+              isLoading={isLoading}
+              isHideScrollTo={isHideScrollTo}
+              onUpdateScrollTo={setIsHideScrollTo}
+            />
+            <ExportButton onClick={onOptimizeImage} isDisabled={isDisabled || isOptimizationStarted}>
               Optimize {selectedImages.length} images
             </ExportButton>
             <EarnCreditsSheet showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnOpenChange} />

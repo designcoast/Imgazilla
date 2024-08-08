@@ -57,13 +57,13 @@ export const ImageOptimizationResult = () => {
   }, [imageOptimizationResult]);
 
   useEffect(() => {
-    if (isLoading) {
+    if (isLoading || imageOptimizationResult.length > 0) {
       return;
     }
 
     getProcessStatus(jobId)
     setIsLoading(true);
-  }, [jobId]);
+  }, [jobId, imageOptimizationResult]);
 
   useEffect(() => {
     if (!data) {
@@ -89,14 +89,10 @@ export const ImageOptimizationResult = () => {
   }, [data, jobId]);
 
   return (
-    <div className="relative">
+    <div className="flex flex-col relative w-full">
       <ImageOptimizationResultSettings onClick={handleOnClosePageResult} isDisabled={isLoading}/>
-      <div className="min-h-[515px]">
-        <ImageOptimizationResultList isLoading={isLoading}/>
-      </div>
-      {isLoading ? null : (
-        <ExportButton onClick={handleOnDownload}>Download images package</ExportButton>
-      )}
+      <ImageOptimizationResultList isLoading={isLoading} />
+      <ExportButton onClick={handleOnDownload} isDisabled={isLoading}>Download images package</ExportButton>
     </div>
   )
 }

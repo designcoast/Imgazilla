@@ -27,7 +27,7 @@ export const FaviconBrowsePreview = () => {
 
   return (
     <div className="flex flex-col">
-      <ScrollArea className="h-80 -mr-3">
+      <ScrollArea className="h-[450px] -mr-3">
         <div className="flex flex-col mt-6">
           <div className="flex justify-between items-center mr-3">
             <p>Browser:</p>

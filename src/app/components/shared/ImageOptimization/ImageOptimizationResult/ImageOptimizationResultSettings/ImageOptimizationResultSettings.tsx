@@ -10,12 +10,12 @@ type Props = {
 
 export const ImageOptimizationResultSettings = ({ onClick, isDisabled = false }: Props) => {
   return (
-    <div className="flex justify-end border-b pb-2">
-      <div className="mx-4 mb-2 mt-1.5">
+    <div className="border border-primary-primaryDark bg-primary-secondDark rounded-lg">
+      <div className="flex justify-end mx-3 my-3">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger onClick={onClick} disabled={isDisabled} type="button">
-              <CircleChevronLeft size={20} />
+              <CircleChevronLeft size={20}/>
             </TooltipTrigger>
             <TooltipContent side="bottom">
               <p>Back to images list</p>

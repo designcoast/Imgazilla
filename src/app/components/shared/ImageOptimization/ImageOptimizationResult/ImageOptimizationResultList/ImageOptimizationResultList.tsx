@@ -1,40 +1,48 @@
 import React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ImageOptimizationResultItem, Loading, ScrollArea } from '@/app/components';
 import { useSelector } from 'react-redux';
-import { getFilteredOptimizationResult } from '@/app/redux/features';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { ImageOptimizationResultItem, Loading, MainContainer, ScrollArea } from '@/app/components';
+import { getImageOptimizationResult } from '@/app/redux/features';
 
 type Props = {
   isLoading: boolean;
 }
 
 export const ImageOptimizationResultList = ({ isLoading }: Props) => {
-  const filteredImageOptimizationResult = useSelector(getFilteredOptimizationResult);
+  const imageOptimizationResult = useSelector(getImageOptimizationResult);
 
   if (isLoading) {
     return (
-      <div className="flex w-full justify-center items-center min-h-[488px]">
+      <MainContainer className="justify-center items-center mt-0.5 overflow-hidden h-full max-h-[460px]">
         <Loading />
-      </div>
+      </MainContainer>
     )
   }
 
   return (
-    <AnimatePresence>
-      <ScrollArea className="h-[515px]">
-        {filteredImageOptimizationResult.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{opacity: 0, y: 20}}
-              animate={{opacity: 1, y: 0}}
-              exit={{opacity: 0, y: -20}}
-              transition={{duration: 0.3, delay: index * 0.1}}
-            >
-              <ImageOptimizationResultItem item={item} />
-            </motion.div>
-          )
-        )}
-      </ScrollArea>
-    </AnimatePresence>
+    <MainContainer className="relative mt-0.5 overflow-hidden h-full max-h-[460px]">
+      <AnimatePresence mode="sync">
+        <ScrollArea className="w-full">
+          {imageOptimizationResult.map((item, index) => {
+            const isFirst = index === 0;
+            const isLast = index === imageOptimizationResult.length - 1;
+            const classes = `${isFirst ? 'rounded-t-lg' : ''} ${isLast ? 'rounded-b-lg' : ''}`;
+
+            return (
+              <motion.div
+                key={index}
+                initial={{opacity: 0, y: 20}}
+                animate={{opacity: 1, y: 0}}
+                exit={{opacity: 0, y: -20}}
+                transition={{duration: 0.3, delay: index * 0.1}}
+              >
+                <ImageOptimizationResultItem item={item} className={classes} />
+              </motion.div>
+            )}
+          )}
+        </ScrollArea>
+      </AnimatePresence>
+    </MainContainer>
   )
 }
