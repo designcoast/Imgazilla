@@ -77,9 +77,10 @@ const NavigationList: FC<{ children: ReactNode }> = ({ children }) => {
 interface NavigationItemProps {
   value: string;
   children: ReactNode;
+  onClick?: () => void;
 }
 
-const NavigationItem: FC<NavigationItemProps> = ({value, children}) => {
+const NavigationItem: FC<NavigationItemProps> = ({ value, children, onClick }) => {
   const context = useContext(NavigationContext);
 
   if (!context) {
@@ -90,6 +91,7 @@ const NavigationItem: FC<NavigationItemProps> = ({value, children}) => {
 
   const handleActiveItem = useCallback(() => {
     setActiveItem(value);
+    onClick && onClick();
   }, [value]);
 
   const handleAddElementRef = useCallback((el: HTMLButtonElement) => {

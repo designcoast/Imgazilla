@@ -1,6 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/app/redux/store';
+import { PDF_FORMAT } from '@/app/constants';
 
 interface ImagesState {
   images: ImageInfo[];
@@ -67,10 +68,13 @@ export const optimizationImageSlice = createSlice({
     },
     updateAllImageOptimizationPercent(state, action: PayloadAction<number>) {
       state.images = state.images.map((item) => {
-        return {
-          ...item,
-          optimizationPercent: action.payload
+        if (item.format !== PDF_FORMAT) {
+          return {
+            ...item,
+            optimizationPercent: action.payload
+          }
         }
+        return item;
       })
     },
     unselectAllImages(state) {
