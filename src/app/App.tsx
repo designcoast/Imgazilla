@@ -2,12 +2,12 @@ import React from 'react';
 import { withProfiler } from '@sentry/react';
 
 import { ThemeProvider } from '@/app/components/theme-provider';
-// import { RootLayout } from '@/app/layouts/RootLayout';
 import { ModernLayout } from '@/app/layouts/ModernLayout';
 import { ReduxProvider } from '@/app/redux/provider';
 import { AccountStatusChecker } from '@/app/HOC/AccountStatusChecker';
 import { Toaster } from '@/app/components';
 import { WithDefaultTabSetter } from '@/app/HOC/WithDefaultTabSetter';
+import { WithGlobalPluginSettingsProvider } from '@/app/HOC/WithGlobalPluginSettings';
 import { initSentry } from '@/app/configs/sentry.config';
 
 initSentry();
@@ -24,8 +24,9 @@ const App = () => {
         <div className="bg-primary-mainDark h-full">
           <AccountStatusChecker>
             <WithDefaultTabSetter>
-              {/*<RootLayout />*/}
-              <ModernLayout />
+              <WithGlobalPluginSettingsProvider>
+                <ModernLayout />
+              </WithGlobalPluginSettingsProvider>
             </WithDefaultTabSetter>
           </AccountStatusChecker>
           <Toaster />
