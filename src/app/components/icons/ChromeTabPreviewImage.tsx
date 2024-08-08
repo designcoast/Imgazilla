@@ -8,8 +8,8 @@ type Props = {
 
 export const ChromeTabPreviewImage = ({ imageData, backgroundColor, isLight }: Props) => {
   return (
-    <svg width="620" height="80" viewBox="0 0 620 80" fill="none">
-      <rect width="620" height="42" fill={isLight ? "#DEE1E6" : "#202124"}/>
+    <svg width="628" height="80" viewBox="0 0 628 80" fill="none">
+      <rect width="628" height="42" fill={isLight ? "#DEE1E6" : "#202124"}/>
       <path fillRule="evenodd" clipRule="evenodd"
             d="M78 42C79.3846 41.0588 82.6154 40.5882 84 34C84 34 84 42 84 42H78Z" fill={isLight ? "#FFF" : "#35363A"}/>
       <path d="M84 16C84 11.5817 87.5817 8 92 8H195C199.418 8 203 11.5817 203 16V42H84V16Z"
@@ -31,10 +31,10 @@ export const ChromeTabPreviewImage = ({ imageData, backgroundColor, isLight }: P
       <circle cx="39" cy="21" r="5.75" fill="#FFC130" stroke="#E1A325" strokeWidth="0.5"/>
       <circle cx="59" cy="21" r="5.75" fill="#27CA40" stroke="#3EAF3F" strokeWidth="0.5"/>
       <mask id="path-11-inside-1_3026_1523" fill="white">
-        <path d="M0 42H620V80H0V42Z"/>
+        <path d="M0 42H628V80H0V42Z"/>
       </mask>
-      <path d="M0 42H620V80H0V42Z" fill={isLight ? "#FFF" : "#35363A"}/>
-      <path d="M620 79H0V81H620V79Z" fill={isLight ? "#DADCE0" : "#4D4D4D"} mask="url(#path-11-inside-1_3026_1523)"/>
+      <path d="M0 42H628V80H0V42Z" fill={isLight ? "#FFF" : "#35363A"}/>
+      <path d="M628 79H0V81H628V79Z" fill={isLight ? "#DADCE0" : "#4D4D4D"} mask="url(#path-11-inside-1_3026_1523)"/>
       <path fillRule="evenodd" clipRule="evenodd"
             d="M561.167 58C561.992 58 562.667 57.325 562.667 56.5C562.667 55.675 561.992 55 561.167 55C560.342 55 559.667 55.675 559.667 56.5C559.667 57.325 560.342 58 561.167 58ZM561.167 59.5C560.342 59.5 559.667 60.175 559.667 61C559.667 61.825 560.342 62.5 561.167 62.5C561.992 62.5 562.667 61.825 562.667 61C562.667 60.175 561.992 59.5 561.167 59.5ZM561.167 64C560.342 64 559.667 64.675 559.667 65.5C559.667 66.325 560.342 67 561.167 67C561.992 67 562.667 66.325 562.667 65.5C562.667 64.675 561.992 64 561.167 64Z"
             fill={isLight ? "#5F6368" : "#FFF"} fillOpacity={isLight ? "1" : "0.2"}/>
