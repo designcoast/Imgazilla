@@ -74,6 +74,13 @@ export const ImageOptimization = () => {
 
   }, []);
 
+  const onCheckSelectedImages = useCallback(() => {
+    onSendMessage({
+      type: UIEventType.GET_SELECTED_IMAGES_UINT_ARRAY,
+      payload: {}
+    })
+  }, []);
+
   const handleOnOpenChange = useCallback((isOpen: boolean) => {
     setIsOpenModal(isOpen);
   }, []);
@@ -97,22 +104,29 @@ export const ImageOptimization = () => {
       dispatch(setImagesForOptimization(message.payload.data));
     }
 
-    if (message?.type === EventType.IMAGE_COLLECTION_COMPLETE) {
+    if (message?.type === EventType.IMAGE_COLLECTION_COMPLETE || message?.type === EventType.SELECTED_IMAGES_COLLECTION_COMPLETE) {
       setIsLoading(false);
       onDisableTab(false);
     }
-  }, []);
+
+    if (message?.type === EventType.SELECTED_IMAGES_COLLECTION) {
+      if (message?.payload?.data?.length === 0) {
+        handleOnFetchImageCollection();
+        return;
+      }
+
+      dispatch(setImagesForOptimization(message.payload.data));
+    }
+
+  }, [handleOnFetchImageCollection]);
 
   const { onSendMessage } = useWindowMessaging(handleFigmaPluginMessages);
 
   const isDisabled = selectedImages.length === 0;
 
   useEffect(() => {
-    if (images.length !== 0) {
-      return;
-    }
-    handleOnFetchImageCollection();
-  }, [handleOnFetchImageCollection]);
+    onCheckSelectedImages();
+  }, [onCheckSelectedImages]);
 
   return (
     <>
