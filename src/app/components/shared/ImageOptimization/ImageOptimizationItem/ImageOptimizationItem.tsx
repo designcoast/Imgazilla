@@ -113,7 +113,7 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
         </div>
         <div className={cn('flex gap-1.5 text-xs min-w-[70px]', disabledStyles)}>
           <div className="flex">
-            {width}x{height}
+            {width.toFixed(0)}x{height.toFixed(0)}
           </div>
         </div>
         <div className={cn('flex text-xs', disabledStyles)}>
