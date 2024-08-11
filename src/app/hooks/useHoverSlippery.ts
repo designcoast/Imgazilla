@@ -17,6 +17,7 @@ export const useHoverSlippery = (options: HoverSlipperyOptions) => {
 
         slipperyRef.current.style.width = `${activeRect.width}px`;
         slipperyRef.current.style.left = `${activeRect.left - parentRect.left}px`;
+        activeElement.classList.add('text-primary-secondDark');
       }
     }, 0);
   }, [activeElement, slipperyRef]);
@@ -29,6 +30,13 @@ export const useHoverSlippery = (options: HoverSlipperyOptions) => {
       slipperyRef.current.style.transition = `left ${options.speed}ms, width ${options.speed}ms`;
       slipperyRef.current.style.width = `${rect.width}px`;
       slipperyRef.current.style.left = `${rect.left - target.parentElement!.getBoundingClientRect().left}px`;
+      Object.keys(elementsRef.current).forEach((elKey) => {
+        const currEl = elementsRef.current[elKey];
+        if (elKey === key) {
+          return
+        }
+        currEl.classList.remove('text-primary-secondDark')
+      })
     }
   }, [elementsRef, slipperyRef]);
 
@@ -37,6 +45,7 @@ export const useHoverSlippery = (options: HoverSlipperyOptions) => {
       const rect = activeElement.getBoundingClientRect();
       slipperyRef.current.style.width = `${rect.width}px`;
       slipperyRef.current.style.left = `${rect.left - activeElement.parentElement!.getBoundingClientRect().left}px`;
+      activeElement.classList.add('text-primary-secondDark')
     }
   }, [activeElement, slipperyRef]);
 

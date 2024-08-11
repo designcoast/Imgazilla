@@ -67,7 +67,7 @@ const NavigationList: FC<{ children: ReactNode }> = ({ children }) => {
   const { slipperyRef } = context;
 
   return (
-    <div className="w-full flex group relative z-1 bg-primary-secondDark rounded-lg border px-0.5 py-0.5 gap-1.5 border-primary-primaryDark">
+    <div className="w-full flex relative z-1 bg-primary-secondDark rounded-lg border px-0.5 py-0.5 gap-1.5 border-primary-primaryDark">
       {children}
       <li ref={slipperyRef} className="slippery absolute top-[2px] bg-primary-lightGreen rounded-md transition-all list-none h-[37px] border border-primary-primaryDark" />
     </div>
@@ -108,7 +108,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ value, children, onClick }) =
     <Button
       ref={handleAddElementRef}
       variant="ghost"
-      className={cn('relative z-10 !p-2 group-hover:text-primary-lightGray transition-colors delay-400', isActive ? 'text-primary-secondDark hover:!text-primary-secondDark' : 'hover:!text-primary-secondDark font-normal')}
+      className={cn('relative z-10 !p-2 transition-colors duration-300', isActive ? 'text-primary-secondDark hover:!text-primary-secondDark' : 'hover:!text-primary-secondDark font-normal')}
       onClick={handleActiveItem}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={onMouseLeave}
