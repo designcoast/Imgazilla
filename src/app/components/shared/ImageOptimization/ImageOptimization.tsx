@@ -125,6 +125,10 @@ export const ImageOptimization = () => {
   const isDisabled = selectedImages.length === 0;
 
   useEffect(() => {
+    if (images.length !== 0) {
+      return
+    }
+
     onCheckSelectedImages();
   }, [onCheckSelectedImages]);
 
