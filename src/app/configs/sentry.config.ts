@@ -4,6 +4,7 @@ export const initSentry = () => {
   init({
     dsn: process.env.SENTRY_DSN_LINK,
     environment: process.env.NODE_ENV,
+    enabled: process.env.NODE_ENV === 'production',
     integrations: [
       browserTracingIntegration(),
       replayIntegration(),
