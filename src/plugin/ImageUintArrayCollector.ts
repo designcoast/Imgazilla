@@ -17,6 +17,34 @@ export class ImageUintArrayCollector {
   /**
    * Asynchronously collect all nodes that are PNGs to avoid UI freeze.
    */
+
+  public collectNodesFromSelection(selection: BaseNode[]): void {
+    if (selection.length === 1) {
+      // Single node selected
+      const singleNode = selection[0];
+      if (this.isExportableNode(singleNode)) {
+        this.processNode(singleNode, () => {
+          if (this.imageInfos.length > 0) {
+            this.options.onChunkProcessed(this.imageInfos);
+          }
+          this.options.onCompleted();
+        });
+      } else {
+        this.options.onCompleted();
+      }
+    } else if (selection.length > 1) {
+      // Multiple nodes selected
+      this.processNodes(selection, () => {
+        if (this.imageInfos.length > 0) {
+          this.options.onChunkProcessed(this.imageInfos);
+        }
+        this.options.onCompleted();
+      });
+    } else {
+      this.options.onCompleted();
+    }
+  }
+
   public collectNodesAsync(node: BaseNode): void {
     this.processNode(node, () => {
       if (this.imageInfos.length > 0) {
@@ -45,6 +73,18 @@ export class ImageUintArrayCollector {
         callback();
       }
     }, 0);
+  }
+
+  private processNodes(nodes: BaseNode[], callback: () => void): void {
+    const processNext = (index: number) => {
+      if (index < nodes.length) {
+        this.processNode(nodes[index], () => processNext(index + 1));
+      } else {
+        callback();
+      }
+    };
+
+    processNext(0);
   }
 
   private processChildren(children: ReadonlyArray<any>, callback: () => void): void {
@@ -96,5 +136,9 @@ export class ImageUintArrayCollector {
 
   public clear(): void {
     this.imageInfos = [];
+  }
+
+  private isExportableNode(node: BaseNode): boolean {
+    return node.type === 'RECTANGLE' || node.type === 'FRAME' || 'exportSettings' in node;
   }
 }
