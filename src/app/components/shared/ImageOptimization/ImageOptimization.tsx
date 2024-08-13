@@ -75,6 +75,8 @@ export const ImageOptimization = () => {
   }, []);
 
   const onCheckSelectedImages = useCallback(() => {
+    setIsLoading(true);
+
     onSendMessage({
       type: UIEventType.GET_SELECTED_IMAGES_UINT_ARRAY,
       payload: {}
