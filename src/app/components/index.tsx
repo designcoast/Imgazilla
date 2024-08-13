@@ -52,6 +52,7 @@ export * from '@/app/components/ui/ScrollArea/ScrollArea';
 export * from '@/app/components/ui/Tooltip/Tooltip';
 export * from '@/app/components/ui/Select/Select';
 export * from '@/app/components/ui/AnimatedBackground/AnimatedBackground';
+export * from '@/app/components/ui/DropdownMenu/DropdownMenu';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 export { ChromeTabPreviewImage } from '@/app/components/icons/ChromeTabPreviewImage';
