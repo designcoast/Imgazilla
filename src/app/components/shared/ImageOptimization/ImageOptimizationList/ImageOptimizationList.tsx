@@ -13,7 +13,7 @@ type Props = {
   data: ImageInfo[];
 }
 
-const DEFAULT_NUMBER_OF_ITEMS = 8;
+const DEFAULT_NUMBER_OF_ITEMS = 6;
 const SCROLL_ENDPOINT = 135;
 
 export const ImageOptimizationList = ({ isLoading, data, isHideScrollTo, onUpdateScrollTo }: Props) => {

@@ -91,13 +91,21 @@ export const ImageOptimization = () => {
     dispatch(setDisableTab({ name: FAVICON_TAB, isDisabled }));
   }, [])
 
-  const handleOnRefresh = useCallback(() => {
+  const handleOnRefreshPage = useCallback(() => {
     dispatch(reset());
     handleOnFetchImageCollection();
   }, []);
 
+  const handleOnRefreshSelectedNode = useCallback(() => {
+    dispatch(reset());
+    setIsHideScrollTo(false);
+    onDisableTab();
+    onCheckSelectedImages();
+  }, []);
+
   const handleOnFetchImageCollection = useCallback(() => {
     onDisableTab();
+    setIsHideScrollTo(false);
     onFetchImageCollection();
   }, []);
 
@@ -141,7 +149,10 @@ export const ImageOptimization = () => {
         ) : (
         <>
           <div className="flex flex-col relative w-full">
-            <ImageOptimizationSettings onRefresh={handleOnRefresh} />
+            <ImageOptimizationSettings
+              onRefreshPage={handleOnRefreshPage}
+              onRefreshSelectedNode={handleOnRefreshSelectedNode}
+            />
             <ImageOptimizationList
               data={images}
               isLoading={isLoading}

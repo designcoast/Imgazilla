@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { RefreshCcw } from 'lucide-react';
+import { RefreshCcw, SquareDashedMousePointer, StickyNote } from 'lucide-react';
 
 import { toNumber } from 'lodash';
 
@@ -13,21 +13,25 @@ import {
 
 import {
   Checkbox,
-  Select, SelectContent, SelectItem,
-  SelectTrigger, SelectValue,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem, DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
 import { TITLE_TO_QUALITY_PERCENTAGE } from '@/app/constants';
 
 type Props = {
-  onRefresh: () => void;
+  onRefreshPage: () => void;
+  onRefreshSelectedNode: () => void;
 };
 
-export const ImageOptimizationSettings = ({ onRefresh }: Props) => {
+export const ImageOptimizationSettings = ({ onRefreshPage, onRefreshSelectedNode }: Props) => {
   const images = useSelector(getImages);
   const selectedImagesCount = useSelector(getSelectedImagesCount);
 
@@ -68,29 +72,40 @@ export const ImageOptimizationSettings = ({ onRefresh }: Props) => {
             <div className="flex text-xs font-semibold">Images selected</div>
           </div>
           <div className="flex items-center">
-            <div className="mr-4">
+            <div className="mr-3">
               <Select onValueChange={handleOnOptimizationLevel}>
-                <SelectTrigger className="mr-2 w-[146px]">
+                <SelectTrigger className="w-[146px]">
                   <SelectValue placeholder="Images quality" />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.keys(TITLE_TO_QUALITY_PERCENTAGE).map((item) => (
-                    <SelectItem key={item} value={item}>{TITLE_TO_QUALITY_PERCENTAGE[item]}</SelectItem>
+                    <SelectItem key={item} value={item} className="text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark">{TITLE_TO_QUALITY_PERCENTAGE[item]}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="p-0 h-fit" onClick={onRefresh}>
-                    <RefreshCcw size={16} className="stroke-borderSquare"/>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    <p className="text-xs">Refresh and retrieve the latest images from the Page</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex flex-row justify-center items-center gap-2.5 rounded-lg border border-primary-primaryDark bg-primary-mainDark px-3 py-2.5 text-sm">
+                  <p>Sync</p>
+                  <RefreshCcw size={16} className="stroke-borderSquare"/>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  sideOffset={6}
+                  align="end"
+                  className="w-auto flex flex-col rounded-lg border border-primary-primaryDark bg-primary-mainDark px-3 py-2.5 text-sm"
+                >
+                  <DropdownMenuItem className="gap-2.5 text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark cursor-pointer" onClick={onRefreshSelectedNode}>
+                    <SquareDashedMousePointer size={20} className="stroke-borderSquare" />
+                    <p className="text-inherit">Selected</p>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-primary-primaryDark" />
+                  <DropdownMenuItem className="gap-2.5 text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark cursor-pointer" onClick={onRefreshPage}>
+                    <StickyNote size={20} className="stroke-borderSquare" />
+                    <p className="text-inherit">Full page</p>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
