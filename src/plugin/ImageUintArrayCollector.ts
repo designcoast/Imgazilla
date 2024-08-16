@@ -1,4 +1,5 @@
 import { generateUUID } from '@/plugin/utils/generateUUID';
+import { findAll } from '@/plugin/utils/findMethods';
 
 interface NodeProcessorOptions {
   chunkSize: number;
@@ -27,7 +28,8 @@ export class ImageUintArrayCollector {
   public async collectNodesFromPage(): Promise<void> {
     await figma.currentPage.loadAsync();
 
-    const nodes = figma.currentPage.findAll(node => node.exportSettings.length !== 0) as any[];
+    const nodes = findAll(figma.currentPage.children, (node: SceneNode) => node.exportSettings.length !== 0);
+    await this.timeout(2000);
 
     await this.processNodesWithTimeout(nodes);
 
@@ -45,7 +47,7 @@ export class ImageUintArrayCollector {
       this.options.onChunkProcessed([...this.imageInfos]);
       this.imageInfos = [];
 
-      await this.timeout(500);
+      await this.timeout(0);
     }
   }
 
