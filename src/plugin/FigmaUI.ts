@@ -97,6 +97,7 @@ export class FigmaUI {
     const collector = new ImageUintArrayCollector({
       chunkSize: 1,
       onChunkProcessed: (collection: ImageInfo[]) => {
+        if (collection.length === 0) return;
         this.figmaAPI.sendImageCollectionToUI(collection);
       },
       onCompleted: () => {
@@ -112,7 +113,7 @@ export class FigmaUI {
       }
     });
 
-    collector.collectNodesAsync(figma.currentPage);
+    await collector.collectNodesFromPage();
   }
 
   private sendMessageToUI(message: MessageType) {

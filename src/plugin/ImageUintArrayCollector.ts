@@ -14,97 +14,52 @@ export class ImageUintArrayCollector {
     this.options = options;
   }
 
-  /**
-   * Asynchronously collect all nodes that are PNGs to avoid UI freeze.
-   */
-
-  public collectNodesFromSelection(selection: BaseNode[]): void {
-    if (selection.length === 1) {
-      // Single node selected
-      const singleNode = selection[0];
-      if (this.isExportableNode(singleNode)) {
-        this.processNode(singleNode, () => {
-          if (this.imageInfos.length > 0) {
-            this.options.onChunkProcessed(this.imageInfos);
-          }
-          this.options.onCompleted();
-        });
-      } else {
-        this.options.onCompleted();
-      }
-    } else if (selection.length > 1) {
-      // Multiple nodes selected
-      this.processNodes(selection, () => {
-        if (this.imageInfos.length > 0) {
-          this.options.onChunkProcessed(this.imageInfos);
-        }
-        this.options.onCompleted();
-      });
-    } else {
+  public async collectNodesFromSelection(selection: BaseNode[]): Promise<void> {
+    if (selection.length === 0) {
       this.options.onCompleted();
+      return;
+    }
+
+    await this.processNodesWithTimeout(selection);
+    this.options.onCompleted();
+  }
+
+  public async collectNodesFromPage(): Promise<void> {
+    await figma.currentPage.loadAsync();
+
+    const nodes = figma.currentPage.findAll(node => node.exportSettings.length !== 0) as any[];
+
+    await this.processNodesWithTimeout(nodes);
+
+    this.options.onCompleted();
+  }
+
+  private async processNodesWithTimeout(nodes: BaseNode[]): Promise<void> {
+    for (let i = 0; i < nodes.length; i += this.options.chunkSize) {
+      const chunk = nodes.slice(i, i + this.options.chunkSize);
+
+      for (const node of chunk) {
+        await this.processNode(node);
+      }
+
+      this.options.onChunkProcessed([...this.imageInfos]);
+      this.imageInfos = [];
+
+      await this.timeout(500);
     }
   }
 
-  public collectNodesAsync(node: BaseNode): void {
-    this.processNode(node, () => {
-      if (this.imageInfos.length > 0) {
-        this.options.onChunkProcessed(this.imageInfos);
-      }
-      this.options.onCompleted();
-    });
+  private async processNode(node: any): Promise<void> {
+    for (const setting of node.exportSettings) {
+      await this.processImage(node, setting);
+    }
   }
 
-  private processNode(node: any, callback: () => void): void {
-    setTimeout(async () => {
-      const { exportSettings } = node;
-      for (let setting of exportSettings) {
-
-        await this.processImage(node, setting);
-
-        if (this.imageInfos.length >= this.options.chunkSize) {
-          this.options.onChunkProcessed([...this.imageInfos]);
-          this.imageInfos = [];
-        }
-      }
-
-      if ("children" in node) {
-        this.processChildren(node.children, callback);
-      } else {
-        callback();
-      }
-    }, 0);
-  }
-
-  private processNodes(nodes: BaseNode[], callback: () => void): void {
-    const processNext = (index: number) => {
-      if (index < nodes.length) {
-        this.processNode(nodes[index], () => processNext(index + 1));
-      } else {
-        callback();
-      }
-    };
-
-    processNext(0);
-  }
-
-  private processChildren(children: ReadonlyArray<any>, callback: () => void): void {
-    const processNext = (index: number) => {
-      if (index < children.length) {
-        this.processNode(children[index], () => processNext(index + 1));
-      } else {
-        callback();
-      }
-    };
-
-    processNext(0);
-  }
-
-  private async processImage(node: RectangleNode, setting: ExportSettings): Promise<void> {
+  private async processImage(node: any, setting: ExportSettings): Promise<void> {
     try {
       const bytes = await node.exportAsync(setting);
 
       const { width, height, name } = node;
-
       const sizeInBytes = bytes.length;
       const sizeInKB = sizeInBytes / 1024;
 
@@ -123,22 +78,15 @@ export class ImageUintArrayCollector {
 
       this.imageInfos.push(imageInfo);
     } catch (e) {
-      console.log(`ERROR: ${e.message}`);
+      console.error(`ERROR processing node ${node.name}: ${e.message}`);
     }
   }
 
-  /**
-   * Get all collected PNG nodes.
-   */
-  public getImageInfoArray(): ImageInfo[] {
-    return this.imageInfos;
+  private timeout(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   public clear(): void {
     this.imageInfos = [];
-  }
-
-  private isExportableNode(node: BaseNode): boolean {
-    return node.type === 'RECTANGLE' || node.type === 'FRAME' || 'exportSettings' in node;
   }
 }

@@ -113,7 +113,7 @@ export class FigmaAPI {
     });
 
     if (selectedNodes.length > 0) {
-      collector.collectNodesFromSelection(selectedNodes as BaseNode[]);
+      await collector.collectNodesFromSelection(selectedNodes as BaseNode[]);
     }
 
     if (selectedNodes.length === 0) {
