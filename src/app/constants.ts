@@ -9,7 +9,7 @@ export const TITLE_TO_QUALITY_PERCENTAGE = {
   100: 'High Quality',
   50: 'Medium Quality',
   25: 'Basic Quality',
-  0: 'Low Quality',
+  1: 'Low Quality',
 };
 
 //TODO: Return this options from the config API
