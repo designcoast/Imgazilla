@@ -27,7 +27,7 @@ export const ImageOptimizationLevel = memo(({ optimizationPercent, handleOnOptim
     <div className="flex flex-row gap-3">
       <Slider
         max={100}
-        min={0}
+        min={1}
         step={QUALITY_PERCENTAGE_STEP}
         defaultValue={[optimizationPercent]}
         value={[optimizationLevel]}
@@ -46,7 +46,6 @@ export const ImageOptimizationLevel = memo(({ optimizationPercent, handleOnOptim
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-
     </div>
   )
 });
