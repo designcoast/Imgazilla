@@ -32,7 +32,7 @@ module.exports = (_env, { mode }) => ({
       },
       {
         test: /\.(png|jpg|gif|webp)$/,
-        loader: 'url-loader'
+        loader: 'url-loader',
       },
       {
         test: /\.svg$/,
@@ -51,21 +51,21 @@ module.exports = (_env, { mode }) => ({
     },
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     fallback: {
-      'stream': require.resolve('stream-browserify')
-    }
+      stream: require.resolve('stream-browserify'),
+    },
   },
 
   optimization: {
     nodeEnv: mode === 'production' ? 'production' : 'development',
     minimize: mode === 'production',
     usedExports: true,
-    concatenateModules: true
+    concatenateModules: true,
   },
 
   output: {
     publicPath: '',
     filename: '[name].js',
-    sourceMapFilename: "[name].js.map",
+    sourceMapFilename: '[name].js.map',
     path: resolve(__dirname, 'dist'),
   },
 
@@ -74,7 +74,7 @@ module.exports = (_env, { mode }) => ({
     compress: true,
     port: 9000,
     hot: true,
-    open: true
+    open: true,
   },
 
   plugins: [

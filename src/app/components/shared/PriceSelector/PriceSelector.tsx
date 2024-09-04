@@ -2,7 +2,14 @@ import React from 'react';
 
 import { Coins } from 'lucide-react';
 
-import { AnimatedPage, Loading, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/components';
+import {
+  AnimatedPage,
+  Loading,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/app/components';
 import { usePriceList } from '@/app/hooks/usePriceList';
 
 export const PriceSelector = () => {
@@ -10,41 +17,48 @@ export const PriceSelector = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-[60%]">
-        <Loading/>
+      <div className='flex justify-center items-center h-[60%]'>
+        <Loading />
       </div>
-    )
+    );
   }
 
   return (
     <AnimatedPage>
-      <div className="flex flex-col w-full">
+      <div className='flex flex-col w-full'>
         {princeList.map((variant, index) => (
           <div key={index}>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger className="p-0 h-fit w-full">
-                  <div className="flex flex-row cursor-pointer transition ease-in-out justify-between bg-primary-mainDark rounded-lg p-3 mb-3 hover:bg-primary-dark"
-                       onClick={() => window.open(variant.link, '_blank')}>
-                    <div className="flex items-center align-baseline gap-1.5">
-                      <Coins size={25} className="fill-amber-400 stroke-amber-600"/>
-                      <p className="text-lg">{variant.credits} Credits</p>
+                <TooltipTrigger className='p-0 h-fit w-full'>
+                  <div
+                    className='flex flex-row cursor-pointer transition ease-in-out justify-between bg-primary-mainDark rounded-lg p-3 mb-3 hover:bg-primary-dark'
+                    onClick={() => window.open(variant.link, '_blank')}
+                  >
+                    <div className='flex items-center align-baseline gap-1.5'>
+                      <Coins
+                        size={25}
+                        className='fill-amber-400 stroke-amber-600'
+                      />
+                      <p className='text-lg'>{variant.credits} Credits</p>
                     </div>
-                    <div className="text-gray-400 text-lg">${variant.price}</div>
+                    <div className='text-gray-400 text-lg'>
+                      ${variant.price}
+                    </div>
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  <p className="flex">{variant.tooltip}</p>
+                <TooltipContent side='bottom'>
+                  <p className='flex'>{variant.tooltip}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
         ))}
-        <p className="flex gap-1.5 text-primary-gray font-bold text-sm">
-          <span className="flex text-red-600">*</span>
+        <p className='flex gap-1.5 text-primary-gray font-bold text-sm'>
+          <span className='flex text-red-600'>*</span>
           Please reload the plugin after purchase.
         </p>
       </div>
     </AnimatedPage>
-  )
+  );
 };

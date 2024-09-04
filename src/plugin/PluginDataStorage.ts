@@ -1,5 +1,4 @@
 export class PluginDataStorage {
-
   public setNodeData(node: SceneNode, key: string, value: string): void {
     node.setPluginData(key, value);
   }

@@ -5,7 +5,11 @@ import { EventType } from '@/eventType';
 
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
-import { EmptyImageSelector, FaviconPreviewSheet, ImagePreview } from '@/app/components';
+import {
+  EmptyImageSelector,
+  FaviconPreviewSheet,
+  ImagePreview,
+} from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateSelectedImage } from '@/app/redux/features';
@@ -19,7 +23,7 @@ export const FaviconPreview = () => {
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message?.type === EventType.IMAGE_UNIT_ARRAY_DATA) {
-      dispatch(updateSelectedImage(message.payload?.data))
+      dispatch(updateSelectedImage(message.payload?.data));
     }
   }, []);
 
@@ -30,15 +34,19 @@ export const FaviconPreview = () => {
   useWindowMessaging(handleFigmaPluginMessages);
 
   return (
-    <div className="flex flex-col items-center justify-between p-3">
-      <div className="flex my-11">
+    <div className='flex flex-col items-center justify-between p-3'>
+      <div className='flex my-11'>
         {imageData ? (
           <ImagePreview imageUrl={convertToImageUrl(imageData, 'PNG')} />
-        ): (
+        ) : (
           <EmptyImageSelector />
         )}
       </div>
-      <FaviconPreviewSheet isOpen={isOpen} onOpenChange={handleOnOpenModal} isDisabled={!imageData} />
+      <FaviconPreviewSheet
+        isOpen={isOpen}
+        onOpenChange={handleOnOpenModal}
+        isDisabled={!imageData}
+      />
     </div>
-  )
-}
+  );
+};

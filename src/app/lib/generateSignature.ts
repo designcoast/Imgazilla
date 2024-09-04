@@ -14,7 +14,11 @@ export const generateSignature = (body: any) => {
   return hmac.update(JSON.stringify(body)).digest('hex');
 };
 
-export const prepareHeaders = (headers: Headers, endpoint: string, figmaId: string) => {
+export const prepareHeaders = (
+  headers: Headers,
+  endpoint: string,
+  figmaId: string,
+) => {
   if (!exceptedEndpoints.includes(endpoint)) {
     const encryptedId = encrypt(figmaId);
     headers.set('x-Figma-id', encryptedId);

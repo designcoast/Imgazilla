@@ -5,7 +5,9 @@ export interface HoverSlipperyOptions {
 }
 
 export const useHoverSlippery = (options: HoverSlipperyOptions) => {
-  const [activeElement, setActiveElement] = useState<HTMLLIElement | HTMLButtonElement | null>(null);
+  const [activeElement, setActiveElement] = useState<
+    HTMLLIElement | HTMLButtonElement | null
+  >(null);
   const slipperyRef = useRef<HTMLLIElement | HTMLButtonElement>(null);
   const elementsRef = useRef<HTMLLIElement[] | HTMLButtonElement[]>([]);
 
@@ -22,36 +24,49 @@ export const useHoverSlippery = (options: HoverSlipperyOptions) => {
     }, 0);
   }, [activeElement, slipperyRef]);
 
-  const handleMouseEnter = useCallback((_el: any, key: string | number) => {
-    const target = elementsRef.current[key];
-    if (slipperyRef.current) {
-      const rect = target.getBoundingClientRect();
+  const handleMouseEnter = useCallback(
+    (_el: any, key: string | number) => {
+      const target = elementsRef.current[key];
+      if (slipperyRef.current) {
+        const rect = target.getBoundingClientRect();
 
-      slipperyRef.current.style.transition = `left ${options.speed}ms, width ${options.speed}ms`;
-      slipperyRef.current.style.width = `${rect.width}px`;
-      slipperyRef.current.style.left = `${rect.left - target.parentElement!.getBoundingClientRect().left}px`;
-      Object.keys(elementsRef.current).forEach((elKey) => {
-        const currEl = elementsRef.current[elKey];
-        if (elKey === key) {
-          return
-        }
-        currEl.classList.remove('text-primary-secondDark')
-      })
-    }
-  }, [elementsRef, slipperyRef]);
+        slipperyRef.current.style.transition = `left ${options.speed}ms, width ${options.speed}ms`;
+        slipperyRef.current.style.width = `${rect.width}px`;
+        slipperyRef.current.style.left = `${rect.left - target.parentElement!.getBoundingClientRect().left}px`;
+        Object.keys(elementsRef.current).forEach((elKey) => {
+          const currEl = elementsRef.current[elKey];
+          if (elKey === key) {
+            return;
+          }
+          currEl.classList.remove('text-primary-secondDark');
+        });
+      }
+    },
+    [elementsRef, slipperyRef],
+  );
 
   const handleMouseLeave = useCallback(() => {
     if (activeElement && slipperyRef.current) {
       const rect = activeElement.getBoundingClientRect();
       slipperyRef.current.style.width = `${rect.width}px`;
       slipperyRef.current.style.left = `${rect.left - activeElement.parentElement!.getBoundingClientRect().left}px`;
-      activeElement.classList.add('text-primary-secondDark')
+      activeElement.classList.add('text-primary-secondDark');
     }
   }, [activeElement, slipperyRef]);
 
-  const onSetRefElement = useCallback((el: HTMLLIElement | HTMLButtonElement, key: string) => {
-    elementsRef.current[key] = el;
-  }, [elementsRef]);
+  const onSetRefElement = useCallback(
+    (el: HTMLLIElement | HTMLButtonElement, key: string) => {
+      elementsRef.current[key] = el;
+    },
+    [elementsRef],
+  );
 
-  return { slipperyRef, setActiveElement, handleMouseEnter, handleMouseLeave, addElementRef: onSetRefElement, elementsRef };
+  return {
+    slipperyRef,
+    setActiveElement,
+    handleMouseEnter,
+    handleMouseLeave,
+    addElementRef: onSetRefElement,
+    elementsRef,
+  };
 };

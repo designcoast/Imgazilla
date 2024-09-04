@@ -14,10 +14,10 @@ export const signalService = baseApi.injectEndpoints({
       query: (body: NotifyBody) => ({
         url: '/signal/notify',
         method: 'POST',
-        body: body
-      })
-    })
-  })
-})
+        body: body,
+      }),
+    }),
+  }),
+});
 
 export const { useNotifyMutation } = signalService;

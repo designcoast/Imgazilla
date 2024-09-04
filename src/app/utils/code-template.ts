@@ -15,22 +15,22 @@ const appleHtmlSnippet = `
     <link rel="apple-touch-icon" sizes="1024x1024" href="/apple-touch-icon-1024x1024.png">`;
 
 export const getHtmlSnippet = ({
- color,
- isAndroid = false,
- isIOS = false,
- websiteName,
+  color,
+  isAndroid = false,
+  isIOS = false,
+  websiteName,
 }: {
- color?: string,
- isAndroid?: boolean,
- isIOS?: boolean
- websiteName?: string,
+  color?: string;
+  isAndroid?: boolean;
+  isIOS?: boolean;
+  websiteName?: string;
 }) => {
   const snippet = [];
 
   snippet.push(
     `
-    <link rel="icon" href="/favicon.ico">`
-  )
+    <link rel="icon" href="/favicon.ico">`,
+  );
 
   if (isIOS) {
     snippet.push(appleHtmlSnippet);
@@ -40,90 +40,90 @@ export const getHtmlSnippet = ({
     `
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">`
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">`,
   );
 
   if (isAndroid) {
     snippet.push(
       `
-    <link rel="manifest" href="manifest.json" />`
-    )
+    <link rel="manifest" href="manifest.json" />`,
+    );
   }
 
   if (isAndroid && websiteName) {
     snippet.push(
       `
-    <meta name="application-name" content="${escapeHtml(websiteName)}">`
-    )
+    <meta name="application-name" content="${escapeHtml(websiteName)}">`,
+    );
   }
 
   snippet.push(
     `
-    <meta name="theme-color" content="${color || '#FFFFFF'}">`
-  )
+    <meta name="theme-color" content="${color || '#FFFFFF'}">`,
+  );
 
-  return snippet
+  return snippet;
 };
 
 export const getManifestObject = ({
   websiteName,
-  themeColor
+  themeColor,
 }: {
-  websiteName: string,
-  themeColor: string
+  websiteName: string;
+  themeColor: string;
 }) => ({
-  'short_name': websiteName,
-  'name': websiteName,
-  'description': 'Manifest description',
-  'start_url': 'index.html',
-  'display': 'standalone',
-  'theme_color': themeColor,
-  'background_color': '#FFFFFF',
-  "icons": [
+  short_name: websiteName,
+  name: websiteName,
+  description: 'Manifest description',
+  start_url: 'index.html',
+  display: 'standalone',
+  theme_color: themeColor,
+  background_color: '#FFFFFF',
+  icons: [
     {
-      "src": "icons/android-chrome-36x36.png",
-      "type": "image/png",
-      "sizes": "36x36"
+      src: 'icons/android-chrome-36x36.png',
+      type: 'image/png',
+      sizes: '36x36',
     },
     {
-      "src": "icons/android-chrome-48x48.png",
-      "type": "image/png",
-      "sizes": "48x48"
+      src: 'icons/android-chrome-48x48.png',
+      type: 'image/png',
+      sizes: '48x48',
     },
     {
-      "src": "icons/android-chrome-72x72.png",
-      "type": "image/png",
-      "sizes": "72x72"
+      src: 'icons/android-chrome-72x72.png',
+      type: 'image/png',
+      sizes: '72x72',
     },
     {
-      "src": "icons/android-chrome-96x96.png",
-      "type": "image/png",
-      "sizes": "96x96"
+      src: 'icons/android-chrome-96x96.png',
+      type: 'image/png',
+      sizes: '96x96',
     },
     {
-      "src": "icons/android-chrome-144x144.png",
-      "type": "image/png",
-      "sizes": "144x144"
+      src: 'icons/android-chrome-144x144.png',
+      type: 'image/png',
+      sizes: '144x144',
     },
     {
-      "src": "icons/android-chrome-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      src: 'icons/android-chrome-192x192.png',
+      type: 'image/png',
+      sizes: '192x192',
     },
     {
-      "src": "icons/android-chrome-256x256.png",
-      "type": "image/png",
-      "sizes": "256x256"
+      src: 'icons/android-chrome-256x256.png',
+      type: 'image/png',
+      sizes: '256x256',
     },
     {
-      "src": "icons/android-chrome-384x384.png",
-      "type": "image/png",
-      "sizes": "384x384"
+      src: 'icons/android-chrome-384x384.png',
+      type: 'image/png',
+      sizes: '384x384',
     },
     {
-      "src": "icons/android-chrome-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      src: 'icons/android-chrome-512x512.png',
+      type: 'image/png',
+      sizes: '512x512',
     },
   ],
 });

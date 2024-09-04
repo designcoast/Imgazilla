@@ -12,17 +12,11 @@
     "removeComments": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@figma"
-    ],
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "/*": [
-        "./*"
-      ]
+      "@/*": ["./src/*"],
+      "/*": ["./*"]
     }
   }
 }

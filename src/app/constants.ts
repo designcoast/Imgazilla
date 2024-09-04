@@ -13,16 +13,23 @@ export const TITLE_TO_QUALITY_PERCENTAGE = {
 };
 
 //TODO: Return this options from the config API
-export const ANDROID_ICONS_SIZES = ['36x36', '48x48', '72x72', '96x96', '144x144', '192x192']
+export const ANDROID_ICONS_SIZES = [
+  '36x36',
+  '48x48',
+  '72x72',
+  '96x96',
+  '144x144',
+  '192x192',
+];
 
 export const MIME_TYPE_PNG = 'image/png';
 export const MIME_TYPE_SVG = 'image/svg+xml';
 export const MIME_TYPE_PDF = 'application/pdf';
 
 export const FORMAT_TO_MIME_TYPE = {
-  'PNG': MIME_TYPE_PNG,
-  'SVG': MIME_TYPE_SVG,
-  'PDF': MIME_TYPE_PDF,
+  PNG: MIME_TYPE_PNG,
+  SVG: MIME_TYPE_SVG,
+  PDF: MIME_TYPE_PDF,
 };
 
 export const PDF_FORMAT = 'PDF';

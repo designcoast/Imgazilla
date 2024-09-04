@@ -11,4 +11,4 @@ export const base64ToBlobUrl = (base64: string, type: string): string => {
   const byteArray = new Uint8Array(byteNumbers);
 
   return convertToImageUrl(byteArray, type);
-}
+};

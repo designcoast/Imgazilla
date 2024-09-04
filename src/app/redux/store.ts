@@ -5,9 +5,10 @@ import { reducers, middlewares } from './reducers';
 export const store = configureStore({
   reducer: combineReducers(reducers),
   // @ts-ignore
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: false,
-  }).concat(middlewares),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(middlewares),
   devTools: process.env.NODE_ENV !== 'production',
 });
 

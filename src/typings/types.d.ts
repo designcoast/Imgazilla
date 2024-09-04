@@ -28,8 +28,8 @@ declare interface ImageInfo {
     suffix?: string;
     constraint?: {
       type?: string;
-      value?: number
-    }
+      value?: number;
+    };
   };
 }
 

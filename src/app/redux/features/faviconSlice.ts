@@ -25,9 +25,9 @@ const initialState = {
     platforms: {
       default: true,
       ios: false,
-      android: false
-    }
-  }
+      android: false,
+    },
+  },
 } satisfies FaviconState as FaviconState;
 
 export const faviconSlice = createSlice({
@@ -35,15 +35,21 @@ export const faviconSlice = createSlice({
   initialState,
   reducers: {
     updateSelectedImage(state, action: PayloadAction<Uint8Array>) {
-      state.imageData = action.payload
+      state.imageData = action.payload;
     },
-    updateFaviconSettings(state, action: PayloadAction<Pick<FaviconState, 'faviconSettings'>>) {
-      state.faviconSettings = action.payload.faviconSettings
-    }
-  }
+    updateFaviconSettings(
+      state,
+      action: PayloadAction<Pick<FaviconState, 'faviconSettings'>>,
+    ) {
+      state.faviconSettings = action.payload.faviconSettings;
+    },
+  },
 });
 
-export const getFaviconImageData = (state: RootState) => state.favicon.imageData;
-export const getFaviconSettings = (state: RootState) => state.favicon.faviconSettings;
+export const getFaviconImageData = (state: RootState) =>
+  state.favicon.imageData;
+export const getFaviconSettings = (state: RootState) =>
+  state.favicon.faviconSettings;
 
-export const { updateSelectedImage, updateFaviconSettings } = faviconSlice.actions;
+export const { updateSelectedImage, updateFaviconSettings } =
+  faviconSlice.actions;

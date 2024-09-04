@@ -9,7 +9,7 @@ export enum EventType {
   IMAGE_COLLECTION_COMPLETE = 'image_collection_complete',
   UPDATE_PLUGIN_SETTINGS = 'update_plugin_settings',
   SELECTED_IMAGES_COLLECTION = 'selected_images_collection',
-  SELECTED_IMAGES_COLLECTION_COMPLETE = 'selected_images_collection_collection'
+  SELECTED_IMAGES_COLLECTION_COMPLETE = 'selected_images_collection_collection',
 }
 
 export enum UIEventType {

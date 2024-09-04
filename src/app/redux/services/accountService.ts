@@ -15,21 +15,25 @@ export interface CreateAccountBody {
 export const accountService = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     checkAccount: builder.query<AccountState, string>({
-      query: (id: string) => `/account/getAccount?id=${id}`
+      query: (id: string) => `/account/getAccount?id=${id}`,
     }),
 
     createAccount: builder.mutation({
       query: (body: CreateAccountBody) => ({
         url: '/account/createAccount',
         method: 'POST',
-        body: body
-      })
+        body: body,
+      }),
     }),
 
     getAccountCredits: builder.query({
       query: () => `/account/getAccountCredits`,
-    })
-  })
-})
+    }),
+  }),
+});
 
-export const { useLazyCheckAccountQuery, useCreateAccountMutation, useLazyGetAccountCreditsQuery } = accountService;
+export const {
+  useLazyCheckAccountQuery,
+  useCreateAccountMutation,
+  useLazyGetAccountCreditsQuery,
+} = accountService;

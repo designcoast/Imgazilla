@@ -14,8 +14,8 @@ export const globalSettingsInitState = {
       colorHistory: [],
       replaceIndex: 0,
     },
-  }
-}
+  },
+};
 
 export interface GlobalSettingsType {
   settings: {
@@ -27,7 +27,7 @@ export interface GlobalSettingsType {
       colorHistory: string[];
       replaceIndex: number;
     };
-  }
+  };
 }
 
 export class FigmaGlobalSettingsManager {
@@ -40,26 +40,30 @@ export class FigmaGlobalSettingsManager {
   }
 
   async sendToUIGlobalSettings() {
-    const settings = await this.pluginDataStorage.getGlobalData(IMGAZILLA_PLUGIN_GLOBAL_SETTINGS);
+    const settings = await this.pluginDataStorage.getGlobalData(
+      IMGAZILLA_PLUGIN_GLOBAL_SETTINGS,
+    );
 
     const message = {
       type: EventType.UPDATE_PLUGIN_SETTINGS,
       payload: {
-        data: settings ? JSON.parse(settings) : globalSettingsInitState
-      }
-    }
+        data: settings ? JSON.parse(settings) : globalSettingsInitState,
+      },
+    };
     this.messageSender.sendMessageToUI(message);
   }
 
   async updateGlobalSettings(updates: GlobalSettingsType) {
-    await this.pluginDataStorage.setGlobalData(IMGAZILLA_PLUGIN_GLOBAL_SETTINGS, JSON.stringify(updates)).then(() => {
-      const message = {
-        type: EventType.UPDATE_PLUGIN_SETTINGS,
-        payload: {
-          data: updates
-        }
-      }
-      this.messageSender.sendMessageToUI(message);
-    })
+    await this.pluginDataStorage
+      .setGlobalData(IMGAZILLA_PLUGIN_GLOBAL_SETTINGS, JSON.stringify(updates))
+      .then(() => {
+        const message = {
+          type: EventType.UPDATE_PLUGIN_SETTINGS,
+          payload: {
+            data: updates,
+          },
+        };
+        this.messageSender.sendMessageToUI(message);
+      });
   }
 }

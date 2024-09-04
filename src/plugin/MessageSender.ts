@@ -5,7 +5,7 @@ export class MessageSender {
 
   sendMessageToUI(message: MessageType) {
     figma.ui.postMessage(message, {
-      origin: '*'
+      origin: '*',
     });
   }
 }

@@ -2,11 +2,22 @@ import {
   FAVICON_SERVICE_REDUCER_KEY,
   ACCOUNT_SERVICE_REDUCER_KEY,
   SIGNAL_SERVICE_REDUCER_KEY,
-  IMAGE_OPTIMIZATION_SERVICE_REDUCER_KEY
+  IMAGE_OPTIMIZATION_SERVICE_REDUCER_KEY,
 } from '@/app/redux/services';
-import { faviconService, accountService, signalService, imageOptimizationService } from '@/app/redux/services';
+import {
+  faviconService,
+  accountService,
+  signalService,
+  imageOptimizationService,
+} from '@/app/redux/services';
 
-import { faviconSlice, accountSlice, optimizationImageSlice, tabSlice, settingsSlice } from '@/app/redux/features';
+import {
+  faviconSlice,
+  accountSlice,
+  optimizationImageSlice,
+  tabSlice,
+  settingsSlice,
+} from '@/app/redux/features';
 import { errorHandlingMiddleware } from '@/app/redux/middlewares/errorHandlingMiddleware';
 
 export const reducers = {
@@ -19,12 +30,12 @@ export const reducers = {
   [optimizationImageSlice.name]: optimizationImageSlice.reducer,
   [tabSlice.name]: tabSlice.reducer,
   [settingsSlice.name]: settingsSlice.reducer,
-}
+};
 
 export const middlewares = [
   accountService.middleware,
   faviconService.middleware,
   signalService.middleware,
   imageOptimizationService.middleware,
-  errorHandlingMiddleware
-]
+  errorHandlingMiddleware,
+];

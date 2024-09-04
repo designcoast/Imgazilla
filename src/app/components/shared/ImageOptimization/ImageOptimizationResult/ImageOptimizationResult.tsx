@@ -7,14 +7,20 @@ import { saveAs } from 'file-saver';
 import {
   useLazyGetAccountCreditsQuery,
   useLazyGetOptimizedImageQuery,
-  useLazyGetProcessStatusQuery
+  useLazyGetProcessStatusQuery,
 } from '@/app/redux/services';
 import {
   getImageOptimizationJobId,
   getImageOptimizationResult,
-  setImageOptimizationResult, setImageOptimizationResultPageState, updateAccountCredits
+  setImageOptimizationResult,
+  setImageOptimizationResultPageState,
+  updateAccountCredits,
 } from '@/app/redux/features';
-import { ExportButton, ImageOptimizationResultList, ImageOptimizationResultSettings } from '@/app/components';
+import {
+  ExportButton,
+  ImageOptimizationResultList,
+  ImageOptimizationResultSettings,
+} from '@/app/components';
 import { useTypedDispatch } from '@/app/redux/store';
 import { ARCHIVE_NAME_OPTIMIZATION } from '@/app/constants';
 import { generateImagesArchive } from '@/app/lib/generateArchive';
@@ -39,7 +45,7 @@ export const ImageOptimizationResult = () => {
   const [getAccountCredits] = useLazyGetAccountCreditsQuery();
 
   const handleOnClosePageResult = useCallback(() => {
-    dispatch(setImageOptimizationResultPageState({ isOpen: false }))
+    dispatch(setImageOptimizationResultPageState({ isOpen: false }));
   }, [dispatch, setImageOptimizationResultPageState]);
 
   const handleOnDownload = useCallback(async () => {
@@ -52,7 +58,10 @@ export const ImageOptimizationResult = () => {
       value: 1,
     });
 
-    const blobPath = await generateImagesArchive(imageOptimizationResult, fileName);
+    const blobPath = await generateImagesArchive(
+      imageOptimizationResult,
+      fileName,
+    );
     saveAs(blobPath, fileName);
   }, [imageOptimizationResult]);
 
@@ -61,7 +70,7 @@ export const ImageOptimizationResult = () => {
       return;
     }
 
-    getProcessStatus(jobId)
+    getProcessStatus(jobId);
     setIsLoading(true);
   }, [jobId, imageOptimizationResult]);
 
@@ -81,18 +90,24 @@ export const ImageOptimizationResult = () => {
             .unwrap()
             .then((credits: string) => {
               dispatch(updateAccountCredits({ credits }));
-            }).finally(() => {
-            setIsLoading(false);
-          })
-        })
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
+        });
     }
   }, [data, jobId]);
 
   return (
-    <div className="flex flex-col relative w-full">
-      <ImageOptimizationResultSettings onClick={handleOnClosePageResult} isDisabled={isLoading}/>
+    <div className='flex flex-col relative w-full'>
+      <ImageOptimizationResultSettings
+        onClick={handleOnClosePageResult}
+        isDisabled={isLoading}
+      />
       <ImageOptimizationResultList isLoading={isLoading} />
-      <ExportButton onClick={handleOnDownload} isDisabled={isLoading}>Download images package</ExportButton>
+      <ExportButton onClick={handleOnDownload} isDisabled={isLoading}>
+        Download images package
+      </ExportButton>
     </div>
-  )
-}
+  );
+};

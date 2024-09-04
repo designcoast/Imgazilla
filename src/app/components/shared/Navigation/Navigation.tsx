@@ -4,7 +4,8 @@ import React, {
   useState,
   ReactNode,
   FC,
-  useCallback, useEffect
+  useCallback,
+  useEffect,
 } from 'react';
 
 import { Button } from '@/app/components';
@@ -21,7 +22,9 @@ interface NavigationContextProps {
   onMouseLeave: (el: any) => void;
 }
 
-const NavigationContext = createContext<NavigationContextProps | undefined>(undefined);
+const NavigationContext = createContext<NavigationContextProps | undefined>(
+  undefined,
+);
 
 interface NavigationProps {
   children: ReactNode;
@@ -37,22 +40,33 @@ interface NavigationComponent extends FC<NavigationProps> {
 export const Navigation: NavigationComponent = ({ children, defaultValue }) => {
   const [activeItem, setActiveItem] = useState(defaultValue ?? '');
 
-  const { slipperyRef, setActiveElement, handleMouseEnter, handleMouseLeave, addElementRef, elementsRef } = useHoverSlippery({ speed: 400 });
+  const {
+    slipperyRef,
+    setActiveElement,
+    handleMouseEnter,
+    handleMouseLeave,
+    addElementRef,
+    elementsRef,
+  } = useHoverSlippery({ speed: 400 });
 
   useEffect(() => {
     setActiveElement(elementsRef.current[activeItem]);
   }, [setActiveElement, activeItem]);
 
   return (
-    <NavigationContext.Provider value={{
-      activeItem,
-      setActiveItem,
-      slipperyRef,
-      addElementRef,
-      onMouseEnter: handleMouseEnter,
-      onMouseLeave: handleMouseLeave
-    }}>
-      <div className="flex flex-col h-full w-full bg-primary-mainDark">{children}</div>
+    <NavigationContext.Provider
+      value={{
+        activeItem,
+        setActiveItem,
+        slipperyRef,
+        addElementRef,
+        onMouseEnter: handleMouseEnter,
+        onMouseLeave: handleMouseLeave,
+      }}
+    >
+      <div className='flex flex-col h-full w-full bg-primary-mainDark'>
+        {children}
+      </div>
     </NavigationContext.Provider>
   );
 };
@@ -67,9 +81,12 @@ const NavigationList: FC<{ children: ReactNode }> = ({ children }) => {
   const { slipperyRef } = context;
 
   return (
-    <div className="w-full flex relative z-1 bg-primary-secondDark rounded-lg border px-0.5 py-0.5 gap-1.5 border-primary-primaryDark">
+    <div className='w-full flex relative z-1 bg-primary-secondDark rounded-lg border px-0.5 py-0.5 gap-1.5 border-primary-primaryDark'>
       {children}
-      <li ref={slipperyRef} className="slippery absolute top-[2px] bg-primary-lightGreen rounded-md transition-all list-none h-[37px] border border-primary-primaryDark" />
+      <li
+        ref={slipperyRef}
+        className='slippery absolute top-[2px] bg-primary-lightGreen rounded-md transition-all list-none h-[37px] border border-primary-primaryDark'
+      />
     </div>
   );
 };
@@ -80,35 +97,56 @@ interface NavigationItemProps {
   onClick?: () => void;
 }
 
-const NavigationItem: FC<NavigationItemProps> = ({ value, children, onClick }) => {
+const NavigationItem: FC<NavigationItemProps> = ({
+  value,
+  children,
+  onClick,
+}) => {
   const context = useContext(NavigationContext);
 
   if (!context) {
     throw new Error('NavigationItem must be used within a Navigation');
   }
 
-  const { activeItem, setActiveItem, addElementRef, onMouseEnter, onMouseLeave } = context;
+  const {
+    activeItem,
+    setActiveItem,
+    addElementRef,
+    onMouseEnter,
+    onMouseLeave,
+  } = context;
 
   const handleActiveItem = useCallback(() => {
     setActiveItem(value);
     onClick && onClick();
   }, [value]);
 
-  const handleAddElementRef = useCallback((el: HTMLButtonElement) => {
-    addElementRef(el, value)
-  }, [value]);
+  const handleAddElementRef = useCallback(
+    (el: HTMLButtonElement) => {
+      addElementRef(el, value);
+    },
+    [value],
+  );
 
-  const handleOnMouseEnter = useCallback((el: any) => {
-    onMouseEnter(el, value)
-  }, [value]);
+  const handleOnMouseEnter = useCallback(
+    (el: any) => {
+      onMouseEnter(el, value);
+    },
+    [value],
+  );
 
   const isActive = activeItem === value;
 
   return (
     <Button
       ref={handleAddElementRef}
-      variant="ghost"
-      className={cn('relative z-10 !p-2 transition-colors duration-300', isActive ? 'text-primary-secondDark hover:!text-primary-secondDark' : 'hover:!text-primary-secondDark font-normal')}
+      variant='ghost'
+      className={cn(
+        'relative z-10 !p-2 transition-colors duration-300',
+        isActive
+          ? 'text-primary-secondDark hover:!text-primary-secondDark'
+          : 'hover:!text-primary-secondDark font-normal',
+      )}
       onClick={handleActiveItem}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={onMouseLeave}

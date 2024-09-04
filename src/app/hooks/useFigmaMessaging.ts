@@ -4,9 +4,11 @@ export const useWindowMessaging = (onMessage?: (data: any) => void) => {
   const messageRef = useRef<((event: MessageEvent) => void) | null>(null);
 
   useEffect(() => {
-    messageRef.current = (event: { data: {
-        pluginMessage: any
-      }}) => {
+    messageRef.current = (event: {
+      data: {
+        pluginMessage: any;
+      };
+    }) => {
       if (onMessage) {
         onMessage(event?.data?.pluginMessage);
       }
@@ -21,12 +23,15 @@ export const useWindowMessaging = (onMessage?: (data: any) => void) => {
 
   const onSendMessage = useCallback((message: MessageType) => {
     if (!window.parent) {
-      return
+      return;
     }
-    window.parent.postMessage({
-      pluginMessage: message
-    }, '*');
-  }, [])
+    window.parent.postMessage(
+      {
+        pluginMessage: message,
+      },
+      '*',
+    );
+  }, []);
 
   return { onSendMessage };
 };

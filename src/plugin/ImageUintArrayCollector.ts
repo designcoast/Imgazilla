@@ -28,12 +28,16 @@ export class ImageUintArrayCollector {
   public async collectNodesFromPage(): Promise<void> {
     await figma.currentPage.loadAsync();
 
-    const nodes = findAll(figma.currentPage.children, (node: SceneNode) => node.exportSettings.length !== 0);
-    await this.timeout(2000);
-
-    await this.processNodesWithTimeout(nodes);
-
-    this.options.onCompleted();
+    const nodes = findAll(
+      figma.currentPage.children,
+      (node: SceneNode) => node.exportSettings.length !== 0,
+    );
+    console.log('nodes', nodes);
+    // await this.timeout(200);
+    //
+    // await this.processNodesWithTimeout(nodes);
+    //
+    // this.options.onCompleted();
   }
 
   private async processNodesWithTimeout(nodes: BaseNode[]): Promise<void> {
@@ -57,7 +61,10 @@ export class ImageUintArrayCollector {
     }
   }
 
-  private async processImage(node: any, setting: ExportSettings): Promise<void> {
+  private async processImage(
+    node: any,
+    setting: ExportSettings,
+  ): Promise<void> {
     try {
       const bytes = await node.exportAsync(setting);
 
@@ -85,7 +92,7 @@ export class ImageUintArrayCollector {
   }
 
   private timeout(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   public clear(): void {

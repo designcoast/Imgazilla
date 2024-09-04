@@ -1,8 +1,8 @@
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject, useEffect } from 'react';
 
 export const useClickOutside = (
   ref: MutableRefObject<HTMLElement | null>,
-  handler: (event: MouseEvent | TouchEvent) => void
+  handler: (event: MouseEvent | TouchEvent) => void,
 ) => {
   useEffect(() => {
     let startedInside = false;
@@ -22,14 +22,14 @@ export const useClickOutside = (
       startedInside = ref.current && ref.current.contains(event.target as Node);
     };
 
-    document.addEventListener("mousedown", validateEventStart);
-    document.addEventListener("touchstart", validateEventStart);
-    document.addEventListener("click", listener);
+    document.addEventListener('mousedown', validateEventStart);
+    document.addEventListener('touchstart', validateEventStart);
+    document.addEventListener('click', listener);
 
     return () => {
-      document.removeEventListener("mousedown", validateEventStart);
-      document.removeEventListener("touchstart", validateEventStart);
-      document.removeEventListener("click", listener);
+      document.removeEventListener('mousedown', validateEventStart);
+      document.removeEventListener('touchstart', validateEventStart);
+      document.removeEventListener('click', listener);
     };
   }, [ref, handler]);
 };

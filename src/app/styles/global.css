@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 @layer base {
   :root {
@@ -37,18 +37,18 @@
   }
 
   .dark {
-    --background: #2C2C2C;
-    --dialog-background: #1E1E1E;
-    --tab-background-color: #1E1E1E;
-    --tab-border-bottom-color: #EED79F;
-    --switch-bg-color: #109CF1;
-    --switch-bg-color-thumb: #FFF;
-    --switch-bg-color-default: #EDF0F3;
-    --export-button-bg-color: #109CF1;
-    --price-bg-color: #292C34;
+    --background: #2c2c2c;
+    --dialog-background: #1e1e1e;
+    --tab-background-color: #1e1e1e;
+    --tab-border-bottom-color: #eed79f;
+    --switch-bg-color: #109cf1;
+    --switch-bg-color-thumb: #fff;
+    --switch-bg-color-default: #edf0f3;
+    --export-button-bg-color: #109cf1;
+    --price-bg-color: #292c34;
     --code-color: #ce9178;
-    --coral-blush-color: #E76565;
-    --gray-bg-color: #F3F6F9;
+    --coral-blush-color: #e76565;
+    --gray-bg-color: #f3f6f9;
     --gray-card-color: #333333;
     --foreground: 213 31% 91%;
 
@@ -58,7 +58,7 @@
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;
 
-    --popover: #1E1E1E;
+    --popover: #1e1e1e;
     --popover-foreground: 215 20.2% 65.1%;
 
     --border: #414141;
@@ -68,12 +68,12 @@
     --card: 224 71% 4%;
     --card-foreground: 213 31% 91%;
 
-    --primary: #EDF0F3;
+    --primary: #edf0f3;
     --primary-gray: #707683;
-    --primary-white: #FFF;
+    --primary-white: #fff;
     --primary-foreground: 222.2 47.4% 1.2%;
 
-    --primary-hover: #C2CFE0;
+    --primary-hover: #c2cfe0;
 
     --secondary: 222.2 47.4% 11.2%;
     --secondary-foreground: 210 40% 98%;
@@ -88,20 +88,20 @@
     --export-button-shadow-gradient-from: rgba(30, 30, 30, 0.81);
     --export-button-shadow-gradient-to: rgba(49, 49, 49, 0);
 
-    --dark-gray: #27272A;
+    --dark-gray: #27272a;
     --dark-green: 147 24 48;
     --green: 147 66 51;
-    --light-green: #C2F0D7;
-    --dark: #0D0D0F;
+    --light-green: #c2f0d7;
+    --dark: #0d0d0f;
     --main-dark: 0 0 6;
-    --primary-dark: #1E1E1E;
-    --second-dark: #19191B;
-    --light-gray: #F3F6F9;
-    --dark-text: #282B2F;
+    --primary-dark: #1e1e1e;
+    --second-dark: #19191b;
+    --light-gray: #f3f6f9;
+    --dark-text: #282b2f;
     --light-blue: 203 89 50;
     --light-yellow: 37 100 64;
     --light-red: 1 65 55;
-    --strong-green: #5E9979;
+    --strong-green: #5e9979;
   }
 }
 
@@ -111,15 +111,28 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: "Inter", sans-serif;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+    font-family: 'Inter', sans-serif;
   }
 
   .preview {
     background-color: #fff;
     background-size: 20px 20px;
-    background-position: 0 0,0 10px,10px -10px,-10px 0;
-    background-image: linear-gradient(45deg,rgba(85,85,85,.15) 25%,transparent 0),linear-gradient(-45deg,rgba(85,85,85,.15) 25%,transparent 0),linear-gradient(45deg,transparent 75%,rgba(85,85,85,.15) 0),linear-gradient(-45deg,transparent 75%,rgba(85,85,85,.15) 0);
+    background-position:
+      0 0,
+      0 10px,
+      10px -10px,
+      -10px 0;
+    background-image: linear-gradient(
+        45deg,
+        rgba(85, 85, 85, 0.15) 25%,
+        transparent 0
+      ),
+      linear-gradient(-45deg, rgba(85, 85, 85, 0.15) 25%, transparent 0),
+      linear-gradient(45deg, transparent 75%, rgba(85, 85, 85, 0.15) 0),
+      linear-gradient(-45deg, transparent 75%, rgba(85, 85, 85, 0.15) 0);
   }
 
   .color-picker-small {

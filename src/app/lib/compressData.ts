@@ -1,7 +1,7 @@
 import { encode } from 'base64-arraybuffer-es6';
 
 export const transformAndCompressData = (data: ImageInfo[]) => {
-  return data.map(item => ({
+  return data.map((item) => ({
     uuid: item.uuid,
     format: item.format,
     name: item.name,
@@ -9,4 +9,4 @@ export const transformAndCompressData = (data: ImageInfo[]) => {
     base64Image: encode(item.uintArray),
     settings: item.setting,
   }));
-}
+};

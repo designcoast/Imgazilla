@@ -20,9 +20,9 @@ export class FigmaAPI {
     const message = {
       type: EventType.USER_ACCOUNT_DATA,
       payload: {
-        data: figma.currentUser
-      }
-    }
+        data: figma.currentUser,
+      },
+    };
     this.messageSender.sendMessageToUI(message);
   }
 
@@ -30,9 +30,9 @@ export class FigmaAPI {
     const message = {
       type: EventType.IMAGES_UINT_ARRAY_COLLECTION,
       payload: {
-        data: collection
-      }
-    }
+        data: collection,
+      },
+    };
 
     this.messageSender.sendMessageToUI(message);
   }
@@ -41,9 +41,9 @@ export class FigmaAPI {
     const message = {
       type: EventType.SELECTED_IMAGES_COLLECTION,
       payload: {
-        data: collection
-      }
-    }
+        data: collection,
+      },
+    };
 
     this.messageSender.sendMessageToUI(message);
   }
@@ -70,27 +70,27 @@ export class FigmaAPI {
     try {
       // TODO: Think about how we can improve this function
       const unitArray = await selectedNode.exportAsync({
-        format: "PNG",
-        suffix: "",
+        format: 'PNG',
+        suffix: '',
         contentsOnly: true,
         constraint: {
-          type: "WIDTH",
+          type: 'WIDTH',
           value: 300,
-        }
+        },
       });
 
       const message = {
         type: EventType.IMAGE_UNIT_ARRAY_DATA,
         payload: {
-          data: unitArray
-        }
-      }
+          data: unitArray,
+        },
+      };
 
       this.sendMessageToUI(message);
     } catch (e) {
-      this.logger.logError(e)
+      this.logger.logError(e);
     }
-  };
+  }
 
   async handleSelectedNodes() {
     const selectedNodes = figma.currentPage.selection;
@@ -105,11 +105,11 @@ export class FigmaAPI {
 
         const message = {
           type: EventType.SELECTED_IMAGES_COLLECTION_COMPLETE,
-          payload: {}
-        }
+          payload: {},
+        };
 
         this.sendMessageToUI(message);
-      }
+      },
     });
 
     if (selectedNodes.length > 0) {
@@ -120,9 +120,9 @@ export class FigmaAPI {
       const message = {
         type: EventType.SELECTED_IMAGES_COLLECTION,
         payload: {
-          data: []
-        }
-      }
+          data: [],
+        },
+      };
 
       this.sendMessageToUI(message);
     }
@@ -130,5 +130,5 @@ export class FigmaAPI {
 
   private sendMessageToUI(message: MessageType) {
     this.messageSender.sendMessageToUI(message);
-  };
+  }
 }

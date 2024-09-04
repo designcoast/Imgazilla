@@ -16,12 +16,12 @@ const App = () => {
   return (
     <ReduxProvider>
       <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
+        attribute='class'
+        defaultTheme='dark'
         enableSystem
         disableTransitionOnChange
       >
-        <div className="bg-primary-mainDark h-full">
+        <div className='bg-primary-mainDark h-full'>
           <AccountStatusChecker>
             <WithDefaultTabSetter>
               <WithGlobalPluginSettingsProvider>
@@ -34,6 +34,6 @@ const App = () => {
       </ThemeProvider>
     </ReduxProvider>
   );
-}
+};
 
 export default withProfiler(App);

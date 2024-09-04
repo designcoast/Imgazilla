@@ -1,4 +1,3 @@
-
 export const FAVICON_EXPORT = 'FAVICON_EXPORT';
 export const IMAGE_OPTIMIZATION = 'IMAGE_OPTIMIZATION';
 export const GIF_ANIMATION = 'GIF_ANIMATION';
@@ -9,4 +8,4 @@ export const APP_ROUTES = {
   [IMAGE_OPTIMIZATION]: 'Image optimization',
   // [GIF_ANIMATION]: 'GIF animation',
   // [PDF_CREATION]: 'PDF creation',
-}
+};

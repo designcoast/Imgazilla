@@ -1,5 +1,9 @@
 import React, { ReactNode, useCallback, useState } from 'react';
-import { CreateAccountBody, useCreateAccountMutation, useLazyCheckAccountQuery } from '@/app/redux/services';
+import {
+  CreateAccountBody,
+  useCreateAccountMutation,
+  useLazyCheckAccountQuery,
+} from '@/app/redux/services';
 import { AnimatedPage, ErrorComponent, Splash } from '@/app/components';
 import { EventType } from '@/eventType';
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
@@ -8,28 +12,32 @@ import { isFetchBaseQueryError, isErrorWithMessage } from '@/app/redux/helpers';
 import { useTypedDispatch } from '@/app/redux/store';
 
 type Props = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 export const AccountStatusChecker = ({ children }: Props) => {
   const [isShowError, setIsShowError] = useState(false);
   const [onCheckAccount, { isLoading }] = useLazyCheckAccountQuery();
 
-  const [createAccount, { isLoading: isCreatingAccount }] = useCreateAccountMutation();
+  const [createAccount, { isLoading: isCreatingAccount }] =
+    useCreateAccountMutation();
 
   const dispatch = useTypedDispatch();
 
-  const handleCreateAccount = useCallback((userData: CreateAccountBody) => {
-    createAccount(userData)
-      .unwrap()
-      .then((data) => {
-        dispatch(setAccount(data));
-      })
-      .catch((error) => {
-        if (isErrorWithMessage(error)) {
-          setIsShowError(true);
-        }
-      })
-  }, [createAccount, setAccount]);
+  const handleCreateAccount = useCallback(
+    (userData: CreateAccountBody) => {
+      createAccount(userData)
+        .unwrap()
+        .then((data) => {
+          dispatch(setAccount(data));
+        })
+        .catch((error) => {
+          if (isErrorWithMessage(error)) {
+            setIsShowError(true);
+          }
+        });
+    },
+    [createAccount, setAccount],
+  );
 
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message?.type === EventType.USER_ACCOUNT_DATA) {
@@ -45,13 +53,13 @@ export const AccountStatusChecker = ({ children }: Props) => {
             return;
           }
 
-          handleCreateAccount(message?.payload?.data)
+          handleCreateAccount(message?.payload?.data);
         })
         .catch((error) => {
           if (isFetchBaseQueryError(error)) {
             setIsShowError(true);
           }
-        })
+        });
     }
   }, []);
 
@@ -60,9 +68,9 @@ export const AccountStatusChecker = ({ children }: Props) => {
   if (isShowError) {
     return (
       <AnimatedPage>
-        <ErrorComponent/>
+        <ErrorComponent />
       </AnimatedPage>
-    )
+    );
   }
 
   if (isCreatingAccount || isLoading) {
@@ -70,12 +78,8 @@ export const AccountStatusChecker = ({ children }: Props) => {
       <AnimatedPage>
         <Splash />
       </AnimatedPage>
-    )
+    );
   }
 
-  return (
-    <AnimatedPage>
-      {children}
-    </AnimatedPage>
-  )
+  return <AnimatedPage>{children}</AnimatedPage>;
 };

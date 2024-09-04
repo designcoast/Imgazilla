@@ -62,14 +62,18 @@ export const TicTacToe: React.FC = () => {
 
   const calculateAiMove = (board: Player[], difficulty: Difficulty): number => {
     if (difficulty === 'Easy') {
-      const emptyIndices = board.map((value, index) => value === null ? index : null).filter(index => index !== null) as number[];
+      const emptyIndices = board
+        .map((value, index) => (value === null ? index : null))
+        .filter((index) => index !== null) as number[];
       return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
     }
 
     if (difficulty === 'Medium') {
       const randomMove = Math.random();
       if (randomMove < 0.5) {
-        const emptyIndices = board.map((value, index) => value === null ? index : null).filter(index => index !== null) as number[];
+        const emptyIndices = board
+          .map((value, index) => (value === null ? index : null))
+          .filter((index) => index !== null) as number[];
         return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
       }
     }
@@ -79,7 +83,9 @@ export const TicTacToe: React.FC = () => {
   };
 
   const minimax = (newBoard: Player[], player: Player) => {
-    const emptyIndices = newBoard.map((value, index) => value === null ? index : null).filter(index => index !== null) as number[];
+    const emptyIndices = newBoard
+      .map((value, index) => (value === null ? index : null))
+      .filter((index) => index !== null) as number[];
 
     if (calculateWinner(newBoard) === 'X') {
       return { score: -10 };
@@ -137,21 +143,28 @@ export const TicTacToe: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-      <h1 className="text-4xl font-bold mb-4">Tic Tac Toe</h1>
-      {winner ? <h2 className="text-2xl mb-4">Winner: {winner}</h2> : <h2 className="text-2xl mb-4">Current Player: {currentPlayer}</h2>}
-      <div className="grid grid-cols-3 gap-2 w-64 h-64">
+    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white'>
+      <h1 className='text-4xl font-bold mb-4'>Tic Tac Toe</h1>
+      {winner ? (
+        <h2 className='text-2xl mb-4'>Winner: {winner}</h2>
+      ) : (
+        <h2 className='text-2xl mb-4'>Current Player: {currentPlayer}</h2>
+      )}
+      <div className='grid grid-cols-3 gap-2 w-64 h-64'>
         {board.map((player, index) => (
           <div
             key={index}
-            className="flex items-center justify-center w-20 h-20 bg-gray-800 border border-gray-700 text-2xl cursor-pointer"
+            className='flex items-center justify-center w-20 h-20 bg-gray-800 border border-gray-700 text-2xl cursor-pointer'
             onClick={() => handleClick(index)}
           >
             {player}
           </div>
         ))}
       </div>
-      <button className="mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded" onClick={resetGame}>
+      <button
+        className='mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded'
+        onClick={resetGame}
+      >
         Reset Game
       </button>
     </div>

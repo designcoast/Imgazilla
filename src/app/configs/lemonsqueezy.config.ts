@@ -1,4 +1,3 @@
-
 import { lemonSqueezySetup } from '@lemonsqueezy/lemonsqueezy.js';
 
 export const configureLemonSqueezy = () => {
@@ -8,6 +7,4 @@ export const configureLemonSqueezy = () => {
       throw new Error(`Lemon Squeezy API error: ${error.message}`);
     },
   });
-}
-
-
+};

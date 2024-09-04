@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Image optimisation and representation plugin for Figma",
   "license": "ISC",
+  "type": "module",
   "scripts": {
     "dev": "webpack --mode=development --watch",
     "build": "webpack --mode=production",
-    "prettier:format": "prettier --write '**/*.{js,jsx,ts,tsx,css,json}' "
+    "prettier:format": "prettier --write '**/*.{js,jsx,ts,tsx,css,json}' ",
+    "lint": "eslint .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

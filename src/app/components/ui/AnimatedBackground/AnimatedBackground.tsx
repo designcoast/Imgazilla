@@ -50,12 +50,12 @@ export function AnimatedBackground({
 
     const interactionProps = enableHover
       ? {
-        onMouseEnter: () => handleSetActiveId(id),
-        onMouseLeave: () => handleSetActiveId(null),
-      }
+          onMouseEnter: () => handleSetActiveId(id),
+          onMouseLeave: () => handleSetActiveId(null),
+        }
       : {
-        onClick: () => handleSetActiveId(id),
-      };
+          onClick: () => handleSetActiveId(id),
+        };
 
     return cloneElement(
       child,
@@ -84,7 +84,7 @@ export function AnimatedBackground({
           )}
         </AnimatePresence>
         <span className='z-10'>{child.props.children}</span>
-      </>
+      </>,
     );
   });
 }

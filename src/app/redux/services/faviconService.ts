@@ -11,9 +11,9 @@ export const faviconService = baseApi.injectEndpoints({
         url: 'favicon/generate',
         method: 'POST',
         body,
-      })
-    })
-  })
-})
+      }),
+    }),
+  }),
+});
 
 export const { useGenerateFaviconMutation } = faviconService;

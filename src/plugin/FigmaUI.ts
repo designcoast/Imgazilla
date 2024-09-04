@@ -26,7 +26,6 @@ export class FigmaUI {
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
 
-
     this.figmaUIMessaging = new FigmaUIMessaging();
     this.figmaEventManager = new FigmaEventManager();
     this.messageSender = new MessageSender();
@@ -36,7 +35,7 @@ export class FigmaUI {
     this.pluginDataStorage = new PluginDataStorage();
     this.commandHandler = new CommandHandler();
     this.globalSettings = new FigmaGlobalSettingsManager();
-  };
+  }
 
   async init() {
     this.clearConsole();
@@ -45,35 +44,41 @@ export class FigmaUI {
 
     await this.globalSettings.sendToUIGlobalSettings();
 
-    const relaunchData = this.pluginDataStorage.getCurrentPageData(RELAUNCH_DATA_STORE_KEY);
+    const relaunchData = this.pluginDataStorage.getCurrentPageData(
+      RELAUNCH_DATA_STORE_KEY,
+    );
 
     this.figmaAPI.sendCurrentUserInformation();
     // We call this function for first time and check if user selected right node
     await this.figmaAPI.handleSelectionChange();
 
-    this.figmaUIMessaging.subscribe((message: MessageType) => this.handleUIMessage(message));
-    await this.figmaEventManager.addSelectionChangeListener(() => this.figmaAPI.handleSelectionChange());
+    this.figmaUIMessaging.subscribe((message: MessageType) =>
+      this.handleUIMessage(message),
+    );
+    await this.figmaEventManager.addSelectionChangeListener(() =>
+      this.figmaAPI.handleSelectionChange(),
+    );
 
     if (!Boolean(relaunchData)) {
       this.setRelaunchData();
     }
-  };
+  }
 
   private clearConsole() {
     console.clear();
-  };
+  }
 
   private setRelaunchData() {
     this.relaunchDataManager.setRelaunchDataForAllImages();
 
-    figma.currentPage.setRelaunchData({ imagesOptimization: 'Optimized Figma images' });
+    figma.currentPage.setRelaunchData({
+      imagesOptimization: 'Optimized Figma images',
+    });
     this.pluginDataStorage.setCurrentPageData(RELAUNCH_DATA_STORE_KEY, 'true');
   }
 
   private async handleUIMessage(message: MessageType) {
-
     const { type, payload } = message;
-
 
     if (type === UIEventType.GET_IMAGES_UINT_ARRAY_COLLECTION) {
       await this.collectNodes();
@@ -86,14 +91,13 @@ export class FigmaUI {
     if (type === UIEventType.GET_SELECTED_IMAGES_UINT_ARRAY) {
       await this.figmaAPI.handleSelectedNodes();
     }
-  };
+  }
 
   private async handleClientStoreData(payload: any) {
-    await this.globalSettings.updateGlobalSettings(payload)
+    await this.globalSettings.updateGlobalSettings(payload);
   }
 
   private async collectNodes() {
-
     const collector = new ImageUintArrayCollector({
       chunkSize: 1,
       onChunkProcessed: (collection: ImageInfo[]) => {
@@ -105,12 +109,11 @@ export class FigmaUI {
 
         const message = {
           type: EventType.IMAGE_COLLECTION_COMPLETE,
-          payload: {}
-        }
+          payload: {},
+        };
 
         this.sendMessageToUI(message);
-
-      }
+      },
     });
 
     await collector.collectNodesFromPage();
@@ -118,5 +121,5 @@ export class FigmaUI {
 
   private sendMessageToUI(message: MessageType) {
     this.messageSender.sendMessageToUI(message);
-  };
+  }
 }

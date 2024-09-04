@@ -4,13 +4,26 @@ import { useSelector } from 'react-redux';
 import { saveAs } from 'file-saver';
 import { DateTime } from 'luxon';
 import { encode } from 'base64-arraybuffer-es6';
-import { toast, } from 'sonner';
+import { toast } from 'sonner';
 
-import { EarnCreditsSheet, FaviconExporterSheet, FaviconSettingsForm, FormDataType, Overlay } from '@/app/components';
+import {
+  EarnCreditsSheet,
+  FaviconExporterSheet,
+  FaviconSettingsForm,
+  FormDataType,
+  Overlay,
+} from '@/app/components';
 
 import { useTypedDispatch } from '@/app/redux/store';
-import { getFaviconImageData, updateAccountCredits, updateFaviconSettings } from '@/app/redux/features';
-import { useGenerateFaviconMutation, useLazyGetAccountCreditsQuery } from '@/app/redux/services';
+import {
+  getFaviconImageData,
+  updateAccountCredits,
+  updateFaviconSettings,
+} from '@/app/redux/features';
+import {
+  useGenerateFaviconMutation,
+  useLazyGetAccountCreditsQuery,
+} from '@/app/redux/services';
 
 import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
 import { ARCHIVE_NAME } from '@/app/constants';
@@ -29,50 +42,64 @@ export const FaviconExporterSettings = () => {
 
   const dispatch = useTypedDispatch();
 
-  const onGenerateArchive = useCallback(async (images: ImageObject[], formState: FormDataType) => {
-    const { websiteName, themeColor, platforms: { android, ios } } = formState;
-    const blob = await generateArchive({
-      websiteName,
-      themeColor,
-      images,
-      isAndroid: android,
-      isIOS: ios
-    });
-    setBlobPath(blob);
-  }, []);
+  const onGenerateArchive = useCallback(
+    async (images: ImageObject[], formState: FormDataType) => {
+      const {
+        websiteName,
+        themeColor,
+        platforms: { android, ios },
+      } = formState;
+      const blob = await generateArchive({
+        websiteName,
+        themeColor,
+        images,
+        isAndroid: android,
+        isIOS: ios,
+      });
+      setBlobPath(blob);
+    },
+    [],
+  );
 
-  const handleOnSubmit = useCallback((data: FormDataType) => {
-    const result = {
-      image: encode(imageData),
-      ...data,
-    }
-    generateFavicon(result)
-      .unwrap()
-      .then(async (images: ImageObject[]) => {
-        await onGenerateArchive(images, data);
+  const handleOnSubmit = useCallback(
+    (data: FormDataType) => {
+      const result = {
+        image: encode(imageData),
+        ...data,
+      };
+      generateFavicon(result)
+        .unwrap()
+        .then(async (images: ImageObject[]) => {
+          await onGenerateArchive(images, data);
 
-        getAccountCredits('')
-          .unwrap()
-          .then((credits: string) => {
-            dispatch(updateAccountCredits({ credits }));
-          }).finally(() => {
-          setIsOpenSheet(true);
+          getAccountCredits('')
+            .unwrap()
+            .then((credits: string) => {
+              dispatch(updateAccountCredits({ credits }));
+            })
+            .finally(() => {
+              setIsOpenSheet(true);
+            });
         })
-      }).catch((error) => {
-        toast.info('Error while generating favicon', {
-          description: error?.data?.message,
-          action: {
-            label: 'Purchase',
-            onClick: () => setIsOpenModal(true)
-          },
-          duration: 5000
+        .catch((error) => {
+          toast.info('Error while generating favicon', {
+            description: error?.data?.message,
+            action: {
+              label: 'Purchase',
+              onClick: () => setIsOpenModal(true),
+            },
+            duration: 5000,
+          });
         });
-    })
 
-    dispatch(updateFaviconSettings({
-      faviconSettings: data
-    }))
-  }, [imageData, onGenerateArchive]);
+      dispatch(
+        updateFaviconSettings({
+          faviconSettings: data,
+        }),
+      );
+    },
+    [imageData, onGenerateArchive],
+  );
 
   const handleOnOpenChange = useCallback((open: boolean) => {
     setIsOpenSheet(open);
@@ -96,15 +123,21 @@ export const FaviconExporterSettings = () => {
   }, [blobPath]);
 
   return (
-    <div className="flex flex-col p-3 w-full">
-      <p className="font-semibold text-center">Settings</p>
-      <FaviconSettingsForm onSubmit={handleOnSubmit}/>
+    <div className='flex flex-col p-3 w-full'>
+      <p className='font-semibold text-center'>Settings</p>
+      <FaviconSettingsForm onSubmit={handleOnSubmit} />
 
-      <EarnCreditsSheet showTrigger={false} isOpen={isOpenModal} onOpenChange={handleOnCreditModalOpenChange} />
-      <FaviconExporterSheet open={isOpenSheet} onOpenChange={handleOnOpenChange} onDownload={handleOnDownload}/>
-      {isLoading ? (
-        <Overlay/>
-      ) : null}
+      <EarnCreditsSheet
+        showTrigger={false}
+        isOpen={isOpenModal}
+        onOpenChange={handleOnCreditModalOpenChange}
+      />
+      <FaviconExporterSheet
+        open={isOpenSheet}
+        onOpenChange={handleOnOpenChange}
+        onDownload={handleOnDownload}
+      />
+      {isLoading ? <Overlay /> : null}
     </div>
-  )
-}
+  );
+};

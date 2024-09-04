@@ -7,12 +7,14 @@ import {
   TabsList,
   TabsTrigger,
   FaviconExporter,
-  ImageOptimization, Account,
+  ImageOptimization,
+  Account,
 } from '@/app/components';
 import {
-  FAVICON_TAB, getActiveTab,
+  FAVICON_TAB,
+  getActiveTab,
   IMAGE_OPTIMIZATION_TAB,
-  selectDisabledTab
+  selectDisabledTab,
 } from '@/app/redux/features';
 import { useSentryAnalytics } from '@/app/hooks/useSentryAnalytics';
 
@@ -24,7 +26,8 @@ export const RootLayout = () => {
   const disabledTab = useSelector(selectDisabledTab);
 
   const isFaviconTabDisabled = disabledTab?.name === FAVICON_TAB ?? false;
-  const isImagesOptimizationTabDisabled = disabledTab?.name === IMAGE_OPTIMIZATION_TAB ?? false;
+  const isImagesOptimizationTabDisabled =
+    disabledTab?.name === IMAGE_OPTIMIZATION_TAB ?? false;
 
   const handleOnFaviconTabClick = useCallback(() => {
     sendAnalyticsEvent({
@@ -42,24 +45,24 @@ export const RootLayout = () => {
       label: 'images_optimization_tab',
       value: 1,
     });
-  }, [])
+  }, []);
 
   return (
     <>
       <div className='flex justify-end p-2.5'>
         <Account />
       </div>
-      <Tabs defaultValue={name} className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue={name} className='w-full'>
+        <TabsList className='grid w-full grid-cols-2'>
           <TabsTrigger
-            value="favicon"
+            value='favicon'
             disabled={isFaviconTabDisabled}
             onClick={handleOnFaviconTabClick}
           >
             Favicon exporter
           </TabsTrigger>
           <TabsTrigger
-            value="imagesOptimization"
+            value='imagesOptimization'
             disabled={isImagesOptimizationTabDisabled}
             onClick={handleOnImagesTabClick}
           >
@@ -67,14 +70,14 @@ export const RootLayout = () => {
           </TabsTrigger>
         </TabsList>
         <>
-          <TabsContent value="favicon">
+          <TabsContent value='favicon'>
             <FaviconExporter />
           </TabsContent>
-          <TabsContent value="imagesOptimization">
+          <TabsContent value='imagesOptimization'>
             <ImageOptimization />
           </TabsContent>
         </>
       </Tabs>
     </>
-  )
-}
+  );
+};

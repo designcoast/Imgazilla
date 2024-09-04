@@ -12,7 +12,7 @@ const initialState = {
   credits: null,
   name: null,
   figmaUserID: null,
-  photoUrl: null
+  photoUrl: null,
 } satisfies AccountState as AccountState;
 
 export const accountSlice = createSlice({
@@ -27,9 +27,9 @@ export const accountSlice = createSlice({
     },
 
     updateAccountCredits(state, action: PayloadAction<{ credits: string }>) {
-      state.credits = action.payload.credits
-    }
-  }
+      state.credits = action.payload.credits;
+    },
+  },
 });
 
 export const getAccount = (state: RootState) => state.account;

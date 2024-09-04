@@ -59,6 +59,9 @@ export { ChromeTabPreviewImage } from '@/app/components/icons/ChromeTabPreviewIm
 export { IPhonePreviewImage } from '@/app/components/icons/IPhonePreviewImage';
 export { ChromeSearchResultBrowserPreview } from '@/app/components/icons/ChromeSearchResultBrowserPreview';
 
-export { FaviconSettingsForm, type FormDataType } from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
+export {
+  FaviconSettingsForm,
+  type FormDataType,
+} from '@/app/components/forms/FaviconSettingsForm/FaviconSettingsForm';
 
 export { MainContainer } from '@/app/components/templates/MainContainer';

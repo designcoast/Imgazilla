@@ -19,7 +19,7 @@ export class FigmaUIMessaging {
   }
 
   private notifySubscribers(message: MessageType) {
-    this.subscribers.forEach(subscriber => {
+    this.subscribers.forEach((subscriber) => {
       subscriber(message);
     });
   }
