@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { RefreshCcw, SquareDashedMousePointer, StickyNote } from 'lucide-react';
+import { RefreshCcw } from 'lucide-react';
 
 import { toNumber } from 'lodash';
 
@@ -15,12 +15,8 @@ import {
 } from '@/app/redux/features';
 
 import {
+  Button,
   Checkbox,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
   Select,
   SelectContent,
   SelectItem,
@@ -31,14 +27,10 @@ import { useTypedDispatch } from '@/app/redux/store';
 import { TITLE_TO_QUALITY_PERCENTAGE } from '@/app/constants';
 
 type Props = {
-  onRefreshPage: () => void;
-  onRefreshSelectedNode: () => void;
+  onRefresh: () => void;
 };
 
-export const ImageOptimizationSettings = ({
-  onRefreshPage,
-  onRefreshSelectedNode,
-}: Props) => {
+export const ImageOptimizationSettings = ({ onRefresh }: Props) => {
   const images = useSelector(getImages);
   const selectedImagesCount = useSelector(getSelectedImagesCount);
 
@@ -90,7 +82,7 @@ export const ImageOptimizationSettings = ({
                     <SelectItem
                       key={item}
                       value={item}
-                      className='text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark'
+                      className='text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark !px-3'
                     >
                       {TITLE_TO_QUALITY_PERCENTAGE[item]}
                     </SelectItem>
@@ -99,36 +91,14 @@ export const ImageOptimizationSettings = ({
               </Select>
             </div>
             <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger className='flex flex-row justify-center items-center gap-2.5 rounded-lg border border-primary-primaryDark bg-primary-mainDark px-3 py-2.5 text-sm'>
-                  <p>Sync</p>
-                  <RefreshCcw size={16} className='stroke-borderSquare' />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  sideOffset={6}
-                  align='end'
-                  className='w-auto flex flex-col rounded-lg border border-primary-primaryDark bg-primary-mainDark px-3 py-2.5 text-sm'
-                >
-                  <DropdownMenuItem
-                    className='gap-2.5 text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark cursor-pointer'
-                    onClick={onRefreshSelectedNode}
-                  >
-                    <SquareDashedMousePointer
-                      size={20}
-                      className='stroke-borderSquare'
-                    />
-                    <p className='text-inherit'>Selected</p>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className='bg-primary-primaryDark' />
-                  <DropdownMenuItem
-                    className='gap-2.5 text-primary-lightGray focus:bg-primary-lightGreen focus:text-primary-secondDark cursor-pointer'
-                    onClick={onRefreshPage}
-                  >
-                    <StickyNote size={20} className='stroke-borderSquare' />
-                    <p className='text-inherit'>Full page</p>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Button
+                variant='dark'
+                onClick={onRefresh}
+                className='flex flex-row justify-center items-center gap-2.5 rounded-lg border border-primary-primaryDark px-3 py-2 text-sm !h-10'
+              >
+                <p>Sync</p>
+                <RefreshCcw size={16} className='stroke-borderSquare' />
+              </Button>
             </div>
           </div>
         </div>

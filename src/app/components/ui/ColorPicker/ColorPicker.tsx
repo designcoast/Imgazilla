@@ -106,7 +106,7 @@ export const ColorPicker = ({
                       key={item}
                       style={{ backgroundColor: item }}
                       className={cn(
-                        `flex relative justify-center items-center h-4 w-4 p-0.5 border border-primary-primaryDark rounded-md hover:cursor-pointer`,
+                        'flex relative justify-center items-center h-4 w-4 p-0.5 border border-primary-primaryDark rounded-md hover:cursor-pointer',
                         isEqual ? 'animate-move-up' : null,
                       )}
                       onClick={() => handleOnSelectHistoryColor(item)}

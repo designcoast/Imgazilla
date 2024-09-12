@@ -14,6 +14,8 @@ export { ImageOptimizationResultItem } from '@/app/components/shared/ImageOptimi
 export { ImageOptimizationResultList } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultList/ImageOptimizationResultList';
 export { ImageOptimizationResultSettings } from '@/app/components/shared/ImageOptimization/ImageOptimizationResult/ImageOptimizationResultSettings/ImageOptimizationResultSettings';
 export { TicTacToe } from '@/app/components/shared/TicTacToe/TicTacToe';
+export { ImageOptimizationPanel } from '@/app/components/shared/ImageOptimization/ImageOptimizationPanel/ImageOptimizationPanel';
+export { ImageOptimizationPanelItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationPanel/ImageOptimizationPanelItem/ImageOptimizationPanelItem';
 
 export { FormatBadge } from '@/app/components/shared/FormatBadge/FormatBadge';
 

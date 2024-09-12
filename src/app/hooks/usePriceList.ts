@@ -87,7 +87,7 @@ export const usePriceList = () => {
       setPriceList(flattenedResult);
       setIsLoading(false);
     } catch (err) {
-      console.log('Error with payment');
+      console.log('Error with payment', err);
     } finally {
       setIsLoading(false);
     }

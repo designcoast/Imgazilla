@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import {
   Button,
@@ -9,15 +9,30 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/app/components';
+import { ANALYTIC_EVENTS } from '@/app/constants';
+import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
 
 const IMAGE_CREDITS_COST = process.env.IMAGE_CREDITS_COST;
 const FAVICON_ARCHIVE_CREDITS_COST = process.env.FAVICON_ARCHIVE_CREDITS_COST;
 
 export const InstructionSheet = () => {
+  const trackClick = useMixpanel();
+
+  const handleOnClick = useCallback(() => {
+    trackClick('click', {
+      name: ANALYTIC_EVENTS.OPEN_INSTRUCTION,
+    });
+  }, [trackClick]);
+
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button variant='ghost'>Instructions</Button>
+      <SheetTrigger asChild onClick={handleOnClick}>
+        <Button
+          variant='ghost'
+          className='w-full justify-start hover:bg-primary-lightGreen hover:text-primary-mainDark'
+        >
+          Instructions
+        </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader className='w-[80%]'>

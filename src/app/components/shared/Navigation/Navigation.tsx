@@ -8,6 +8,8 @@ import React, {
   useEffect,
 } from 'react';
 
+import { NavLink } from 'react-router-dom';
+
 import { Button } from '@/app/components';
 import { cn } from '@/app/lib/utils';
 import { useHoverSlippery } from '@/app/hooks/useHoverSlippery';
@@ -92,7 +94,9 @@ const NavigationList: FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 interface NavigationItemProps {
-  value: string;
+  value?: string;
+  to?: string;
+  asLink?: boolean;
   children: ReactNode;
   onClick?: () => void;
 }
@@ -101,6 +105,8 @@ const NavigationItem: FC<NavigationItemProps> = ({
   value,
   children,
   onClick,
+  asLink = false,
+  to,
 }) => {
   const context = useContext(NavigationContext);
 
@@ -118,11 +124,12 @@ const NavigationItem: FC<NavigationItemProps> = ({
 
   const handleActiveItem = useCallback(() => {
     setActiveItem(value);
+    // eslint-disable-next-line
     onClick && onClick();
   }, [value]);
 
   const handleAddElementRef = useCallback(
-    (el: HTMLButtonElement) => {
+    (el: HTMLButtonElement | any) => {
       addElementRef(el, value);
     },
     [value],
@@ -136,6 +143,26 @@ const NavigationItem: FC<NavigationItemProps> = ({
   );
 
   const isActive = activeItem === value;
+
+  if (asLink) {
+    return (
+      <NavLink
+        to={to}
+        ref={handleAddElementRef}
+        onClick={handleActiveItem}
+        className={cn(
+          'relative z-10 !p-2 transition-colors duration-300 text-sm',
+          isActive
+            ? 'text-primary-secondDark hover:!text-primary-secondDark'
+            : 'hover:!text-primary-secondDark font-normal',
+        )}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        {children}
+      </NavLink>
+    );
+  }
 
   return (
     <Button
@@ -157,7 +184,7 @@ const NavigationItem: FC<NavigationItemProps> = ({
 };
 
 interface NavigationContentProps {
-  value: string;
+  value?: string;
   children: ReactNode;
 }
 
@@ -169,6 +196,10 @@ const NavigationContent: FC<NavigationContentProps> = ({ value, children }) => {
   }
 
   const { activeItem } = context;
+
+  if (!value) {
+    return <>{children}</>;
+  }
 
   return activeItem === value ? <>{children}</> : null;
 };

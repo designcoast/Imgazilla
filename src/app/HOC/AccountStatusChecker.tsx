@@ -1,4 +1,5 @@
 import React, { ReactNode, useCallback, useState } from 'react';
+import mixpanel from 'mixpanel-figma';
 import {
   CreateAccountBody,
   useCreateAccountMutation,
@@ -42,6 +43,7 @@ export const AccountStatusChecker = ({ children }: Props) => {
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
     if (message?.type === EventType.USER_ACCOUNT_DATA) {
       const { id } = message?.payload?.data;
+      mixpanel.identify(id);
 
       onCheckAccount(id)
         .unwrap()

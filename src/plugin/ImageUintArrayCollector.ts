@@ -32,12 +32,11 @@ export class ImageUintArrayCollector {
       figma.currentPage.children,
       (node: SceneNode) => node.exportSettings.length !== 0,
     );
-    console.log('nodes', nodes);
-    // await this.timeout(200);
-    //
-    // await this.processNodesWithTimeout(nodes);
-    //
-    // this.options.onCompleted();
+    await this.timeout(200);
+
+    await this.processNodesWithTimeout(nodes);
+
+    this.options.onCompleted();
   }
 
   private async processNodesWithTimeout(nodes: BaseNode[]): Promise<void> {

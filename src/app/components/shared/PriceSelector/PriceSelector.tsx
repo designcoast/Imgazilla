@@ -32,7 +32,7 @@ export const PriceSelector = () => {
               <Tooltip>
                 <TooltipTrigger className='p-0 h-fit w-full'>
                   <div
-                    className='flex flex-row cursor-pointer transition ease-in-out justify-between bg-primary-mainDark rounded-lg p-3 mb-3 hover:bg-primary-dark'
+                    className='flex flex-row cursor-pointer transition ease-in-out justify-between bg-primary-mainDark rounded-lg p-3 mb-3 border border-primary-mainDark hover:border-primary-lightGreen'
                     onClick={() => window.open(variant.link, '_blank')}
                   >
                     <div className='flex items-center align-baseline gap-1.5'>

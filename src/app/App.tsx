@@ -1,16 +1,19 @@
 import React from 'react';
+import { RouterProvider } from 'react-router-dom';
 import { withProfiler } from '@sentry/react';
 
 import { ThemeProvider } from '@/app/components/theme-provider';
-import { ModernLayout } from '@/app/layouts/ModernLayout';
 import { ReduxProvider } from '@/app/redux/provider';
 import { AccountStatusChecker } from '@/app/HOC/AccountStatusChecker';
 import { Toaster } from '@/app/components';
 import { WithDefaultTabSetter } from '@/app/HOC/WithDefaultTabSetter';
 import { WithGlobalPluginSettingsProvider } from '@/app/HOC/WithGlobalPluginSettings';
 import { initSentry } from '@/app/configs/sentry.config';
+import { initMixpanel } from '@/app/configs/mixpanel.config';
+import { router } from '@/app/routes';
 
 initSentry();
+initMixpanel();
 
 const App = () => {
   return (
@@ -25,7 +28,7 @@ const App = () => {
           <AccountStatusChecker>
             <WithDefaultTabSetter>
               <WithGlobalPluginSettingsProvider>
-                <ModernLayout />
+                <RouterProvider router={router} />
               </WithGlobalPluginSettingsProvider>
             </WithDefaultTabSetter>
           </AccountStatusChecker>

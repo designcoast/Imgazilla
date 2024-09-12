@@ -13,11 +13,14 @@ import {
 
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateSelectedImage } from '@/app/redux/features';
+import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
+import { ANALYTIC_EVENTS } from '@/app/constants';
 
 export const FaviconPreview = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const imageData = useSelector(getFaviconImageData);
+  const trackClick = useMixpanel();
 
   const dispatch = useTypedDispatch();
 
@@ -28,6 +31,10 @@ export const FaviconPreview = () => {
   }, []);
 
   const handleOnOpenModal = useCallback((open: boolean) => {
+    trackClick('click', {
+      name: ANALYTIC_EVENTS.OPEN_FAVICON_PREVIEW,
+    });
+
     setIsOpen(open);
   }, []);
 

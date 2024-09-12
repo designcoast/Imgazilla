@@ -3,15 +3,20 @@ import React, { useCallback } from 'react';
 import {
   Account,
   FaviconExporter,
-  ImageOptimization,
+  ImageOptimizationPanel,
   Navigation,
 } from '@/app/components';
-import { APP_ROUTES, FAVICON_EXPORT, IMAGE_OPTIMIZATION } from '@/app/routes';
+
 import { useSentryAnalytics } from '@/app/hooks/useSentryAnalytics';
+import { FAVICON_EXPORT, IMAGE_OPTIMIZATION } from '@/app/constants';
+
+const ROUTE_KEYS = [FAVICON_EXPORT, IMAGE_OPTIMIZATION];
+const APP_ROUTES = {
+  [FAVICON_EXPORT]: 'Favicon exporter',
+  [IMAGE_OPTIMIZATION]: 'Image optimization',
+};
 
 export const ModernLayout = () => {
-  const ROUTE_KEYS = Object.keys(APP_ROUTES);
-
   const sendAnalyticsEvent = useSentryAnalytics();
 
   const handleOnTabClick = useCallback((type: string) => {
@@ -29,7 +34,7 @@ export const ModernLayout = () => {
       <Navigation defaultValue={ROUTE_KEYS[0]}>
         <div className='flex justify-center gap-1.5'>
           <Navigation.List>
-            {Object.keys(APP_ROUTES).map((item, index) => (
+            {ROUTE_KEYS.map((item, index) => (
               <Navigation.Item
                 key={index}
                 value={item}
@@ -46,7 +51,7 @@ export const ModernLayout = () => {
             <FaviconExporter />
           </Navigation.Content>
           <Navigation.Content value={IMAGE_OPTIMIZATION}>
-            <ImageOptimization />
+            <ImageOptimizationPanel />
           </Navigation.Content>
         </div>
       </Navigation>

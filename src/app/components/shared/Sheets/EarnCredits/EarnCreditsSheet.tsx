@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -14,6 +14,8 @@ import {
 } from '@/app/components';
 import { getAccount } from '@/app/redux/features';
 import { calculateCredits } from '@/app/lib/calculateCredits';
+import { ANALYTIC_EVENTS } from '@/app/constants';
+import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
 
 type Props = {
   isOpen?: boolean;
@@ -27,15 +29,29 @@ export const EarnCreditsSheet = ({
   onOpenChange,
 }: Props) => {
   const accountDetails = useSelector(getAccount);
+  const trackClick = useMixpanel();
+
   const { favicon, images } = useMemo(
     () => calculateCredits(accountDetails.credits),
     [accountDetails],
   );
+
+  const handleOnClick = useCallback(() => {
+    trackClick('click', {
+      name: ANALYTIC_EVENTS.OPEN_EARN_CREDITS,
+    });
+  }, [trackClick]);
+
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       {showTrigger ? (
-        <SheetTrigger asChild>
-          <Button variant='ghost'>Buy More Credits</Button>
+        <SheetTrigger asChild onClick={handleOnClick}>
+          <Button
+            variant='ghost'
+            className='w-full justify-start hover:bg-primary-lightGreen hover:text-primary-mainDark'
+          >
+            Buy More Credits
+          </Button>
         </SheetTrigger>
       ) : null}
       <SheetContent>

@@ -41,3 +41,36 @@ export const SUPPORTED_IMAGE_FORMATS = ['png', 'jpg', 'svg'];
 export const SUPPORTED_FILE_FORMATS = ['pdf'];
 
 export const MAX_COLOR_HISTORY_LENGTH = 10;
+
+export const HOME = 'HOME';
+export const FAVICON_EXPORT = 'FAVICON_EXPORT';
+export const IMAGE_OPTIMIZATION = 'IMAGE_OPTIMIZATION';
+export const PAGE_IMAGES_OPTIMIZATION = 'PAGE_IMAGES_OPTIMIZATION';
+export const SELECT_IMAGES_OPTIMIZATION = 'SELECT_IMAGES_OPTIMIZATION';
+export const GIF_ANIMATION = 'GIF_ANIMATION';
+export const PDF_CREATION = 'PDF_CREATION';
+
+export const APP_ROUTES_PATHS = {
+  [HOME]: '/',
+  [FAVICON_EXPORT]: 'favicon-exporter',
+  [IMAGE_OPTIMIZATION]: 'image-optimization',
+  [PAGE_IMAGES_OPTIMIZATION]: 'page-images-optimization',
+  [SELECT_IMAGES_OPTIMIZATION]: 'select-images-optimization',
+};
+
+export const TAB_ROUTES = {
+  [FAVICON_EXPORT]: {
+    name: 'Favicon exporter',
+    path: `/${APP_ROUTES_PATHS[FAVICON_EXPORT]}`,
+  },
+  [IMAGE_OPTIMIZATION]: {
+    name: 'Image optimization',
+    path: `/${APP_ROUTES_PATHS[IMAGE_OPTIMIZATION]}`,
+  },
+};
+
+export const ANALYTIC_EVENTS = {
+  OPEN_FAVICON_PREVIEW: 'open-favicon-preview',
+  OPEN_INSTRUCTION: 'open-instructions',
+  OPEN_EARN_CREDITS: 'open-earn-credits',
+};

@@ -27,7 +27,7 @@ export const accountService = baseApi.injectEndpoints({
     }),
 
     getAccountCredits: builder.query({
-      query: () => `/account/getAccountCredits`,
+      query: () => '/account/getAccountCredits',
     }),
   }),
 });

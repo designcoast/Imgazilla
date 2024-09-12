@@ -69,9 +69,10 @@ export const ImageOptimizationList = ({
     return (
       <MainContainer className='mt-0.5 overflow-hidden h-full max-h-[444px]'>
         <div className='flex flex-col m-auto text-center text-sm justify-center items-center gap-3'>
-          <p className='font-semibold '>No images available for export.</p>
-          <p>
-            Please select images in your Figma project and add export settings.
+          <p className='font-semibold'>No images available for export.</p>
+          <p className='w-[540px]'>
+            Please ensure the images have export settings (in right sidebar
+            (Export)) and after click on the <b>Sync</b> button.
           </p>
         </div>
       </MainContainer>

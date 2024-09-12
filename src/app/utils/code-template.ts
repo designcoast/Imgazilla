@@ -128,4 +128,4 @@ export const getManifestObject = ({
   ],
 });
 
-export const headTag = `<head />`;
+export const headTag = '<head />';

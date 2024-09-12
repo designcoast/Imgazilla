@@ -17,8 +17,6 @@ export const FaviconBrowsePreview = () => {
   const imageData = useSelector(getFaviconImageData);
   const faviconSettings = useSelector(getFaviconSettings);
 
-  console.log('faviconSettings', faviconSettings);
-
   const url = useMemo(() => convertToImageUrl(imageData, 'PNG'), [imageData]);
 
   const handleOnThemeChange = useCallback((checked: boolean) => {

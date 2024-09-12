@@ -62,7 +62,7 @@ export const Account = () => {
         </PopoverTrigger>
         <PopoverContent
           sideOffset={6}
-          className='flex flex-col shadow-custom items-start rounded-lg bg-primary-secondDark border border-primary-primaryDark w-full py-2 px-2'
+          className='flex flex-col shadow-custom items-start bg-primary-mainDark rounded-lg border border-primary-primaryDark w-full py-2 px-3'
         >
           <EarnCreditsSheet />
           <InstructionSheet />

@@ -66,6 +66,7 @@ module.exports = {
           darkGray: 'var(--dark-gray)',
           darkText: 'var(--dark-text)',
           strongGreen: 'var(--strong-green)',
+          normalGray: 'var(--normal-gray)',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
