@@ -12,7 +12,8 @@
       "https://figma.imgazilla.app",
       "https://s3-alpha.figma.com",
       "https://api.lemonsqueezy.com",
-      "https://*.sentry.io"
+      "https://*.sentry.io",
+      "https://*.mixpanel.com"
     ],
     "devAllowedDomains": ["http://localhost:3000"]
   },
