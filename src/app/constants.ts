@@ -73,4 +73,6 @@ export const ANALYTIC_EVENTS = {
   OPEN_FAVICON_PREVIEW: 'open-favicon-preview',
   OPEN_INSTRUCTION: 'open-instructions',
   OPEN_EARN_CREDITS: 'open-earn-credits',
+  DOWNLOAD_FAVICON_ARCHIVE: 'download-favicon-archive',
+  DOWNLOAD_IMAGES_ARCHIVE: 'download-images-archive',
 };

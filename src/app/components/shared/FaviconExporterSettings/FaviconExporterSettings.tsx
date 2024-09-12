@@ -26,8 +26,8 @@ import {
 } from '@/app/redux/services';
 
 import { generateArchive, type ImageObject } from '@/app/lib/generateArchive';
-import { ARCHIVE_NAME } from '@/app/constants';
-import { useSentryAnalytics } from '@/app/hooks/useSentryAnalytics';
+import { ANALYTIC_EVENTS, ARCHIVE_NAME } from '@/app/constants';
+import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
 
 export const FaviconExporterSettings = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
@@ -38,7 +38,7 @@ export const FaviconExporterSettings = () => {
   const [generateFavicon, { isLoading }] = useGenerateFaviconMutation();
   const [getAccountCredits] = useLazyGetAccountCreditsQuery();
 
-  const sendAnalyticsEvent = useSentryAnalytics();
+  const trackClick = useMixpanel();
 
   const dispatch = useTypedDispatch();
 
@@ -112,11 +112,8 @@ export const FaviconExporterSettings = () => {
   const handleOnDownload = useCallback(() => {
     const fileName = `${ARCHIVE_NAME}-${DateTime.now().toFormat('yyyy-MM-dd-HH-mm-ss')}.zip`;
 
-    sendAnalyticsEvent({
-      eventName: 'button_click',
-      category: 'user_interaction',
-      label: 'download_favicon_archive',
-      value: 1,
+    trackClick('click', {
+      name: ANALYTIC_EVENTS.DOWNLOAD_FAVICON_ARCHIVE,
     });
 
     saveAs(blobPath, fileName);
