@@ -118,10 +118,8 @@ export class FigmaAPI {
 
     if (selectedNodes.length === 0) {
       const message = {
-        type: EventType.SELECTED_IMAGES_COLLECTION,
-        payload: {
-          data: [],
-        },
+        type: EventType.SELECTED_IMAGES_COLLECTION_COMPLETE,
+        payload: {},
       };
 
       this.sendMessageToUI(message);
