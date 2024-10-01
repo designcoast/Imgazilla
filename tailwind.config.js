@@ -63,6 +63,8 @@ module.exports = {
           lightYellow: 'hsl(var(--light-yellow))',
           lightRed: 'hsl(var(--light-red))',
           lightGray: 'var(--light-gray)',
+          redLight: 'var(--red-light)',
+          brightCyan: 'hsl(var(--bright-cyan))',
           darkGray: 'var(--dark-gray)',
           darkText: 'var(--dark-text)',
           strongGreen: 'var(--strong-green)',
