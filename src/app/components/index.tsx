@@ -18,6 +18,7 @@ export { ImageOptimizationPanel } from '@/app/components/shared/ImageOptimizatio
 export { ImageOptimizationPanelItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationPanel/ImageOptimizationPanelItem/ImageOptimizationPanelItem';
 
 export { FormatBadge } from '@/app/components/shared/FormatBadge/FormatBadge';
+export { FormatSelector } from '@/app/components/shared/FormatSelector/FormatSelector';
 
 export { Navigation } from '@/app/components/shared/Navigation/Navigation';
 export { FaviconPreviewSheet } from '@/app/components/shared/Sheets/FaviconPreview/FaviconPreviewSheet';

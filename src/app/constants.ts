@@ -22,20 +22,22 @@ export const ANDROID_ICONS_SIZES = [
   '192x192',
 ];
 
+export const PDF_FORMAT = 'PDF';
+export const SVG_FORMAT = 'SVG';
+export const PNG_FORMAT = 'PNG';
+export const JPG_FORMAT = 'JPG';
+export const WEB_P_FORMAT = 'WebP';
+export const AVIF_FORMAT = 'AVIF';
+
 export const MIME_TYPE_PNG = 'image/png';
 export const MIME_TYPE_SVG = 'image/svg+xml';
 export const MIME_TYPE_PDF = 'application/pdf';
 
 export const FORMAT_TO_MIME_TYPE = {
-  PNG: MIME_TYPE_PNG,
-  SVG: MIME_TYPE_SVG,
-  PDF: MIME_TYPE_PDF,
+  [PNG_FORMAT]: MIME_TYPE_PNG,
+  [SVG_FORMAT]: MIME_TYPE_SVG,
+  [PDF_FORMAT]: MIME_TYPE_PDF,
 };
-
-export const PDF_FORMAT = 'PDF';
-export const SVG_FORMAT = 'SVG';
-export const PNG_FORMAT = 'PNG';
-export const JPG_FORMAT = 'JPG';
 
 export const SUPPORTED_IMAGE_FORMATS = ['png', 'jpg', 'svg'];
 export const SUPPORTED_FILE_FORMATS = ['pdf'];
@@ -75,4 +77,5 @@ export const ANALYTIC_EVENTS = {
   OPEN_EARN_CREDITS: 'open-earn-credits',
   DOWNLOAD_FAVICON_ARCHIVE: 'download-favicon-archive',
   DOWNLOAD_IMAGES_ARCHIVE: 'download-images-archive',
+  UPDATE_IMAGE_FORMAT: 'update-image-format',
 };

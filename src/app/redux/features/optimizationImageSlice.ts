@@ -70,6 +70,28 @@ export const optimizationImageSlice = createSlice({
         return item;
       });
     },
+    updateImageFormat(
+      state,
+      action: PayloadAction<{ uuid: string; format: string }>,
+    ) {
+      state.images = state.images.map((item) => {
+        if (item.uuid === action.payload.uuid) {
+          return {
+            ...item,
+            format: action.payload.format,
+          };
+        }
+        return item;
+      });
+    },
+    updateAllImageFormat(state, action: PayloadAction<{ format: string }>) {
+      state.images = state.images.map((item) => {
+        return {
+          ...item,
+          format: action.payload.format,
+        };
+      });
+    },
     updateAllImageOptimizationPercent(state, action: PayloadAction<number>) {
       state.images = state.images.map((item) => {
         if (item.format !== PDF_FORMAT) {
@@ -158,6 +180,8 @@ export const {
   selectAllImages,
   setSelectedImages,
   unselectAllImages,
+  updateImageFormat,
+  updateAllImageFormat,
   removeSelectedImages,
   setImagesForOptimization,
   setImageOptimizationJobId,

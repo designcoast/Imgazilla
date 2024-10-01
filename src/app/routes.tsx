@@ -46,7 +46,7 @@ const routes: RouteObject[] = [
       },
       {
         path: APP_ROUTES_PATHS[SELECT_IMAGES_OPTIMIZATION],
-        element: <ImageOptimization isSingleMode />,
+        element: <ImageOptimization />,
       },
     ],
   },
