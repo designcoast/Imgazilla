@@ -17,6 +17,7 @@ import {
   optimizationImageSlice,
   tabSlice,
   settingsSlice,
+  uiSettingsSlice,
 } from '@/app/redux/features';
 import { errorHandlingMiddleware } from '@/app/redux/middlewares/errorHandlingMiddleware';
 
@@ -30,6 +31,7 @@ export const reducers = {
   [optimizationImageSlice.name]: optimizationImageSlice.reducer,
   [tabSlice.name]: tabSlice.reducer,
   [settingsSlice.name]: settingsSlice.reducer,
+  [uiSettingsSlice.name]: uiSettingsSlice.reducer,
 };
 
 export const middlewares = [
