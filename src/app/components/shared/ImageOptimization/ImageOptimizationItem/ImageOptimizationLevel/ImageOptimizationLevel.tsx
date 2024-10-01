@@ -8,6 +8,7 @@ import {
 } from '@/app/components';
 
 import { QUALITY_PERCENTAGE_STEP } from '@/app/constants';
+import { cn } from '@/app/lib/utils';
 
 type Props = {
   optimizationPercent: number;
@@ -31,7 +32,11 @@ export const ImageOptimizationLevel = memo(
     }, [optimizationPercent]);
 
     return (
-      <div className='flex flex-row gap-3'>
+      <div
+        className={cn('flex flex-row gap-3 cursor-grab', {
+          'opacity-20 cursor-not-allowed': isDisable,
+        })}
+      >
         <Slider
           max={100}
           min={1}
@@ -44,7 +49,12 @@ export const ImageOptimizationLevel = memo(
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger className='p-0 h-fit'>
-              <div className='flex bg-primary-secondDark border border-primary-primaryDark rounded-sm text-primary-gray px-3 py-0.5 font-semibold text-xs min-w-[58px] justify-center'>
+              <div
+                className={cn(
+                  'flex bg-primary-secondDark border border-primary-primaryDark rounded-sm text-primary-gray px-3 py-0.5 font-semibold text-xs min-w-[58px] justify-center',
+                  { 'cursor-not-allowed': isDisable },
+                )}
+              >
                 {optimizationLevel}%
               </div>
             </TooltipTrigger>

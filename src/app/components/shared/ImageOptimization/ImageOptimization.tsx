@@ -12,6 +12,7 @@ import {
   getGeneralOptimizationPercent,
   getImages,
   getIsImageOptimizationResultsOpen,
+  getIsSingleMode,
   getSelectedImages,
   reset,
   setDisableTab,
@@ -32,11 +33,7 @@ import { useOptimizeImageMutation } from '@/app/redux/services';
 import { transformAndCompressData } from '@/app/lib/compressData';
 import { APP_ROUTES_PATHS, IMAGE_OPTIMIZATION } from '@/app/constants';
 
-type Props = {
-  isSingleMode?: boolean;
-};
-
-export const ImageOptimization = ({ isSingleMode = false }: Props) => {
+export const ImageOptimization = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isHideScrollTo, setIsHideScrollTo] = useState(false);
   const [isOptimizationStarted, setIsOptimizationStarted] = useState(false);
@@ -52,6 +49,7 @@ export const ImageOptimization = ({ isSingleMode = false }: Props) => {
   const generalOptimizationPercent = useSelector(getGeneralOptimizationPercent);
   const selectedImages = useSelector(getSelectedImages);
   const images = useSelector(getImages);
+  const isSingleMode = useSelector(getIsSingleMode);
 
   const onOptimizeImage = useCallback(() => {
     setIsOptimizationStarted(true);

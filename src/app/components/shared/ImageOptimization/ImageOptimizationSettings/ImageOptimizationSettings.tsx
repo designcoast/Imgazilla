@@ -69,13 +69,17 @@ export const ImageOptimizationSettings = ({ onRefresh }: Props) => {
             <div className='flex mr-1 text-xs font-semibold'>
               {selectedImagesCount}/{images.length}
             </div>
-            <div className='flex text-xs font-semibold'>Images selected</div>
+            <div className='flex text-xs font-semibold'>
+              {images.length > 1 ? 'Images' : 'Image'} selected
+            </div>
           </div>
           <div className='flex items-center'>
             <div className='mr-3'>
               <Select onValueChange={handleOnOptimizationLevel}>
                 <SelectTrigger className='w-[146px]'>
-                  <SelectValue placeholder='Images quality' />
+                  <SelectValue
+                    placeholder={`${images.length > 1 ? 'Images' : 'Image'} quality`}
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.keys(TITLE_TO_QUALITY_PERCENTAGE).map((item) => (

@@ -1,22 +1,24 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 
 import { convertToImageUrl } from '@/app/lib/convertToImageUrl';
 import {
   Checkbox,
-  FormatBadge,
+  FormatSelector,
   ImageOptimizationLevel,
 } from '@/app/components';
 
 import {
   removeSelectedImages,
   setSelectedImages,
+  updateImageFormat,
   updateImageOptimizationPercent,
 } from '@/app/redux/features';
 import { useTypedDispatch } from '@/app/redux/store';
 
 import { cn } from '@/app/lib/utils';
 import { scaleFormat } from '@/app/lib/calculateSize';
-import { PDF_FORMAT } from '@/app/constants';
+import { ANALYTIC_EVENTS, PNG_FORMAT } from '@/app/constants';
+import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
 
 type Props = {
   item: ImageInfo;
@@ -36,10 +38,10 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
     setting,
   } = item;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const onTrackClick = useMixpanel();
 
   const imageUrl = useMemo(
-    () => convertToImageUrl(uintArray, format),
+    () => convertToImageUrl(uintArray, PNG_FORMAT),
     [uintArray, format],
   );
   const exportableImageScale = useMemo(
@@ -79,19 +81,23 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
     );
   }, []);
 
-  useEffect(() => {
-    if (isSelected || !isOpen) {
-      return;
-    }
+  const handleOnFormatChange = useCallback((format: string) => {
+    dispatch(
+      updateImageFormat({
+        uuid,
+        format,
+      }),
+    );
 
-    setIsOpen(false);
-  }, [isSelected, isOpen]);
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.UPDATE_IMAGE_FORMAT,
+      format,
+    });
+  }, []);
 
   const isDisabled = !isSelected;
 
   const disabledStyles = isDisabled ? 'opacity-50 cursor-not-allowed' : '';
-
-  const isPDF = format === PDF_FORMAT;
 
   return (
     <div
@@ -105,20 +111,11 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
           <Checkbox onClick={handleOnCheck} checked={isSelected} />
           <div className={cn(disabledStyles)}>
             <div className='w-12 h-12 bg-gray-200 flex items-center justify-center overflow-hidden preview rounded-md'>
-              {isPDF ? (
-                <iframe
-                  src={imageUrl}
-                  width='100%'
-                  height='100%'
-                  className='rounded-md min-w-full min-h-full object-cover'
-                />
-              ) : (
-                <img
-                  src={imageUrl}
-                  alt={name}
-                  className='rounded-md min-w-full min-h-full object-cover'
-                />
-              )}
+              <img
+                src={imageUrl}
+                alt={name}
+                className='rounded-md min-w-full min-h-full object-cover'
+              />
             </div>
           </div>
           <div className='flex flex-col'>
@@ -130,7 +127,7 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
             <ImageOptimizationLevel
               optimizationPercent={optimizationPercent}
               handleOnOptimizationLevel={handleOnOptimizationLevel}
-              isDisable={isPDF}
+              isDisable={isDisabled}
             />
           </div>
         </div>
@@ -145,7 +142,12 @@ export const ImageOptimizationItem = memo(({ item, className }: Props) => {
           </div>
         </div>
         <div className={cn('flex text-xs', disabledStyles)}>
-          <FormatBadge format={format}>{format}</FormatBadge>
+          <FormatSelector
+            defaultFormat={format}
+            onChange={handleOnFormatChange}
+            isDisabled={isDisabled}
+            forceClose={!isSelected}
+          />
         </div>
       </div>
     </div>

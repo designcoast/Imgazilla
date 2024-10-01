@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { DateTime } from 'luxon';
+import { toast } from 'sonner';
 import { saveAs } from 'file-saver';
 
 import {
@@ -46,6 +47,7 @@ export const ImageOptimizationResult = () => {
 
   const handleOnClosePageResult = useCallback(() => {
     dispatch(setImageOptimizationResultPageState({ isOpen: false }));
+    dispatch(setImageOptimizationResult({ result: [] }));
   }, [dispatch, setImageOptimizationResultPageState]);
 
   const handleOnDownload = useCallback(async () => {
@@ -76,13 +78,16 @@ export const ImageOptimizationResult = () => {
       return;
     }
 
+    if (imageOptimizationResult.length > 0) {
+      return;
+    }
+
     if (data?.status === 200) {
       setPollingInterval(0);
       getOptimizedImage(jobId)
         .unwrap()
         .then(({ result }) => {
           dispatch(setImageOptimizationResult({ result }));
-
           getAccountCredits('')
             .unwrap()
             .then((credits: string) => {
@@ -91,6 +96,13 @@ export const ImageOptimizationResult = () => {
             .finally(() => {
               setIsLoading(false);
             });
+        })
+        .catch(() => {
+          toast('Error', {
+            description: 'Something went wrong, please try again!',
+          });
+          setIsLoading(false);
+          handleOnClosePageResult();
         });
     }
   }, [data, jobId]);

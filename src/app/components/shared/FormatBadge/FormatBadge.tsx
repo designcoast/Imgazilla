@@ -5,6 +5,8 @@ import {
   PNG_FORMAT,
   JPG_FORMAT,
   PDF_FORMAT,
+  WEB_P_FORMAT,
+  AVIF_FORMAT,
 } from '@/app/constants';
 
 type Props = {
@@ -22,6 +24,10 @@ export const FormatBadge = ({ format, children }: Props) => {
       'text-primary-lightYellow/75 bg-primary-lightYellow/20 border border-primary-lightYellow/20',
     [PDF_FORMAT]:
       'text-primary-lightRed/75 bg-primary-lightRed/20 border border-primary-lightRed/20',
+    [WEB_P_FORMAT]:
+      'text-primary-lightRed/75 bg-primary-lightRed/20 border border-primary-lightRed/20',
+    [AVIF_FORMAT]:
+      'text-primary-brightCyan/75 bg-primary-brightCyan/20 border border-primary-brightCyan/20',
   };
 
   return (
