@@ -21,7 +21,7 @@ export class ImageUintArrayCollector {
       return;
     }
 
-    await this.processNodesWithTimeout(selection);
+    await this.processNodesWithTimeout(selection, true);
     this.options.onCompleted();
   }
 
@@ -39,12 +39,15 @@ export class ImageUintArrayCollector {
     this.options.onCompleted();
   }
 
-  private async processNodesWithTimeout(nodes: BaseNode[]): Promise<void> {
+  private async processNodesWithTimeout(
+    nodes: BaseNode[],
+    isSelectionMode: boolean = false,
+  ): Promise<void> {
     for (let i = 0; i < nodes.length; i += this.options.chunkSize) {
       const chunk = nodes.slice(i, i + this.options.chunkSize);
 
       for (const node of chunk) {
-        await this.processNode(node);
+        await this.processNode(node, isSelectionMode);
       }
 
       this.options.onChunkProcessed([...this.imageInfos]);
@@ -54,7 +57,15 @@ export class ImageUintArrayCollector {
     }
   }
 
-  private async processNode(node: any): Promise<void> {
+  private async processNode(
+    node: any,
+    isSelectionMode: boolean,
+  ): Promise<void> {
+    if (isSelectionMode) {
+      await this.processImage(node);
+      return;
+    }
+
     for (const setting of node.exportSettings) {
       await this.processImage(node, setting);
     }
@@ -62,10 +73,20 @@ export class ImageUintArrayCollector {
 
   private async processImage(
     node: any,
-    setting: ExportSettings,
+    setting?: ExportSettings,
   ): Promise<void> {
     try {
-      const bytes = await node.exportAsync(setting);
+      const updatedSettings = setting
+        ? setting
+        : {
+            constraint: {
+              type: 'SCALE',
+              value: 1,
+            },
+            format: 'PNG',
+          };
+
+      const bytes = await node.exportAsync(updatedSettings);
 
       const { width, height, name } = node;
       const sizeInBytes = bytes.length;
@@ -76,8 +97,8 @@ export class ImageUintArrayCollector {
         name,
         width,
         height,
-        setting,
-        format: setting.format,
+        setting: updatedSettings,
+        format: updatedSettings.format,
         uintArray: bytes,
         optimizationPercent: 100,
         isSelected: false,
