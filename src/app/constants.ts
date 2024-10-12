@@ -49,6 +49,7 @@ export const FAVICON_EXPORT = 'FAVICON_EXPORT';
 export const IMAGE_OPTIMIZATION = 'IMAGE_OPTIMIZATION';
 export const PAGE_IMAGES_OPTIMIZATION = 'PAGE_IMAGES_OPTIMIZATION';
 export const SELECT_IMAGES_OPTIMIZATION = 'SELECT_IMAGES_OPTIMIZATION';
+export const BACKGROUND_REMOVAL = 'BACKGROUND_REMOVAL';
 export const GIF_ANIMATION = 'GIF_ANIMATION';
 export const PDF_CREATION = 'PDF_CREATION';
 
@@ -58,6 +59,7 @@ export const APP_ROUTES_PATHS = {
   [IMAGE_OPTIMIZATION]: 'image-optimization',
   [PAGE_IMAGES_OPTIMIZATION]: 'page-images-optimization',
   [SELECT_IMAGES_OPTIMIZATION]: 'select-images-optimization',
+  [BACKGROUND_REMOVAL]: 'background-removal',
 };
 
 export const TAB_ROUTES = {
@@ -69,12 +71,17 @@ export const TAB_ROUTES = {
     name: 'Image optimization',
     path: `/${APP_ROUTES_PATHS[IMAGE_OPTIMIZATION]}`,
   },
+  [BACKGROUND_REMOVAL]: {
+    name: 'Background removal',
+    path: `/${APP_ROUTES_PATHS[BACKGROUND_REMOVAL]}`,
+  },
 };
 
 export const ANALYTIC_EVENTS = {
   OPEN_FAVICON_PREVIEW: 'open-favicon-preview',
   OPEN_INSTRUCTION: 'open-instructions',
   OPEN_EARN_CREDITS: 'open-earn-credits',
+  OPEN_BACKGROUND_REMOVAL_PAGE: 'open-background-removal_page',
   DOWNLOAD_FAVICON_ARCHIVE: 'download-favicon-archive',
   DOWNLOAD_IMAGES_ARCHIVE: 'download-images-archive',
   UPDATE_IMAGE_FORMAT: 'update-image-format',

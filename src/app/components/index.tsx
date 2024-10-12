@@ -20,6 +20,8 @@ export { ImageOptimizationPanelItem } from '@/app/components/shared/ImageOptimiz
 export { FormatBadge } from '@/app/components/shared/FormatBadge/FormatBadge';
 export { FormatSelector } from '@/app/components/shared/FormatSelector/FormatSelector';
 
+export { BackgroundRemoval } from '@/app/components/shared/BackgroundRemoval/BackgroundRemoval';
+
 export { Navigation } from '@/app/components/shared/Navigation/Navigation';
 export { FaviconPreviewSheet } from '@/app/components/shared/Sheets/FaviconPreview/FaviconPreviewSheet';
 export { FaviconBrowsePreview } from '@/app/components/shared/FaviconBrowsePreview/FaviconBrowsePreview';

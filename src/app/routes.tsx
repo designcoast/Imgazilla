@@ -3,12 +3,14 @@ import { createMemoryRouter, RouteObject } from 'react-router-dom';
 
 import { TabsLayout } from '@/app/layouts/TabsLayout';
 import {
+  BackgroundRemoval,
   FaviconExporter,
   ImageOptimization,
   ImageOptimizationPanel,
 } from '@/app/components';
 import {
   APP_ROUTES_PATHS,
+  BACKGROUND_REMOVAL,
   FAVICON_EXPORT,
   IMAGE_OPTIMIZATION,
   PAGE_IMAGES_OPTIMIZATION,
@@ -48,10 +50,14 @@ const routes: RouteObject[] = [
         path: APP_ROUTES_PATHS[SELECT_IMAGES_OPTIMIZATION],
         element: <ImageOptimization />,
       },
+      {
+        path: APP_ROUTES_PATHS[BACKGROUND_REMOVAL],
+        element: <BackgroundRemoval />,
+      },
     ],
   },
 ];
 
 export const router = createMemoryRouter(routes, {
-  initialEntries: [`/${APP_ROUTES_PATHS[FAVICON_EXPORT]}`], // Define initial route if necessary
+  initialEntries: [`/${APP_ROUTES_PATHS[FAVICON_EXPORT]}`], // Define initial route
 });
