@@ -18,6 +18,7 @@ import {
   tabSlice,
   settingsSlice,
   uiSettingsSlice,
+  backgroundRemovalSlice,
 } from '@/app/redux/features';
 import { errorHandlingMiddleware } from '@/app/redux/middlewares/errorHandlingMiddleware';
 
@@ -32,6 +33,7 @@ export const reducers = {
   [tabSlice.name]: tabSlice.reducer,
   [settingsSlice.name]: settingsSlice.reducer,
   [uiSettingsSlice.name]: uiSettingsSlice.reducer,
+  [backgroundRemovalSlice.name]: backgroundRemovalSlice.reducer,
 };
 
 export const middlewares = [
