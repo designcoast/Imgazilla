@@ -68,14 +68,13 @@ export class FigmaAPI {
     }
 
     try {
-      // TODO: Think about how we can improve this function
       const unitArray = await selectedNode.exportAsync({
         format: 'PNG',
         suffix: '',
         contentsOnly: true,
         constraint: {
-          type: 'WIDTH',
-          value: 300,
+          type: 'SCALE',
+          value: 1,
         },
       });
 
