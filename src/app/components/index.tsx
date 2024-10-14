@@ -21,6 +21,8 @@ export { FormatBadge } from '@/app/components/shared/FormatBadge/FormatBadge';
 export { FormatSelector } from '@/app/components/shared/FormatSelector/FormatSelector';
 
 export { BackgroundRemoval } from '@/app/components/shared/BackgroundRemoval/BackgroundRemoval';
+export { BackgroundRemovalSettings } from '@/app/components/shared/BackgroundRemoval/BackgroundRemovalSettings/BackgroundRemovalSettings';
+export { BackgroundRemovalPreview } from '@/app/components/shared/BackgroundRemoval/BackgroundRemovalPreview/BackgroundRemovalPreview';
 
 export { Navigation } from '@/app/components/shared/Navigation/Navigation';
 export { FaviconPreviewSheet } from '@/app/components/shared/Sheets/FaviconPreview/FaviconPreviewSheet';
@@ -36,6 +38,7 @@ export { AnimatedPage } from '@/app/components/ui/AnimatedPage/AnimatedPage';
 export { Overlay } from '@/app/components/ui/Overlay/Overlay';
 export { ColorPicker } from '@/app/components/ui/ColorPicker/ColorPicker';
 export { ExportButton } from '@/app/components/ui/ExportButton/ExportButton';
+export { BeforeAfterSlider } from '@/app/components/ui/BeforeAfterSlider/BeforeAfterSlider';
 
 export * from '@/app/components/ui/Tabs/Tabs';
 export * from '@/app/components/ui/Separator/Separator';
