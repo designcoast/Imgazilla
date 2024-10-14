@@ -14,7 +14,7 @@ import {
 import { useTypedDispatch } from '@/app/redux/store';
 import { getFaviconImageData, updateSelectedImage } from '@/app/redux/features';
 import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
-import { ANALYTIC_EVENTS } from '@/app/constants';
+import { ANALYTIC_EVENTS, PNG_FORMAT } from '@/app/constants';
 
 export const FaviconPreview = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +44,7 @@ export const FaviconPreview = () => {
     <div className='flex flex-col items-center justify-between p-3'>
       <div className='flex my-11'>
         {imageData ? (
-          <ImagePreview imageUrl={convertToImageUrl(imageData, 'PNG')} />
+          <ImagePreview imageUrl={convertToImageUrl(imageData, PNG_FORMAT)} />
         ) : (
           <EmptyImageSelector />
         )}
