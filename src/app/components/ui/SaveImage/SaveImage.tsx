@@ -4,10 +4,17 @@ import { Button } from '@/app/components';
 interface SaveImageProps {
   base64Image: string;
   name: string;
+  onClick?: () => void;
 }
 
-export const SaveImage: React.FC<SaveImageProps> = ({ base64Image, name }) => {
+export const SaveImage: React.FC<SaveImageProps> = ({
+  base64Image,
+  name,
+  onClick,
+}) => {
   const onSaveImageToFile = useCallback(() => {
+    onClick();
+
     const byteString = atob(base64Image.split(',')[1]);
     const mimeString = base64Image.split(',')[0].split(':')[1].split(';')[0];
 
