@@ -85,4 +85,9 @@ export const ANALYTIC_EVENTS = {
   DOWNLOAD_FAVICON_ARCHIVE: 'download-favicon-archive',
   DOWNLOAD_IMAGES_ARCHIVE: 'download-images-archive',
   UPDATE_IMAGE_FORMAT: 'update-image-format',
+  BACKGROUND_REMOVAL_PAGE: 'background-removal-page',
+  BACKGROUND_REMOVAL_CLICK: 'background-removal-click',
+  BACKGROUND_REMOVAL_CLICK_ON_DOWNLOAD: 'background-removal-click-on-download',
+  BACKGROUND_REMOVAL_CLICK_ON_ADD_TO_PAGE:
+    'background-removal-click-on-add-to-page',
 };
