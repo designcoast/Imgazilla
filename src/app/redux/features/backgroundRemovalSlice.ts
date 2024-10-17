@@ -3,7 +3,7 @@ import { RootState } from '@/app/redux/store';
 
 interface BackgroundRemovalState {
   imageData?: Uint8Array;
-  processedImageData?: Uint8Array;
+  processedImageData?: string;
   jobId?: string;
 }
 
@@ -11,8 +11,6 @@ const initialState = {
   imageData: undefined,
   jobId: undefined,
   processedImageData: undefined,
-  // isProcessing: false,
-  // isJobFinished: false,
 } satisfies BackgroundRemovalState as BackgroundRemovalState;
 
 export const backgroundRemovalSlice = createSlice({
@@ -27,7 +25,7 @@ export const backgroundRemovalSlice = createSlice({
     },
     setBackgroundRemovalResult(
       state,
-      action: PayloadAction<{ processedImageData: Uint8Array }>,
+      action: PayloadAction<{ processedImageData: string }>,
     ) {
       state.processedImageData = action.payload.processedImageData;
     },
@@ -37,6 +35,12 @@ export const backgroundRemovalSlice = createSlice({
 
 export const getSelectedBackgroundRemovalImage = (state: RootState) =>
   state.backgroundRemoval.imageData;
+
+export const getBackgroundRemovalProcessJobId = (state: RootState) =>
+  state.backgroundRemoval.jobId;
+
+export const getBackgroundRemovalProcessResult = (state: RootState) =>
+  state.backgroundRemoval.processedImageData;
 
 export const {
   setSelectedImage,
