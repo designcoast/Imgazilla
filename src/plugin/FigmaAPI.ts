@@ -125,6 +125,33 @@ export class FigmaAPI {
     }
   }
 
+  async handleAddImageToPage(payload: any) {
+    const { name, dimensions, processedImageData } = payload;
+    const imageHash = figma.createImage(processedImageData).hash;
+
+    const imageNode = figma.createRectangle();
+    imageNode.resize(dimensions.width, dimensions.height);
+
+    imageNode.fills = [
+      {
+        type: 'IMAGE',
+        scaleMode: 'FILL',
+        imageHash: imageHash,
+      },
+    ];
+
+    imageNode.name = name;
+
+    const { x, y } = figma.viewport.center;
+    imageNode.x = x - imageNode.width / 2;
+    imageNode.y = y - imageNode.height / 2;
+
+    figma.currentPage.appendChild(imageNode);
+    figma.currentPage.selection = [imageNode];
+
+    figma.viewport.scrollAndZoomIntoView([imageNode]);
+  }
+
   private sendMessageToUI(message: MessageType) {
     this.messageSender.sendMessageToUI(message);
   }

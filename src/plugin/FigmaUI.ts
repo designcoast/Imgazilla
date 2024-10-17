@@ -91,6 +91,10 @@ export class FigmaUI {
     if (type === UIEventType.GET_SELECTED_IMAGES_UINT_ARRAY) {
       await this.figmaAPI.handleSelectedNodes();
     }
+
+    if (type === UIEventType.ADD_IMAGE_TO_PAGE) {
+      await this.figmaAPI.handleAddImageToPage(payload);
+    }
   }
 
   private async handleClientStoreData(payload: any) {
