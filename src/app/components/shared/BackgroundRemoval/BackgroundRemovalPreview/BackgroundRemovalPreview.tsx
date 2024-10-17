@@ -21,7 +21,7 @@ export const BackgroundRemovalPreview = ({
       {isImagesAvailable ? (
         <BeforeAfterSlider
           beforeImage={sourceImageData}
-          afterImage={sourceImageData}
+          afterImage={processedImageData}
         />
       ) : (
         <div className='flex gap-6 justify-center items-center flex-col w-[350px] h-[350px] border border-primary-lightGreen rounded-md border-dashed'>
