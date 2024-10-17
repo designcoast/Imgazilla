@@ -39,6 +39,8 @@ export { Overlay } from '@/app/components/ui/Overlay/Overlay';
 export { ColorPicker } from '@/app/components/ui/ColorPicker/ColorPicker';
 export { ExportButton } from '@/app/components/ui/ExportButton/ExportButton';
 export { BeforeAfterSlider } from '@/app/components/ui/BeforeAfterSlider/BeforeAfterSlider';
+export { Footer } from '@/app/components/ui/Footer/Footer';
+export { SaveImage } from '@/app/components/ui/SaveImage/SaveImage';
 
 export * from '@/app/components/ui/Tabs/Tabs';
 export * from '@/app/components/ui/Separator/Separator';

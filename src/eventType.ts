@@ -17,4 +17,5 @@ export enum UIEventType {
   SET_CLIENT_STORE_DATA = 'set_client_store_data',
   GET_CLIENT_STORE_DATA = 'get_client_store_data',
   GET_SELECTED_IMAGES_UINT_ARRAY = 'get_selected_images_uint_array',
+  ADD_IMAGE_TO_PAGE = 'add_image_to_page',
 }

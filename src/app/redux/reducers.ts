@@ -3,12 +3,14 @@ import {
   ACCOUNT_SERVICE_REDUCER_KEY,
   SIGNAL_SERVICE_REDUCER_KEY,
   IMAGE_OPTIMIZATION_SERVICE_REDUCER_KEY,
+  BACKGROUND_REMOVAL_SERVICE_REDUCER_KEY,
 } from '@/app/redux/services';
 import {
   faviconService,
   accountService,
   signalService,
   imageOptimizationService,
+  backgroundRemovalService,
 } from '@/app/redux/services';
 
 import {
@@ -27,6 +29,7 @@ export const reducers = {
   [ACCOUNT_SERVICE_REDUCER_KEY]: accountService.reducer,
   [SIGNAL_SERVICE_REDUCER_KEY]: signalService.reducer,
   [IMAGE_OPTIMIZATION_SERVICE_REDUCER_KEY]: imageOptimizationService.reducer,
+  [BACKGROUND_REMOVAL_SERVICE_REDUCER_KEY]: backgroundRemovalService.reducer,
   [faviconSlice.name]: faviconSlice.reducer,
   [accountSlice.name]: accountSlice.reducer,
   [optimizationImageSlice.name]: optimizationImageSlice.reducer,
@@ -41,5 +44,6 @@ export const middlewares = [
   faviconService.middleware,
   signalService.middleware,
   imageOptimizationService.middleware,
+  backgroundRemovalService.middleware,
   errorHandlingMiddleware,
 ];

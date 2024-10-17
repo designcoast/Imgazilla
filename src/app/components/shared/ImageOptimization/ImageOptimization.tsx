@@ -61,7 +61,7 @@ export const ImageOptimization = () => {
         dispatch(setImageOptimizationResultPageState({ isOpen: true }));
       })
       .catch((error) => {
-        toast.info('Error while generating favicon', {
+        toast.info('Error while image optimization', {
           description: error?.data?.message,
           action: {
             label: 'Purchase',
