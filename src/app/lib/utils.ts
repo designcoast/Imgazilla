@@ -67,3 +67,13 @@ export const updateColorHistory = (
 
   return [updatedColorHistory, newReplaceIndex];
 };
+
+export const base64ToUint8Array = (base64: string): Uint8Array => {
+  const binaryString = atob(base64.split(',')[1]); // Split to remove base64 prefix (data:image/png;base64, etc.)
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes;
+};
