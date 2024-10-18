@@ -148,8 +148,6 @@ export class FigmaAPI {
 
     figma.currentPage.appendChild(imageNode);
     figma.currentPage.selection = [imageNode];
-
-    figma.viewport.scrollAndZoomIntoView([imageNode]);
   }
 
   private sendMessageToUI(message: MessageType) {
