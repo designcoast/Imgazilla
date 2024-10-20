@@ -31,7 +31,7 @@ export const EarnCreditsSheet = ({
   const accountDetails = useSelector(getAccount);
   const trackClick = useMixpanel();
 
-  const { favicon, images } = useMemo(
+  const { favicon, images, backgroundRemoval } = useMemo(
     () => calculateCredits(accountDetails.credits),
     [accountDetails],
   );
@@ -67,12 +67,12 @@ export const EarnCreditsSheet = ({
           </div>
           <SheetDescription className='text-primary-gray text-center'>
             ~ {favicon} export favicon archives or {images} optimized archives
-            with images
+            with images or {backgroundRemoval} images without background.
           </SheetDescription>
           <SheetDescription className='text-primary-gray font-bold text-center'>
             All credits stack.
           </SheetDescription>
-          <div className='!mt-4 !mb-2'>
+          <div className='!my-8'>
             <Separator />
           </div>
         </SheetHeader>
