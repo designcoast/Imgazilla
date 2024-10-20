@@ -21,6 +21,7 @@ import {
   BackgroundRemovalPreview,
   BackgroundRemovalSettings,
   Button,
+  EarnCreditsSheet,
   Footer,
   Overlay,
   SaveImage,
@@ -48,6 +49,7 @@ export const BackgroundRemoval = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const [name, setName] = useState('image');
   const [dimensions, setDimensions] = useState({ width: 300, height: 300 });
@@ -97,6 +99,16 @@ export const BackgroundRemoval = () => {
       .unwrap()
       .then(({ jobId }: { jobId: string }) => {
         dispatch(setBackgroundRemovalJobId({ jobId }));
+      })
+      .catch((error) => {
+        toast.info('Error while background removing', {
+          description: error?.data?.message,
+          action: {
+            label: 'Purchase',
+            onClick: () => setIsOpenModal(true),
+          },
+          duration: 5000,
+        });
       })
       .finally(() => {
         setIsLoading(false);
@@ -163,6 +175,10 @@ export const BackgroundRemoval = () => {
 
   const handleOnSaveImage = useCallback(() => {
     onTrackClick(ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK_ON_DOWNLOAD);
+  }, []);
+
+  const handleOnOpenChange = useCallback((isOpen: boolean) => {
+    setIsOpenModal(isOpen);
   }, []);
 
   const { onSendMessage } = useWindowMessaging(handleFigmaPluginMessages);
@@ -246,6 +262,11 @@ export const BackgroundRemoval = () => {
             </div>
           )}
         </Footer>
+        <EarnCreditsSheet
+          showTrigger={false}
+          isOpen={isOpenModal}
+          onOpenChange={handleOnOpenChange}
+        />
       </div>
       {isLoading ? <Overlay /> : null}
     </>
