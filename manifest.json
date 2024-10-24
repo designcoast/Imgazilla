@@ -9,7 +9,7 @@
   "permissions": ["currentuser"],
   "networkAccess": {
     "allowedDomains": [
-      "https://figma.imgazilla.app",
+      "https://imgazilla.app",
       "https://s3-alpha.figma.com",
       "https://api.lemonsqueezy.com",
       "https://*.sentry.io",
