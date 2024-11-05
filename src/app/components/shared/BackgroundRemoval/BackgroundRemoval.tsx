@@ -93,7 +93,9 @@ export const BackgroundRemoval = () => {
     setIsProcessing(true);
     setIsLoading(true);
 
-    onTrackClick(ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK);
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK,
+    });
 
     removeBackground({ image: encode(imageData) })
       .unwrap()
@@ -160,8 +162,9 @@ export const BackgroundRemoval = () => {
     if (!processedImageDataUrl) {
       return;
     }
-
-    onTrackClick(ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK_ON_ADD_TO_PAGE);
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK_ON_ADD_TO_PAGE,
+    });
 
     onSendMessage({
       type: UIEventType.ADD_IMAGE_TO_PAGE,
@@ -174,7 +177,9 @@ export const BackgroundRemoval = () => {
   }, [processedImageDataUrl]);
 
   const handleOnSaveImage = useCallback(() => {
-    onTrackClick(ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK_ON_DOWNLOAD);
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.BACKGROUND_REMOVAL_CLICK_ON_DOWNLOAD,
+    });
   }, []);
 
   const handleOnOpenChange = useCallback((isOpen: boolean) => {
