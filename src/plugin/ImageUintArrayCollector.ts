@@ -76,12 +76,16 @@ export class ImageUintArrayCollector {
     setting?: ExportSettings,
   ): Promise<void> {
     try {
+      const constraint = node.exportSettings[0]?.constraint;
+      const scaleValue =
+        constraint?.type === 'SCALE' ? constraint?.value || 1 : 1;
+
       const updatedSettings = setting
         ? setting
         : {
             constraint: {
               type: 'SCALE',
-              value: 1,
+              value: scaleValue,
             },
             format: 'PNG',
           };
