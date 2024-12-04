@@ -91,3 +91,6 @@ export const ANALYTIC_EVENTS = {
   BACKGROUND_REMOVAL_CLICK_ON_ADD_TO_PAGE:
     'background-removal-click-on-add-to-page',
 };
+
+export const ACCOUNT_STORAGE_KEY = 'showAccountConfetti';
+export const BONUS_MODAL_STORAGE_KEY = 'showBonusModal';
