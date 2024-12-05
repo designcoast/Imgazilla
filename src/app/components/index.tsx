@@ -17,6 +17,7 @@ export { TicTacToe } from '@/app/components/shared/TicTacToe/TicTacToe';
 export { ImageOptimizationPanel } from '@/app/components/shared/ImageOptimization/ImageOptimizationPanel/ImageOptimizationPanel';
 export { ImageOptimizationPanelItem } from '@/app/components/shared/ImageOptimization/ImageOptimizationPanel/ImageOptimizationPanelItem/ImageOptimizationPanelItem';
 export { BonusModal } from '@/app/components/shared/BonusModal/BonusModal';
+export { AccountAvatar } from '@/app/components/shared/AccountAvatar/AccountAvatar';
 
 export { FormatBadge } from '@/app/components/shared/FormatBadge/FormatBadge';
 export { FormatSelector } from '@/app/components/shared/FormatSelector/FormatSelector';
@@ -64,6 +65,8 @@ export * from '@/app/components/ui/Tooltip/Tooltip';
 export * from '@/app/components/ui/Select/Select';
 export * from '@/app/components/ui/AnimatedBackground/AnimatedBackground';
 export * from '@/app/components/ui/DropdownMenu/DropdownMenu';
+export * from '@/app/components/ui/Confetti/Confetti';
+export * from '@/app/components/ui/Avatar/Avatar';
 
 export { ImagePreviewIcon } from '@/app/components/icons/ImagePreviewIcon/ImagePreviewIcon';
 export { ChromeTabPreviewImage } from '@/app/components/icons/ChromeTabPreviewImage';
