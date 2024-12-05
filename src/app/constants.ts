@@ -90,7 +90,14 @@ export const ANALYTIC_EVENTS = {
   BACKGROUND_REMOVAL_CLICK_ON_DOWNLOAD: 'background-removal-click-on-download',
   BACKGROUND_REMOVAL_CLICK_ON_ADD_TO_PAGE:
     'background-removal-click-on-add-to-page',
+
+  CLICK_ON_RATE_NOW_BUTTON: 'click-on-rate-now-button',
+  CLICK_ON_MAYBE_LATE_BUTTON: 'click-on-maybe-late-button',
+  CLICK_ON_IMGAZILLA_FIGMA_LINK: 'click-on-imgazilla-figma-link',
+  CLICK_ON_TAKE_BONUS_BUTTON: 'click-on-take-bonus-button',
 };
 
-export const ACCOUNT_STORAGE_KEY = 'showAccountConfetti';
 export const BONUS_MODAL_STORAGE_KEY = 'showBonusModal';
+
+export const IMGAZILLA_FIGMA_LINK =
+  'https://www.figma.com/community/plugin/1212822984289711531/imgazilla-favicon-exporter-background-removal-multi-format-image-exporting-with-optimization';
