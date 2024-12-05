@@ -29,6 +29,14 @@ export const accountService = baseApi.injectEndpoints({
     getAccountCredits: builder.query({
       query: () => '/account/getAccountCredits',
     }),
+
+    takeBonus: builder.mutation({
+      query: () => ({
+        url: '/account/bonus',
+        method: 'PATCH',
+        body: {},
+      }),
+    }),
   }),
 });
 
@@ -36,4 +44,5 @@ export const {
   useLazyCheckAccountQuery,
   useCreateAccountMutation,
   useLazyGetAccountCreditsQuery,
+  useTakeBonusMutation,
 } = accountService;

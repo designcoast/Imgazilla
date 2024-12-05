@@ -1,58 +1,221 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import confetti from 'canvas-confetti';
 
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
+  DialogFooter,
+  Button,
 } from '@/app/components';
+
+import {
+  useLazyGetAccountCreditsQuery,
+  useTakeBonusMutation,
+} from '@/app/redux/services';
+import { updateAccountCredits } from '@/app/redux/features';
+import { useTypedDispatch } from '@/app/redux/store';
+
 import { UIEventType } from '@/eventType';
 
 import { useWindowMessaging } from '@/app/hooks/useFigmaMessaging';
+import {
+  ANALYTIC_EVENTS,
+  BONUS_MODAL_STORAGE_KEY,
+  IMGAZILLA_FIGMA_LINK,
+} from '@/app/constants';
 
-const STORAGE_KEY = 'showBonusModal';
+// @ts-ignore
+import imgazillaLike from '@/app/assets/imgazilla-like.gif';
+// @ts-ignore
+import imgazillaWithGift from '@/app/assets/imgazilla_with_gift.png';
+import { useMixpanel } from '@/app/hooks/useMixpanleAnalytics';
 
 export const BonusModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isShowWinBox, setIsShowWinBox] = useState(false);
+  const creditsRef = useRef<HTMLParagraphElement>(null);
+
+  const [takeBonus, { isLoading, isSuccess }] = useTakeBonusMutation();
+  const [getAccountCredits] = useLazyGetAccountCreditsQuery();
+
+  const onTrackClick = useMixpanel();
+
+  const dispatch = useTypedDispatch();
+
   const handleFigmaPluginMessages = useCallback((message: MessageType) => {
-    if (message?.type === UIEventType.SET_CLIENT_STORAGE_DATA) {
-      if (message.payload.key !== STORAGE_KEY) {
+    if (message?.type === UIEventType.GET_CLIENT_STORAGE_DATA) {
+      if (message.payload.key !== BONUS_MODAL_STORAGE_KEY) {
         return;
       }
 
-      setIsOpen(message?.payload?.value || false);
+      if (message?.payload?.value) {
+        return;
+      }
+
+      setIsOpen(!message?.payload?.value || false);
     }
   }, []);
 
-  // const handleOnOpenModal = useCallback((open: boolean) => {
-  //   trackClick('click', {
-  //     name: ANALYTIC_EVENTS.OPEN_FAVICON_PREVIEW,
-  //   });
-  //
-  //   setIsOpen(open);
-  // }, []);
-
   const { onSendMessage } = useWindowMessaging(handleFigmaPluginMessages);
+
+  const handleOnClose = useCallback((state: boolean) => {
+    setIsOpen(state);
+    onSendMessage({
+      type: UIEventType.SET_CLIENT_STORAGE_DATA,
+      payload: {
+        key: BONUS_MODAL_STORAGE_KEY,
+        value: true,
+      },
+    });
+
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.CLICK_ON_MAYBE_LATE_BUTTON,
+    });
+  }, []);
+
+  const handleOnDo = useCallback(() => {
+    setIsShowWinBox(true);
+
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.CLICK_ON_RATE_NOW_BUTTON,
+    });
+  }, []);
+
+  const handleOnPointerDownOutside = useCallback((event: any) => {
+    event.preventDefault();
+  }, []);
+
+  const handleToggleConfetti = useCallback(() => {
+    if (!creditsRef.current) {
+      console.error('creditsRef is not attached to any DOM element');
+      return;
+    }
+
+    const rect = creditsRef.current.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    confetti({
+      particleCount: 100, // Default particle count or dynamically adjust if needed
+      spread: 70, // Spread angle for the particles
+      origin: {
+        x: x / window.innerWidth,
+        y: y / window.innerHeight,
+      },
+      angle: 90, // Angle for the confetti burst
+      colors: ['#ff0000', '#00ff00', '#0000ff'], // Example colors, adjust as needed
+      zIndex: 1000, // Ensure confetti is above other elements
+    });
+  }, []);
+
+  const handleOnLinkClick = useCallback(() => {
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.CLICK_ON_IMGAZILLA_FIGMA_LINK,
+    });
+  }, []);
+
+  const handleTakeBonus = useCallback(() => {
+    takeBonus({})
+      .unwrap()
+      .then(() => {
+        getAccountCredits('')
+          .unwrap()
+          .then((credits: string) => {
+            dispatch(updateAccountCredits({ credits }));
+            handleToggleConfetti();
+
+            setTimeout(() => {
+              handleOnClose(false);
+            }, 1000);
+          });
+      });
+
+    onTrackClick('click', {
+      name: ANALYTIC_EVENTS.CLICK_ON_TAKE_BONUS_BUTTON,
+    });
+  }, []);
 
   useEffect(() => {
     onSendMessage({
       type: UIEventType.GET_CLIENT_STORAGE_DATA,
       payload: {
-        key: STORAGE_KEY,
+        key: BONUS_MODAL_STORAGE_KEY,
       },
     });
   }, []);
 
   return (
-    <Dialog open={isOpen}>
-      <DialogContent>
-        <DialogHeader className='w-[80%]'>
-          <DialogTitle className='text-left text-lg'>Need Help?</DialogTitle>
-          <DialogDescription>
-            Feel free to reach out to us through our public Discord channel.
-          </DialogDescription>
-        </DialogHeader>
+    <Dialog open={isOpen} onOpenChange={handleOnClose}>
+      <DialogContent
+        onPointerDownOutside={handleOnPointerDownOutside}
+        isHideClose={true}
+      >
+        <DialogTitle className='hidden' />
+        {isShowWinBox ? (
+          <div>
+            <div className='flex flex-col items-center gap-4'>
+              <div className='w-60 h-60'>
+                <img src={imgazillaWithGift} alt='imgazilla with Gift' />
+              </div>
+              <div className='flex gap-2 items-center' ref={creditsRef}>
+                <span className='text-xl font-bold text-primary-blue'>
+                  +500
+                </span>
+                <span className='text-sm font-normal text-primary-gray'>
+                  credits
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className='flex flex-col items-center gap-4'>
+            <h1 className='text-xl'>
+              Enjoying <span className='font-bold underline'>imgazilla</span>?
+              We’d love your support!
+            </h1>
+            <p className='text-white/60'>
+              If you’re finding our plugin useful, please take a moment to give
+              us a like. Your feedback helps us improve and keeps us motivated.
+            </p>
+            <div>
+              <a
+                href={IMGAZILLA_FIGMA_LINK}
+                target='_blank'
+                onClick={handleOnLinkClick}
+                rel='noopener noreferrer'
+              >
+                <span className='text-primary-lightBlue hover:underline'>
+                  Rate <span className='font-bold'>imgazilla</span> on Figma
+                </span>
+              </a>
+            </div>
+            <img
+              src={imgazillaLike}
+              alt='imgazilla Like'
+              className='rounded-md'
+            />
+          </div>
+        )}
+        <DialogFooter className='mt-5'>
+          {isShowWinBox ? (
+            <div className='flex w-full justify-center'>
+              <Button
+                onClick={handleTakeBonus}
+                disabled={isLoading || isSuccess}
+              >
+                {isLoading ? 'Loading...' : 'Take them!'}
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Button variant='outline' onClick={() => handleOnClose(false)}>
+                Maybe Later
+              </Button>
+              <Button onClick={handleOnDo}>Rate Now</Button>
+            </>
+          )}
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

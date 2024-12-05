@@ -5,7 +5,7 @@ import { withProfiler } from '@sentry/react';
 import { ThemeProvider } from '@/app/components/theme-provider';
 import { ReduxProvider } from '@/app/redux/provider';
 import { AccountStatusChecker } from '@/app/HOC/AccountStatusChecker';
-import { Toaster } from '@/app/components';
+import { BonusModal, Toaster } from '@/app/components';
 import { WithDefaultTabSetter } from '@/app/HOC/WithDefaultTabSetter';
 import { WithGlobalPluginSettingsProvider } from '@/app/HOC/WithGlobalPluginSettings';
 import { initSentry } from '@/app/configs/sentry.config';
@@ -33,6 +33,7 @@ const App = () => {
             </WithDefaultTabSetter>
           </AccountStatusChecker>
           <Toaster />
+          <BonusModal />
         </div>
       </ThemeProvider>
     </ReduxProvider>
