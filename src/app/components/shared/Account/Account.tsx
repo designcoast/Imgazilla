@@ -14,8 +14,11 @@ import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
+  AccountAvatar,
 } from '@/app/components';
 import { cn } from '@/app/lib/utils';
+
+import HatIcon from '@/app/assets/hat.svg';
 
 export const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +30,7 @@ export const Account = () => {
     <div className='flex'>
       <Popover onOpenChange={setIsOpen}>
         <PopoverTrigger>
-          <div className='flex gap-2 items-center bg-primary-secondDark py-2 px-3 rounded-lg border border-primary-primaryDark'>
+          <div className='flex gap-2 items-center bg-primary-secondDark py-2 px-3 rounded-lg border border-primary-primaryDark relative'>
             <div className='flex gap-1 items-center'>
               <TooltipProvider>
                 <Tooltip>
@@ -49,15 +52,20 @@ export const Account = () => {
                 </Tooltip>
               </TooltipProvider>
               <p className='text-sm'>credits</p>
-              <div className='w-[32px] h-[25px] overflow-hidden rounded-sm ml-2.5'>
-                <img src={accountDetails.photoUrl} alt={accountDetails.name} />
-              </div>
+              <AccountAvatar
+                url={accountDetails.photoUrl}
+                alt={accountDetails.name}
+                name={accountDetails.name}
+              />
             </div>
             {isOpen ? (
               <ChevronUp className='stroke-input' size={14} />
             ) : (
               <ChevronDown className='stroke-input' size={14} />
             )}
+            <div className='flex absolute w-8 h-8 -right-4 -top-4 rotate-45'>
+              <HatIcon />
+            </div>
           </div>
         </PopoverTrigger>
         <PopoverContent
