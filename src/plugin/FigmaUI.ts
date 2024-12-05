@@ -9,6 +9,7 @@ import { PluginDataStorage } from '@/plugin/PluginDataStorage';
 import { RELAUNCH_DATA_STORE_KEY } from '@/plugin/constants';
 import { CommandHandler } from '@/plugin/CommandHandler';
 import { FigmaGlobalSettingsManager } from '@/plugin/FigmaGlobalSettingsManager';
+import { FigmaStorageManager } from '@/plugin/FigmaStorageManager';
 
 export class FigmaUI {
   private readonly width: number = 700;
@@ -23,6 +24,8 @@ export class FigmaUI {
   private commandHandler: CommandHandler;
   private globalSettings: FigmaGlobalSettingsManager;
 
+  private readonly storageManager: FigmaStorageManager;
+
   constructor() {
     figma.showUI(__html__, { width: this.width, height: this.height });
 
@@ -35,6 +38,7 @@ export class FigmaUI {
     this.pluginDataStorage = new PluginDataStorage();
     this.commandHandler = new CommandHandler();
     this.globalSettings = new FigmaGlobalSettingsManager();
+    this.storageManager = new FigmaStorageManager();
   }
 
   async init() {
@@ -88,6 +92,23 @@ export class FigmaUI {
       await this.handleClientStoreData(payload);
     }
 
+    if (type === UIEventType.SET_CLIENT_STORAGE_DATA) {
+      await this.handleSetClientStorage(
+        payload as {
+          key: string;
+          value: string;
+        },
+      );
+    }
+
+    if (type === UIEventType.GET_CLIENT_STORAGE_DATA) {
+      await this.handleGetClientStoreData(
+        payload as {
+          key: string;
+        },
+      );
+    }
+
     if (type === UIEventType.GET_SELECTED_IMAGES_UINT_ARRAY) {
       await this.figmaAPI.handleSelectedNodes();
     }
@@ -95,6 +116,26 @@ export class FigmaUI {
     if (type === UIEventType.ADD_IMAGE_TO_PAGE) {
       await this.figmaAPI.handleAddImageToPage(payload);
     }
+  }
+
+  private async handleSetClientStorage(payload: {
+    key: string;
+    value: string;
+  }) {
+    await this.storageManager.setGlobalData(payload.key, payload.value);
+  }
+
+  private async handleGetClientStoreData(payload: { key: string }) {
+    const value = await this.storageManager.getGlobalData(payload.key);
+
+    const message = {
+      type: UIEventType.GET_CLIENT_STORAGE_DATA,
+      payload: {
+        key: payload.key,
+        value: value ?? false,
+      },
+    };
+    this.sendMessageToUI(message);
   }
 
   private async handleClientStoreData(payload: any) {
