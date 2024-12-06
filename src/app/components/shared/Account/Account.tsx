@@ -63,7 +63,7 @@ export const Account = () => {
             ) : (
               <ChevronDown className='stroke-input' size={14} />
             )}
-            <div className='flex absolute w-8 h-8 -right-4 -top-4 rotate-45'>
+            <div className='flex absolute w-8 h-8 right-[38px] -top-3.5'>
               <HatIcon />
             </div>
           </div>
