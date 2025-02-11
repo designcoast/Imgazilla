@@ -1,8 +1,8 @@
 {
   "name": "imgazilla",
   "version": "1.0.0",
-  "description": "Image optimisation and representation plugin for Figma",
-  "license": "ISC",
+  "description": "Image optimisation and favicon generation",
+  "license": "MIT",
   "scripts": {
     "dev": "webpack --mode=development --watch",
     "build": "webpack --mode=production",
