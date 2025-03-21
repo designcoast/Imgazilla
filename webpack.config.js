@@ -1,8 +1,8 @@
-import { resolve } from 'path';
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import InlineChunkHtmlPlugin from 'react-dev-utils/InlineChunkHtmlPlugin';
-import Dotenv from 'dotenv-webpack';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 
 module.exports = (_env, { mode }) => ({
   mode: mode === 'production' ? 'production' : 'development',
@@ -47,7 +47,7 @@ module.exports = (_env, { mode }) => ({
 
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src'),
     },
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     fallback: {
@@ -66,11 +66,11 @@ module.exports = (_env, { mode }) => ({
     publicPath: '',
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
-    path: resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),
   },
 
   devServer: {
-    static: resolve(__dirname, 'dist'),
+    static: path.resolve(__dirname, 'dist'),
     compress: true,
     port: 9000,
     hot: true,
