@@ -26,6 +26,7 @@ module.exports = [
       'tailwind.config.js',
       'svgo.config.js',
       'postcss.config.js',
+      'webpack.config.js',
     ],
     rules: {
       '@typescript-eslint/interface-name-prefix': 'off',

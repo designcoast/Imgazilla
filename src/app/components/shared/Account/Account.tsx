@@ -18,8 +18,6 @@ import {
 } from '@/app/components';
 import { cn } from '@/app/lib/utils';
 
-import HatIcon from '@/app/assets/hat.svg';
-
 export const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
   const accountDetails = useSelector(getAccount);
@@ -63,9 +61,6 @@ export const Account = () => {
             ) : (
               <ChevronDown className='stroke-input' size={14} />
             )}
-            <div className='flex absolute w-8 h-8 right-[38px] -top-3.5'>
-              <HatIcon />
-            </div>
           </div>
         </PopoverTrigger>
         <PopoverContent

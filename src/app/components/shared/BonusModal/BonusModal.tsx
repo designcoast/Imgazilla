@@ -177,6 +177,9 @@ export const BonusModal = () => {
             <p className='text-white/60'>
               If you’re finding our plugin useful, please take a moment to give
               us a like. Your feedback helps us improve and keeps us motivated.
+              <p className='text-white my-3 text-center'>
+                You will receive additional +500 credits!{' '}
+              </p>
             </p>
             <div>
               <a
